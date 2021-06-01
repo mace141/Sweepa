@@ -3,15 +3,21 @@
   margin-top: 62px;
   width: max-content;
   background: white;
+  border: 1px solid $grid-border;
 }
 
 .node {
   background: white;
-  border: 1px solid rgb(0, 255, 255);
-  width: 20px;
-  height: 20px;
+  border: 1px solid $grid-border;
+  width: 15px;
+  height: 15px;
 }
 
 .row {
   display: flex;
+}
+
+.wall {
+  background: $wall-color;
+  border: 1px solid $wall-color;
 }
