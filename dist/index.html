@@ -1,13 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="bundle.js"></script>
-  <title>Sweepa</title>
-</head>
-<body>
-  <h1>Sweepa</h1>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="bundle.js"></script>
+    <title>Sweepa</title>
+  </head>
+  <body>
+    <header>
+      <nav class='top-nav'>
+        <div class='links'>
+          <a href="">Portfolio</a>
+          <a href="https://github.com/mace141">Github</a>
+          <a href="https://www.linkedin.com/in/daniel-wu-2995a6140/">LinkedIn</a>
+        </div>
+        <h1 class='center'>Sweepa</h1>
+        <div class='info-btns'>
+          <div class='dropdown-ctnr'>
+            <h2>About</h2>
+            <ul class='dropdown'>
+              <li>Sweepa is a robot vacuum that uses algorithms X and Y to clean your floor and improve its path. You can draw your room's layout, place Sweepa anywhere in the room and watch it clean with different settings.</li>
+            </ul>
+          </div>
+          <div class='dropdown-ctnr'>
+            <h2>Help</h2>
+            <ul class='dropdown'>
+              <li>Click and drag on the grid to place down walls. Then click the Sweepa button and place Sweepa down by clicking on the grid. Choose a cleaning mode and press Start to watch Sweepa clean your room!</li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <nav class='bottom-nav'>
+        <div class='object-btns'>
+          <div>
+            <button class='dust-btn'>Dust</button>
+          </div>
+          <div>
+            <button class='wall-btn'>Wall</button>
+          </div>
+          <div>
+            <button class='sweepa-btn'>Sweepa</button>
+          </div>
+        </div>
+        <button class='center'>Start</button>
+        <div class='option-btns'>
+          <div class='dropdown-ctnr'>
+            <h2>Modes</h2>
+            <ul class='dropdown'>
+              <li>Okay</li>
+              <li>Smart</li>
+              <li>Smarter</li>
+            </ul>
+          </div>
+          <button>Clear grid</button>
+          <button>Clear walls</button>
+          <button>Clear dust</button>
+        </div>
+      </nav>
+    </header>
+    <main id='grid'>
+
+    </main>
+  </body>
 </html>

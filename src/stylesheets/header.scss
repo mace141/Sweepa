@@ -1,0 +1,42 @@
+header {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+}
+
+.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {
+  display: flex;
+}
+
+.top-nav {
+  justify-content: space-between;
+  position: relative;
+
+  a {
+    margin-right: 10px;
+  }
+}
+
+.bottom-nav {
+  justify-content: space-around;
+  position: relative;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.dropdown-ctnr {
+  position: relative;
+}
+
+.dropdown-ctnr:hover .dropdown {
+  display: block;
+}
+
+.dropdown {
+  position: absolute;
+  display: none;
+}
