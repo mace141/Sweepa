@@ -1,0 +1,35 @@
+{
+  "name": "sweepa",
+  "description": "Sweepa is a robot vacuum that uses algorithms X and Y to clean your floor and improve its path. You can draw your room's layout, place Sweepa anywhere in the room and watch it clean with different settings.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "NODE_ENV=development webpack --watch --config webpack.config.js ",
+    "build": "NODE_ENV=production webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mace141/Sweepa.git"
+  },
+  "keywords": [],
+  "author": "Daniel Wu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mace141/Sweepa/issues"
+  },
+  "homepage": "https://github.com/mace141/Sweepa#readme",
+  "dependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.6",
+    "sass": "^1.34.0",
+    "sass-loader": "^11.1.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.38.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.7.0"
+  }
+}
