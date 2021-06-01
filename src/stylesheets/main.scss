@@ -1,9 +1,10 @@
 @import './reset.scss';
+@import './colors.scss';
 @import './header.scss';
 
 body {
   color: white;
-  background: rgb(18, 64, 124);
+  background: $blue;
   font-size: 24px;
   font-family: "Segoe UI Symbol", Helvetica, Arial, sans-serif;
 }
