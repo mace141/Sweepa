@@ -1,5 +1,6 @@
 import './stylesheets/main.scss';
+import Grid from './grid';
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('hello');
+  const grid = new Grid();
 });

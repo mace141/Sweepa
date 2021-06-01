@@ -20,9 +20,13 @@ header {
 
 .bottom-nav {
   position: absolute;
-  top: 50px;
-  left: 50%;
-  transform: translate(-330px);
+  top: 47px;
+  right: 50%;
+  transform: translate(600px);
+
+  button {
+    white-space: nowrap;
+  }
 }
 
 #start-btn {
@@ -35,13 +39,9 @@ header {
   transform: translate(-50%);
 }
 
-.bottom-nav.center {
-  top: 45px;
-}
-
 .object-btns, .option-btns {
   > div {
-    margin: 0 5px;
+    margin: 0 10px;
   }
 }
 

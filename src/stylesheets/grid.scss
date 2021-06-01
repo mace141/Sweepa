@@ -1,0 +1,17 @@
+#grid {
+  margin: 0 auto;
+  margin-top: 62px;
+  width: max-content;
+  background: white;
+}
+
+.node {
+  background: white;
+  border: 1px solid rgb(0, 255, 255);
+  width: 20px;
+  height: 20px;
+}
+
+.row {
+  display: flex;
+}
