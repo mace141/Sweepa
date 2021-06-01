@@ -1,20 +1,24 @@
-let drag = false;
+import GraphNode from './graph_node';
 
 class Grid {
   constructor() {
     this.edit = true;
-    Grid.makeGrid();
+    this.drag = false;
+    this.graph = this.makeGrid();
+    this.object = 'wall';
   }
 
-  static toggleEdit() {
+  toggleEdit() {
     this.edit = !this.edit;
   }
 
-  static makeGrid() {
+  makeGrid() {
     const numRows = (window.innerHeight - 129) / 17;
     const numCols = (window.innerWidth - 40) / 17;
     const grid = document.getElementById('grid');
-    grid.addEventListener('mouseleave', () => drag = false);
+    const graph = [];
+
+    grid.addEventListener('mouseleave', () => this.drag = false);
 
     for (let i = 0; i < numRows; i++) {
       const row = document.createElement('div');
@@ -25,16 +29,21 @@ class Grid {
         const node = document.createElement('div');
         node.className = `node unvisited`;
         node.id = `${i}-${j}`;
+        graph.push(new GraphNode(node.id));
 
         node.addEventListener('mousedown', (e) => {
-          e.target.classList.toggle('wall');
-          drag = true;
+          if (this.edit) {
+            e.target.classList.toggle('wall');
+            this.drag = true;
+          }
         });
+
         node.addEventListener('mouseover', (e) => {
-          if (drag) e.target.classList.toggle('wall');
+          if (this.drag) e.target.classList.toggle('wall');
         });
+
         node.addEventListener('mouseup', () => {
-          drag = false;
+          this.drag = false;
         });
 
         row.append(node);
@@ -42,6 +51,8 @@ class Grid {
 
       grid.append(row);
     }
+
+    return graph;
   }
 }
 
