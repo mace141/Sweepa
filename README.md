@@ -13,7 +13,7 @@ Bonus:
 * Make spaces extra dirty for Sweepa to clean or add furniture
 
 # Wireframes
-![Sweepa Wireframes](/dist/assets/images/sweepa_wireframe.png)
+![Sweepa Wireframes](./dist/assets/images/sweepa_wireframe.png)
 
 # Technologies
 * JavaScript
