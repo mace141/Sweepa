@@ -28,6 +28,8 @@ class Grid {
 
     this.graph.forEach((row, i) => {
       row.forEach((node, j) => {
+        node.neighbors = [];
+        
         neighborDeltas.forEach(delta => {
           const posY = i + delta[0];
           const posX = j + delta[1];
