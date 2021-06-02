@@ -1,4 +1,5 @@
 import GraphNode from './graph_node';
+// import Sweepa from '../dist/assets/images/sweepa.png';
 
 class Grid {
   constructor() {
@@ -12,6 +13,10 @@ class Grid {
 
   toggleEdit() {
     this.edit = !this.edit;
+  }
+
+  setObject(objStr) {
+    this.object = objStr;
   }
 
   connectNodes() {
@@ -44,14 +49,27 @@ class Grid {
 
   attachNodeEvents(node) {
     node.addEventListener('mousedown', (e) => {
+      const targetClasses = e.target.classList;
+
       if (this.edit) {
         switch (this.object) {
           case 'sweepa':
-            document.getElementById('sweepa').id = "";
-            e.target.id = 'sweepa';
+            if (!targetClasses.value.includes('wall') && !targetClasses.value.includes('dust')) {
+              const sweepas = document.getElementsByClassName('sweepa');
+              if (sweepas.length > 0) {
+                sweepas[0].innerHTML = "";
+                sweepas[0].classList.toggle('sweepa');
+              }
+              targetClasses.toggle('sweepa');
+
+              const img = document.createElement('img');
+              img.src = '../dist/assets/images/sweepa.png';
+              img.alt ='Sweepa';
+              e.target.append(img);
+            }
             break;
           case 'dust':
-            e.target.classList.toggle(this.object);
+            targetClasses.toggle(this.object);
             this.drag = true;
           case 'wall':
             const pos = e.target.id.split('-');
@@ -60,7 +78,7 @@ class Grid {
             for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
               let neighborPos = nodeNeighbor.value.split('-');
               let delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
-              
+
               if (e.target.className.includes('wall')) {
                 nodeNeighbor.neighbors[delta] = graphNode;
               } else {
@@ -68,7 +86,7 @@ class Grid {
               }
             }
             
-            e.target.classList.toggle(this.object);
+            targetClasses.toggle(this.object);
             this.drag = true;
             break;
           default:

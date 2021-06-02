@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const clearGridBtn = document.getElementById('clear-grid');
   const clearWallsBtn = document.getElementById('clear-walls');
   // const clearDustBtn = document.getElementById('clear-dust');
+  const sweepaBtn = document.getElementById('sweepa-btn');
+  const wallBtn = document.getElementById('wall-btn');
   let grid = new Grid();
 
   clearGridBtn.addEventListener('click', () => {
@@ -24,5 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
         walls[0].classList.remove('wall');
       }
     }
+  });
+
+  sweepaBtn.addEventListener('click', () => {
+    grid.setObject('sweepa');
+  });
+
+  wallBtn.addEventListener('click', () => {
+    grid.setObject('wall');
   });
 });
