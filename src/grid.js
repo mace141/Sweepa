@@ -62,10 +62,11 @@ class Grid {
               }
               targetClasses.toggle('sweepa');
 
-              const img = document.createElement('img');
-              img.src = '../dist/assets/images/sweepa.png';
-              img.alt ='Sweepa';
-              e.target.append(img);
+              e.target.append(document.createElement('span'));
+              // const img = document.createElement('img');
+              // img.src = '../dist/assets/images/sweepa.png';
+              // img.alt ='Sweepa';
+              // e.target.append(img);
             }
             break;
           case 'dust':

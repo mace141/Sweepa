@@ -21,3 +21,11 @@
   background: $wall-color;
   border: 1px solid $wall-color;
 }
+
+.sweepa span {
+  height: 15px;
+  width: 15px;
+  background: $blue;
+  border-radius: 50%;
+  display: block;
+}
