@@ -28,14 +28,14 @@ class Grid {
 
     this.graph.forEach((row, i) => {
       row.forEach((node, j) => {
-        node.neighbors = [];
+        node.neighbors = {};
         
         neighborDeltas.forEach(delta => {
           const posY = i + delta[0];
           const posX = j + delta[1];
           
           if (this.graph[posY] && this.graph[posY][posX]) {
-            node.neighbors.push(this.graph[posY][posX]);
+            node.neighbors[[i, j]] = this.graph[posY][posX];
           }
         });
       });
@@ -57,12 +57,14 @@ class Grid {
             const pos = e.target.id.split('-');
             const graphNode = this.graph[pos[0]][pos[1]];
 
-            for (let nodeNeighbor of graphNode.neighbors) {
+            for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
+              let neighborPos = nodeNeighbor.value.split('-');
+              let delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
+              
               if (e.target.className.includes('wall')) {
-                nodeNeighbor.neighbors.push(graphNode);
+                nodeNeighbor.neighbors[delta] = graphNode;
               } else {
-                let idx = nodeNeighbor.neighbors.indexOf(graphNode);
-                nodeNeighbor.neighbors.splice(idx, 1);
+                delete nodeNeighbor.neighbors[delta];
               }
             }
             
