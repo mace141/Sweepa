@@ -38,13 +38,11 @@ class Grid {
         neighborDeltas.forEach(delta => {
           const posY = i + delta[0];
           const posX = j + delta[1];
-          // debugger
+          
           if (this.graph[posY] && this.graph[posY][posX]) {
             node.neighbors[[delta[0], delta[1]]] = this.graph[posY][posX];
           }
-          // debugger
         });
-        // debugger
       });
     });
   }
@@ -59,6 +57,8 @@ class Grid {
         switch (this.object) {
           case 'sweepa':
             if (!targetClasses.value.includes('wall') && !targetClasses.value.includes('dust')) {
+              this.homeNode = graphNode;
+
               const sweepaDiv = document.getElementsByClassName('sweepa')[0];
               if (sweepaDiv) {
                 sweepaDiv.innerHTML = "";
@@ -67,13 +67,14 @@ class Grid {
               targetClasses.toggle('sweepa');
 
               e.target.append(document.createElement('span'));
-
-              this.homeNode = graphNode;
             }
+
             break;
           case 'dust':
             targetClasses.toggle(this.object);
             this.drag = true;
+
+            break;
           case 'wall':
             for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
               const neighborPos = nodeNeighbor.value.split('-');
@@ -88,6 +89,7 @@ class Grid {
             
             targetClasses.toggle(this.object);
             this.drag = true;
+            
             break;
           default:
             break;
@@ -97,7 +99,22 @@ class Grid {
 
     node.addEventListener('mouseover', (e) => {
       if (this.drag) {
-        e.target.classList.toggle(this.object);
+        const targetClasses = e.target.classList;
+        const pos = e.target.id.split('-');
+        const graphNode = this.graph[pos[0]][pos[1]];
+        
+        for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
+          const neighborPos = nodeNeighbor.value.split('-');
+          const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
+
+          if (e.target.className.includes('wall')) {
+            nodeNeighbor.neighbors[delta] = graphNode;
+          } else {
+            delete nodeNeighbor.neighbors[delta];
+          }
+        }
+        
+        targetClasses.toggle(this.object);
       }
     });
 
