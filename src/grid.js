@@ -6,7 +6,7 @@ class Grid {
     this.drag = false;
     this.object = 'wall';
     this.graph = this.makeGrid();
-    this.home = null;
+    this.homeNode = null;
 
     this.connectNodes();
   }
@@ -38,11 +38,13 @@ class Grid {
         neighborDeltas.forEach(delta => {
           const posY = i + delta[0];
           const posX = j + delta[1];
-          
+          // debugger
           if (this.graph[posY] && this.graph[posY][posX]) {
-            node.neighbors[[i, j]] = this.graph[posY][posX];
+            node.neighbors[[delta[0], delta[1]]] = this.graph[posY][posX];
           }
+          // debugger
         });
+        // debugger
       });
     });
   }
@@ -57,16 +59,16 @@ class Grid {
         switch (this.object) {
           case 'sweepa':
             if (!targetClasses.value.includes('wall') && !targetClasses.value.includes('dust')) {
-              const sweepas = document.getElementsByClassName('sweepa');
-              if (sweepas.length > 0) {
-                sweepas[0].innerHTML = "";
-                sweepas[0].classList.toggle('sweepa');
+              const sweepaDiv = document.getElementsByClassName('sweepa')[0];
+              if (sweepaDiv) {
+                sweepaDiv.innerHTML = "";
+                sweepaDiv.classList.toggle('sweepa');
               }
               targetClasses.toggle('sweepa');
 
               e.target.append(document.createElement('span'));
 
-              this.home = graphNode;
+              this.homeNode = graphNode;
             }
             break;
           case 'dust':

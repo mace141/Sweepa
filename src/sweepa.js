@@ -24,13 +24,36 @@ const diagDeltas = {
 };
 
 class Sweepa { 
-  constructor(home, graph) {
-    this.home = home;
+  constructor(homeNode, graph) {
+    this.homeNode = homeNode;
     this.graph = graph;
-    this.currNode = home;
+    this.currNode = homeNode;
+    this.dir = dirDeltas[Math.floor(Math.random() * 8)];
   }
 
+  step() {
+    let nextNode = this.currNode.neighbors[this.dir];
 
+    if (nextNode) {
+      this.currNode = nextNode;
+      nextNode = this.currNode.neighbors[this.dir];
+
+      this.replaceSweepa();
+    } else { 
+      this.dir = dirDeltas[Math.floor(Math.random() * 8)];
+    }
+  }
+
+  replaceSweepa() {
+    const lastDiv = document.getElementsByClassName('sweepa')[0];
+    const nextDiv = document.getElementById(this.currNode.value);
+
+    lastDiv.innerHTML = "";
+    lastDiv.classList.toggle('sweepa');
+
+    nextDiv.classList.toggle('sweepa');
+    nextDiv.append(document.createElement('span'));
+  }
 }
 
 export default Sweepa;

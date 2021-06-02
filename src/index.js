@@ -39,9 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
   wallBtn.addEventListener('click', () => {
     grid.setObject('wall');
   });
-
+  
   startBtn.addEventListener('click', () => {
-    grid.toggleEdit();
-    sweepa = new Sweepa(grid.home, grid.graph);
+    if (grid.homeNode) {
+      grid.toggleEdit();
+      sweepa = new Sweepa(grid.homeNode, grid.graph);
+
+      const sweepaSeq = setInterval(() => {
+        sweepa.step();
+      }, 250);
+
+      setTimeout(() => {
+        clearInterval(sweepaSeq);
+        grid.toggleEdit();
+      }, 30000);
+    }
   });
 });
