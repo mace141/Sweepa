@@ -9,8 +9,8 @@
 .node {
   background: white;
   border: 1px solid $grid-border;
-  width: 15px;
-  height: 15px;
+  width: $node-size;
+  height: $node-size;
 }
 
 .row {
@@ -23,8 +23,8 @@
 }
 
 .sweepa span {
-  height: 15px;
-  width: 15px;
+  height: $node-size;
+  width: $node-size;
   background: $blue;
   border-radius: 50%;
   display: block;
