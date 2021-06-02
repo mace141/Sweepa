@@ -1,5 +1,4 @@
 import GraphNode from './graph_node';
-// import Sweepa from '../dist/assets/images/sweepa.png';
 
 class Grid {
   constructor() {
@@ -7,6 +6,7 @@ class Grid {
     this.drag = false;
     this.object = 'wall';
     this.graph = this.makeGrid();
+    this.home = null;
 
     this.connectNodes();
   }
@@ -21,14 +21,14 @@ class Grid {
 
   connectNodes() {
     const neighborDeltas = [
-      [-1, -1],
       [-1,  0],
       [-1,  1],
-      [ 0, -1],
       [ 0,  1],
-      [ 1, -1],
+      [ 1,  1],
       [ 1,  0],
-      [ 1,  1]
+      [ 1, -1],
+      [ 0, -1],
+      [-1, -1]
     ];
 
     this.graph.forEach((row, i) => {
@@ -50,6 +50,8 @@ class Grid {
   attachNodeEvents(node) {
     node.addEventListener('mousedown', (e) => {
       const targetClasses = e.target.classList;
+      const pos = e.target.id.split('-');
+      const graphNode = this.graph[pos[0]][pos[1]];
 
       if (this.edit) {
         switch (this.object) {
@@ -63,22 +65,17 @@ class Grid {
               targetClasses.toggle('sweepa');
 
               e.target.append(document.createElement('span'));
-              // const img = document.createElement('img');
-              // img.src = '../dist/assets/images/sweepa.png';
-              // img.alt ='Sweepa';
-              // e.target.append(img);
+
+              this.home = graphNode;
             }
             break;
           case 'dust':
             targetClasses.toggle(this.object);
             this.drag = true;
           case 'wall':
-            const pos = e.target.id.split('-');
-            const graphNode = this.graph[pos[0]][pos[1]];
-
             for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
-              let neighborPos = nodeNeighbor.value.split('-');
-              let delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
+              const neighborPos = nodeNeighbor.value.split('-');
+              const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
 
               if (e.target.className.includes('wall')) {
                 nodeNeighbor.neighbors[delta] = graphNode;

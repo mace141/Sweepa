@@ -1,5 +1,6 @@
 import './stylesheets/main.scss';
 import Grid from './grid';
+import Sweepa from './sweepa';
 
 document.addEventListener('DOMContentLoaded', () => {
   const clearGridBtn = document.getElementById('clear-grid');
@@ -7,7 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // const clearDustBtn = document.getElementById('clear-dust');
   const sweepaBtn = document.getElementById('sweepa-btn');
   const wallBtn = document.getElementById('wall-btn');
+  const startBtn = document.getElementById('start-btn');
+
   let grid = new Grid();
+  let sweepa;
 
   clearGridBtn.addEventListener('click', () => {
     if (grid.edit) {
@@ -34,5 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   wallBtn.addEventListener('click', () => {
     grid.setObject('wall');
+  });
+
+  startBtn.addEventListener('click', () => {
+    grid.toggleEdit();
+    sweepa = new Sweepa(grid.home, grid.graph);
   });
 });
