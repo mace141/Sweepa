@@ -5,7 +5,8 @@ class Grid {
     this.edit = true;
     this.drag = false;
     this.object = 'wall';
-    this.graph = this.makeGrid();
+    this.graphArr = this.makeGrid();
+    this.graphList = {};
     this.homeNode = null;
 
     this.connectNodes();
@@ -31,16 +32,20 @@ class Grid {
       [-1, -1]
     ];
 
-    this.graph.forEach((row, i) => {
+    this.graphArr.forEach((row, i) => {
       row.forEach((node, j) => {
         node.neighbors = {};
+        this.graphList[node] = {};
         
         neighborDeltas.forEach(delta => {
           const posY = i + delta[0];
           const posX = j + delta[1];
           
-          if (this.graph[posY] && this.graph[posY][posX]) {
-            node.neighbors[[delta[0], delta[1]]] = this.graph[posY][posX];
+          if (this.graphArr[posY] && this.graphArr[posY][posX]) {
+            let neighbor = this.graphArr[posY][posX];
+
+            node.neighbors[[delta[0], delta[1]]] = neighbor;
+            this.graphList[node][neighbor] = 1;
           }
         });
       });
@@ -68,7 +73,7 @@ class Grid {
     node.addEventListener('mousedown', (e) => {
       const targetClasses = e.currentTarget.classList;
       const pos = e.currentTarget.id.split('-');
-      const graphNode = this.graph[pos[0]][pos[1]];
+      const graphNode = this.graphArr[pos[0]][pos[1]];
 
       if (this.edit) {
         switch (this.object) {
@@ -109,7 +114,7 @@ class Grid {
     node.addEventListener('mouseover', (e) => {
       const targetClasses = e.currentTarget.classList;
       const pos = e.currentTarget.id.split('-');
-      const graphNode = this.graph[pos[0]][pos[1]];
+      const graphNode = this.graphArr[pos[0]][pos[1]];
 
       if (this.drag) {
         if (this.object == 'wall') {

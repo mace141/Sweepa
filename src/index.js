@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   startBtn.addEventListener('click', () => {
     if (grid.edit && grid.homeNode) {
       grid.toggleEdit();
-      sweepa = new Sweepa(grid.homeNode, grid.graph);
+      sweepa = new Sweepa(grid.homeNode, grid.graphArr, grid.graphList);
 
       const sweepaSeq = setInterval(() => {
         sweepa.step();

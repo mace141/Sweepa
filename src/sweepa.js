@@ -24,11 +24,11 @@ const diagDeltas = {
 };
 
 class Sweepa { 
-  constructor(homeNode, graph) {
+  constructor(homeNode, graphArr, graphList) {
     this.homeNode = homeNode;
-    this.graph = graph;
+    this.graphArr = graphArr;
+    this.graphList = graphList;
     this.currNode = homeNode;
-
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
   }
 
@@ -56,11 +56,59 @@ class Sweepa {
     nextDiv.append(document.createElement('span'));
   }
 
-  aStar() {
-    
+  closestNode(nodes, distance) {
+    return nodes.reduce((minNode, node) => (
+      distance[node] < distance[minNode] ? node : minNode
+    ));
+  }
+
+  dijkstras(graphList, start, destination) {
+    let distance = {};
+    for (let node in graphList) {
+      distance[node] = Infinity;
+    }
+    distance[start] = 0;
+
+    let unvisited = new Set(Object.keys(graphList));
+    let previous = {};
+
+    while (unvisited.size > 0) {
+      let currNode = closestNode(Array.from(unvisited), distance);
+      unvisited.delete(currNode);
+      if (currNode == destination) return { distance, previous };
+
+      for (let neighbor in graphList[currNode]) {
+        let distFromCurrToNeighbor = graphList[currNode][neighbor];
+        let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
+
+        if (distance[neighbor] > distFromSourceToNeighbor) {
+          distance[neighbor] = distFromSourceToNeighbor;
+          previous[neighbor] = currNode;
+        }
+      }
+    }
+
+    return { distance, previous };
+  }
+
+  retracePaths(previous) {
+    let path = [this.currNode];
+    let lastNode;
+    let nextNode;
+
+    while (!path.includes(this.homeNode)) {
+      lastNode = path[path.length - 1]
+      nextNode = previous[lastNode];
+      path.push(nextNode);
+    }
+
+    return path;
   }
 
   beginDocking() {
+    const { previous } = this.dijkstras(this.graphList, this.currNode, this.homeNode);
+    const path = this.retraceSteps(previous);
+
 
   }
 }
