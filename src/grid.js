@@ -76,13 +76,13 @@ class Grid {
             if (!targetClasses.value.includes('wall') && !targetClasses.value.includes('dust')) {
               this.homeNode = graphNode;
 
-              const sweepaDiv = document.getElementsByClassName('sweepa')[0];
-              if (sweepaDiv) {
-                sweepaDiv.innerHTML = "";
-                sweepaDiv.classList.toggle('sweepa');
+              const prevSweepa = document.getElementsByClassName('sweepa')[0];
+              if (prevSweepa) {
+                prevSweepa.innerHTML = "";
+                prevSweepa.classList.remove('sweepa', 'home');
               }
-              targetClasses.toggle('sweepa');
 
+              targetClasses.add('sweepa', 'home');
               e.currentTarget.append(document.createElement('span'));
             }
 

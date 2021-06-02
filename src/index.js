@@ -41,18 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   startBtn.addEventListener('click', () => {
-    if (grid.homeNode) {
+    if (grid.edit && grid.homeNode) {
       grid.toggleEdit();
       sweepa = new Sweepa(grid.homeNode, grid.graph);
 
       const sweepaSeq = setInterval(() => {
         sweepa.step();
-      }, 250);
+      }, 200);
 
       setTimeout(() => {
         clearInterval(sweepaSeq);
         grid.toggleEdit();
-      }, 30000);
+      }, 5000);
     }
   });
 });

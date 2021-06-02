@@ -28,6 +28,7 @@ class Sweepa {
     this.homeNode = homeNode;
     this.graph = graph;
     this.currNode = homeNode;
+
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
   }
 
@@ -53,6 +54,14 @@ class Sweepa {
 
     nextDiv.classList.toggle('sweepa');
     nextDiv.append(document.createElement('span'));
+  }
+
+  aStar() {
+    
+  }
+
+  beginDocking() {
+
   }
 }
 
