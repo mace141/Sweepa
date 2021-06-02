@@ -47,10 +47,27 @@ class Grid {
     });
   }
 
+  toggleWall(targetClasses, pos, graphNode, e) {
+    if (!targetClasses.value.includes('sweepa')) {
+      for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
+        const neighborPos = nodeNeighbor.value.split('-');
+        const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
+
+        if (e.currentTarget.className.includes('wall')) {
+          nodeNeighbor.neighbors[delta] = graphNode;
+        } else {
+          delete nodeNeighbor.neighbors[delta];
+        }
+      }
+
+      targetClasses.toggle(this.object);
+    }
+  }
+
   attachNodeEvents(node) {
     node.addEventListener('mousedown', (e) => {
-      const targetClasses = e.target.classList;
-      const pos = e.target.id.split('-');
+      const targetClasses = e.currentTarget.classList;
+      const pos = e.currentTarget.id.split('-');
       const graphNode = this.graph[pos[0]][pos[1]];
 
       if (this.edit) {
@@ -66,28 +83,20 @@ class Grid {
               }
               targetClasses.toggle('sweepa');
 
-              e.target.append(document.createElement('span'));
+              e.currentTarget.append(document.createElement('span'));
             }
 
             break;
           case 'dust':
-            targetClasses.toggle(this.object);
+            if (!targetClasses.value.includes('sweepa')) {
+              targetClasses.toggle(this.object);
+            }
             this.drag = true;
 
             break;
           case 'wall':
-            for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
-              const neighborPos = nodeNeighbor.value.split('-');
-              const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
+            this.toggleWall(targetClasses, pos, graphNode, e);
 
-              if (e.target.className.includes('wall')) {
-                nodeNeighbor.neighbors[delta] = graphNode;
-              } else {
-                delete nodeNeighbor.neighbors[delta];
-              }
-            }
-            
-            targetClasses.toggle(this.object);
             this.drag = true;
             
             break;
@@ -98,23 +107,14 @@ class Grid {
     });
 
     node.addEventListener('mouseover', (e) => {
-      if (this.drag) {
-        const targetClasses = e.target.classList;
-        const pos = e.target.id.split('-');
-        const graphNode = this.graph[pos[0]][pos[1]];
-        
-        for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
-          const neighborPos = nodeNeighbor.value.split('-');
-          const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
+      const targetClasses = e.currentTarget.classList;
+      const pos = e.currentTarget.id.split('-');
+      const graphNode = this.graph[pos[0]][pos[1]];
 
-          if (e.target.className.includes('wall')) {
-            nodeNeighbor.neighbors[delta] = graphNode;
-          } else {
-            delete nodeNeighbor.neighbors[delta];
-          }
+      if (this.drag) {
+        if (this.object == 'wall') {
+          this.toggleWall(targetClasses, pos, graphNode, e);
         }
-        
-        targetClasses.toggle(this.object);
       }
     });
 
