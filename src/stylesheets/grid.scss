@@ -26,7 +26,7 @@
   background: red;
 }
 
-.sweepa span {
+.sweepa div {
   height: $node-size;
   width: $node-size;
   background: $blue;
@@ -36,4 +36,8 @@
 
 .visited {
   background: pink;
+}
+
+.return {
+  background: white;
 }

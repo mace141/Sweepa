@@ -43,14 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
   startBtn.addEventListener('click', () => {
     if (grid.edit && grid.homeNode) {
       grid.toggleEdit();
-      const nodes = document.getElementsByClassName('visited');
 
-      for (let node of nodes) {
-        node.classList.add('unvisited');
-        node.classList.remove('visited');
+      const nodes = document.getElementsByClassName('visited');
+      while (nodes.length > 0) {
+        nodes[0].classList.add('unvisited');
+        nodes[0].classList.remove('visited');
       }
+
       sweepa = new Sweepa(grid);
       sweepa.beginCleaning();
     }
   });
+
+  window.sweepa = sweepa;
+  window.grid = grid;
 });

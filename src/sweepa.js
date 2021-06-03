@@ -65,18 +65,13 @@ class Sweepa {
     lastDiv.classList.toggle('sweepa');
 
     nextDiv.classList.toggle('sweepa');
-    nextDiv.append(document.createElement('span'));
+    nextDiv.append(document.createElement('div'));
   }
 
   markVisited(node) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        const visitedNode = document.getElementById(node);
-        resolve(
-          visitedNode.classList.toggle('visited', 'unvisited')
-        );
-      }, 100)
-    });
+    const visitedNode = document.getElementById(node);
+    visitedNode.classList.toggle('visited');
+    visitedNode.classList.toggle('unvisited');
   }
 
   closestNode(nodes, distance) {
@@ -95,11 +90,16 @@ class Sweepa {
 
     let unvisited = new Set(Object.keys(graphList));
     let previous = {};
-    // debugger
+    
     while (unvisited.has(destination)) {
       let currNode = this.closestNode(Array.from(unvisited), distance);
       unvisited.delete(currNode);
-      await this.markVisited(currNode);
+
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve(this.markVisited(currNode));
+        }, 50);
+      });
 
       if (currNode == destination) return { distance, previous };
       
@@ -113,7 +113,7 @@ class Sweepa {
         }
       }
     }
-    debugger
+    
     return { distance, previous };
   }
 
@@ -140,9 +140,24 @@ class Sweepa {
       this.currNode = this.graphArr[pos[0]][pos[1]];
       this.replaceSweepa();
       this.path.shift();
+
+      const stepHome = document.getElementById(nextNode);
+      stepHome.classList.add('return');
     }
     
-    return this.currNode == this.homeNode;
+    return;
+  }
+
+  async homeSequence() {
+    while (this.currNode.value != this.homeNode.value) {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve(this.homeStep());
+        }, 100);
+      });
+    }
+
+    this.grid.toggleEdit();
   }
 
   beginDocking() {
@@ -151,16 +166,8 @@ class Sweepa {
     ).then(res => {
       const { previous } = res;
       this.retracePath(previous);
-      
-      let home;
-      const homeSeq = setInterval(() => {
-        home = this.homeStep();
-      }, 200);
-
-      if (home) {
-        clearInterval(homeSeq);
-        this.grid.toggleEdit();
-      }
+    }).then(() => {
+      this.homeSequence();
     });
   }
 }

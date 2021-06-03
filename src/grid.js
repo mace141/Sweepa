@@ -91,7 +91,7 @@ class Grid {
               }
 
               targetClasses.add('sweepa', 'home');
-              e.currentTarget.append(document.createElement('span'));
+              e.currentTarget.append(document.createElement('div'));
             }
 
             break;
