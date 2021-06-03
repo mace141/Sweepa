@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const nodes = document.getElementsByClassName('visited');
       while (nodes.length > 0) {
         nodes[0].classList.add('unvisited');
+        nodes[0].classList.remove('return');
         nodes[0].classList.remove('visited');
       }
 

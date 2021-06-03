@@ -1,5 +1,12 @@
 import GraphNode from './graph_node';
 
+const diagDeltas = [
+  [-1,  1],
+  [ 1,  1],
+  [ 1, -1],
+  [-1, -1]
+];
+
 class Grid {
   constructor() {
     this.edit = true;
@@ -46,7 +53,12 @@ class Grid {
             let neighbor = this.graphArr[posY][posX];
 
             node.neighbors[[delta[0], delta[1]]] = neighbor;
-            this.graphList[node.value][neighbor.value] = 1;
+            
+            if (JSON.stringify(diagDeltas).includes(delta)) {
+              this.graphList[node.value][neighbor.value] = 1.41;
+            } else {
+              this.graphList[node.value][neighbor.value] = 1;
+            }
           }
         });
       });
@@ -60,7 +72,12 @@ class Grid {
         const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
 
         if (e.currentTarget.className.includes('wall')) {
-          this.graphList[nodeNeighbor.value][graphNode.value] = 1;
+          if (JSON.stringify(diagDeltas).includes(delta)) {
+            this.graphList[nodeNeighbor.value][graphNode.value] = 1.41;
+          } else {
+            this.graphList[nodeNeighbor.value][graphNode.value] = 1;
+          }
+          
           nodeNeighbor.neighbors[delta] = graphNode;
         } else {
           delete this.graphList[nodeNeighbor.value][graphNode.value];

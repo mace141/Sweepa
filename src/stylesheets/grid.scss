@@ -17,11 +17,6 @@
   display: flex;
 }
 
-.wall {
-  background: $wall-color;
-  border: 1px solid $wall-color;
-}
-
 .home {
   background: red;
 }
@@ -40,4 +35,9 @@
 
 .return {
   background: white;
+}
+
+.wall {
+  background: $wall-color;
+  border: 1px solid $wall-color;
 }
