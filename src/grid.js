@@ -10,6 +10,7 @@ class Grid {
     this.homeNode = null;
 
     this.connectNodes();
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
 
   toggleEdit() {
@@ -35,8 +36,8 @@ class Grid {
     this.graphArr.forEach((row, i) => {
       row.forEach((node, j) => {
         node.neighbors = {};
-        this.graphList[node] = {};
-        
+        this.graphList[node.value] = {};
+
         neighborDeltas.forEach(delta => {
           const posY = i + delta[0];
           const posX = j + delta[1];
@@ -45,7 +46,7 @@ class Grid {
             let neighbor = this.graphArr[posY][posX];
 
             node.neighbors[[delta[0], delta[1]]] = neighbor;
-            this.graphList[node][neighbor] = 1;
+            this.graphList[node.value][neighbor.value] = 1;
           }
         });
       });
@@ -59,8 +60,10 @@ class Grid {
         const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
 
         if (e.currentTarget.className.includes('wall')) {
+          this.graphList[nodeNeighbor.value][graphNode.value] = 1;
           nodeNeighbor.neighbors[delta] = graphNode;
         } else {
+          delete this.graphList[nodeNeighbor.value][graphNode.value];
           delete nodeNeighbor.neighbors[delta];
         }
       }

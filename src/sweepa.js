@@ -24,15 +24,16 @@ const diagDeltas = {
 };
 
 class Sweepa { 
-  constructor(homeNode, graphArr, graphList) {
-    this.homeNode = homeNode;
-    this.graphArr = graphArr;
-    this.graphList = graphList;
-    this.currNode = homeNode;
+  constructor(grid) {
+    this.homeNode = grid.homeNode;
+    this.graphArr = grid.graphArr;
+    this.graphList = grid.graphList;
+    this.currNode = grid.homeNode;
+    this.toggleEdit = grid.toggleEdit;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
   }
 
-  step() {
+  cleanStep() {
     let nextNode = this.currNode.neighbors[this.dir];
 
     if (nextNode) {
@@ -43,6 +44,17 @@ class Sweepa {
     } else { 
       this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     }
+  }
+
+  beginCleaning() {
+    const sweepaSeq = setInterval(() => {
+      this.cleanStep();
+    }, 200);
+
+    setTimeout(() => {
+      clearInterval(sweepaSeq);
+      this.beginDocking();
+    }, 10000);
   }
 
   replaceSweepa() {
@@ -56,13 +68,26 @@ class Sweepa {
     nextDiv.append(document.createElement('span'));
   }
 
-  closestNode(nodes, distance) {
-    return nodes.reduce((minNode, node) => (
-      distance[node] < distance[minNode] ? node : minNode
-    ));
+  markVisited(node) {
+    return new Promise(resolve => {
+      resolve(
+        setTimeout(() => {
+          const visitedNode = document.getElementById(node);
+      
+          visitedNode.classList.toggle('visited', 'unvisited');
+        }, 100)
+      );
+    });
   }
 
-  dijkstras(graphList, start, destination) {
+  closestNode(nodes, distance) {
+    const closestNode = nodes.reduce((minNode, node) => (
+      distance[node] < distance[minNode] ? node : minNode
+    ));
+    return closestNode;
+  }
+
+  async dijkstras(graphList, start, destination) {
     let distance = {};
     for (let node in graphList) {
       distance[node] = Infinity;
@@ -72,44 +97,71 @@ class Sweepa {
     let unvisited = new Set(Object.keys(graphList));
     let previous = {};
 
-    while (unvisited.size > 0) {
-      let currNode = closestNode(Array.from(unvisited), distance);
+    while (unvisited.has(destination)) {
+      let currNode = this.closestNode(Array.from(unvisited), distance);
       unvisited.delete(currNode);
-      if (currNode == destination) return { distance, previous };
+      await this.markVisited(currNode);
 
+      if (currNode == destination) return { distance, previous };
+      
       for (let neighbor in graphList[currNode]) {
         let distFromCurrToNeighbor = graphList[currNode][neighbor];
         let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
-
+        
         if (distance[neighbor] > distFromSourceToNeighbor) {
           distance[neighbor] = distFromSourceToNeighbor;
           previous[neighbor] = currNode;
         }
       }
     }
+    
+    clearInterval(mark);
 
     return { distance, previous };
   }
 
-  retracePaths(previous) {
-    let path = [this.currNode];
+  retracePath(previous) {
+    let path = [this.homeNode.value];
     let lastNode;
     let nextNode;
-
-    while (!path.includes(this.homeNode)) {
-      lastNode = path[path.length - 1]
+    
+    while (!path.includes(this.currNode.value)) {
+      lastNode = path[0]
       nextNode = previous[lastNode];
-      path.push(nextNode);
+      path.unshift(nextNode);
     }
+    
+    this.path = path;
+    return;
+  }
 
-    return path;
+  homeStep() {
+    let nextNode = this.path[0];
+    
+    if (nextNode) {
+      const pos = nextNode.split('-');
+      this.currNode = this.graphArr[pos[0]][pos[1]];
+      this.replaceSweepa();
+      this.path.shift();
+    }
+    
+    return;
   }
 
   beginDocking() {
-    const { previous } = this.dijkstras(this.graphList, this.currNode, this.homeNode);
-    const path = this.retraceSteps(previous);
+    const { previous } = this.dijkstras(
+      this.graphList, this.currNode.value, this.homeNode.value
+    );
+    this.retracePath(previous);
+    
+    const homeSeq = setInterval(() => {
+      const home = this.homeStep();
+    }, 200);
 
-
+    setTimeout(() => {
+      clearInterval(homeSeq);
+      this.toggleEdit();
+    }, this.path.length * 200);
   }
 }
 

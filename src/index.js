@@ -43,16 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
   startBtn.addEventListener('click', () => {
     if (grid.edit && grid.homeNode) {
       grid.toggleEdit();
-      sweepa = new Sweepa(grid.homeNode, grid.graphArr, grid.graphList);
+      const nodes = document.getElementsByClassName('visited');
 
-      const sweepaSeq = setInterval(() => {
-        sweepa.step();
-      }, 200);
-
-      setTimeout(() => {
-        clearInterval(sweepaSeq);
-        grid.toggleEdit();
-      }, 5000);
+      for (let node of nodes) {
+        node.classList.add('unvisited');
+        node.classList.remove('visited');
+      }
+      sweepa = new Sweepa(grid);
+      sweepa.beginCleaning();
     }
   });
 });
