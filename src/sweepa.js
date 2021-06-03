@@ -25,11 +25,11 @@ const diagDeltas = {
 
 class Sweepa { 
   constructor(grid) {
+    this.grid = grid;
     this.homeNode = grid.homeNode;
     this.graphArr = grid.graphArr;
     this.graphList = grid.graphList;
     this.currNode = grid.homeNode;
-    this.toggleEdit = grid.toggleEdit;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
   }
 
@@ -70,13 +70,12 @@ class Sweepa {
 
   markVisited(node) {
     return new Promise(resolve => {
-      resolve(
-        setTimeout(() => {
-          const visitedNode = document.getElementById(node);
-      
-          visitedNode.classList.toggle('visited', 'unvisited');
-        }, 100)
-      );
+      setTimeout(() => {
+        const visitedNode = document.getElementById(node);
+        resolve(
+          visitedNode.classList.toggle('visited', 'unvisited')
+        );
+      }, 100)
     });
   }
 
@@ -96,7 +95,7 @@ class Sweepa {
 
     let unvisited = new Set(Object.keys(graphList));
     let previous = {};
-
+    // debugger
     while (unvisited.has(destination)) {
       let currNode = this.closestNode(Array.from(unvisited), distance);
       unvisited.delete(currNode);
@@ -114,9 +113,7 @@ class Sweepa {
         }
       }
     }
-    
-    clearInterval(mark);
-
+    debugger
     return { distance, previous };
   }
 
@@ -145,23 +142,26 @@ class Sweepa {
       this.path.shift();
     }
     
-    return;
+    return this.currNode == this.homeNode;
   }
 
   beginDocking() {
-    const { previous } = this.dijkstras(
+    this.dijkstras(
       this.graphList, this.currNode.value, this.homeNode.value
-    );
-    this.retracePath(previous);
-    
-    const homeSeq = setInterval(() => {
-      const home = this.homeStep();
-    }, 200);
+    ).then(res => {
+      const { previous } = res;
+      this.retracePath(previous);
+      
+      let home;
+      const homeSeq = setInterval(() => {
+        home = this.homeStep();
+      }, 200);
 
-    setTimeout(() => {
-      clearInterval(homeSeq);
-      this.toggleEdit();
-    }, this.path.length * 200);
+      if (home) {
+        clearInterval(homeSeq);
+        this.grid.toggleEdit();
+      }
+    });
   }
 }
 
