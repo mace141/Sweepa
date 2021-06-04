@@ -7,6 +7,17 @@ const diagDeltas = [
   [-1, -1]
 ];
 
+const dirDeltas = [
+  [-1,  0],
+  [-1,  1],
+  [ 0,  1],
+  [ 1,  1],
+  [ 1,  0],
+  [ 1, -1],
+  [ 0, -1],
+  [-1, -1]
+];
+
 class Grid {
   constructor() {
     this.edit = true;
@@ -29,23 +40,12 @@ class Grid {
   }
 
   connectNodes() {
-    const neighborDeltas = [
-      [-1,  0],
-      [-1,  1],
-      [ 0,  1],
-      [ 1,  1],
-      [ 1,  0],
-      [ 1, -1],
-      [ 0, -1],
-      [-1, -1]
-    ];
-
     this.graphArr.forEach((row, i) => {
       row.forEach((node, j) => {
         node.neighbors = {};
         this.graphList[node.value] = {};
 
-        neighborDeltas.forEach(delta => {
+        dirDeltas.forEach(delta => {
           const posY = i + delta[0];
           const posX = j + delta[1];
           
@@ -67,11 +67,16 @@ class Grid {
 
   toggleWall(targetClasses, pos, graphNode, e) {
     if (!targetClasses.value.includes('sweepa')) {
+      targetClasses.toggle(this.object);
+
       for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
         const neighborPos = nodeNeighbor.value.split('-');
         const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
 
         if (e.currentTarget.className.includes('wall')) {
+          delete this.graphList[nodeNeighbor.value][graphNode.value];
+          delete nodeNeighbor.neighbors[delta];
+        } else {
           if (JSON.stringify(diagDeltas).includes(delta)) {
             this.graphList[nodeNeighbor.value][graphNode.value] = 1.41;
           } else {
@@ -79,13 +84,9 @@ class Grid {
           }
           
           nodeNeighbor.neighbors[delta] = graphNode;
-        } else {
-          delete this.graphList[nodeNeighbor.value][graphNode.value];
-          delete nodeNeighbor.neighbors[delta];
         }
       }
 
-      targetClasses.toggle(this.object);
     }
   }
 
@@ -108,7 +109,6 @@ class Grid {
               }
 
               targetClasses.add('sweepa', 'home');
-              e.currentTarget.append(document.createElement('div'));
             }
 
             break;
@@ -149,8 +149,8 @@ class Grid {
   }
 
   makeGrid() {
-    const numRows = (window.innerHeight - 129) / 17;
-    const numCols = (window.innerWidth - 40) / 17;
+    const numRows = (window.innerHeight - 155) / 27;
+    const numCols = (window.innerWidth - 40) / 27;
     const grid = document.getElementById('grid');
     const graph = [];
 
@@ -167,6 +167,7 @@ class Grid {
         
         newNode.className = `node unvisited`;
         newNode.id = `${i}-${j}`;
+        newNode.append(document.createElement('div'));
 
         this.attachNodeEvents(newNode);
         gridRow.append(newNode);

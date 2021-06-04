@@ -40,7 +40,7 @@ class Sweepa {
       this.currNode = nextNode;
       nextNode = this.currNode.neighbors[this.dir];
 
-      this.replaceSweepa();
+      this.replaceSweepa(true);
     } else { 
       this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     }
@@ -49,7 +49,7 @@ class Sweepa {
   beginCleaning() {
     const sweepaSeq = setInterval(() => {
       this.cleanStep();
-    }, 200);
+    }, 10);
 
     setTimeout(() => {
       clearInterval(sweepaSeq);
@@ -57,15 +57,20 @@ class Sweepa {
     }, 10000);
   }
 
-  replaceSweepa() {
+  replaceSweepa(cleaning) {
     const lastDiv = document.getElementsByClassName('sweepa')[0];
     const nextDiv = document.getElementById(this.currNode.value);
 
-    lastDiv.innerHTML = "";
-    lastDiv.classList.toggle('sweepa');
-
-    nextDiv.classList.toggle('sweepa');
-    nextDiv.append(document.createElement('div'));
+    lastDiv.classList.remove('sweepa');
+    nextDiv.classList.add('sweepa');
+    
+    if (cleaning) {
+      if (!nextDiv.className.includes('swept')) {
+        nextDiv.classList.add('swept');
+      } else {
+        nextDiv.style.background = 'darken(rgb(255, 233, 166), 5%)';
+      }
+    }
   }
 
   markVisited(node) {
@@ -98,7 +103,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNode));
-        }, 50);
+        }, 10);
       });
 
       if (currNode == destination) return { distance, previous };
@@ -138,7 +143,7 @@ class Sweepa {
     if (nextNode) {
       const pos = nextNode.split('-');
       this.currNode = this.graphArr[pos[0]][pos[1]];
-      this.replaceSweepa();
+      this.replaceSweepa(false);
       this.path.shift();
 
       const stepHome = document.getElementById(nextNode);
@@ -153,7 +158,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.homeStep());
-        }, 100);
+        }, 10);
       });
     }
 

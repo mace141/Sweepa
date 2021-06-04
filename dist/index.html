@@ -20,50 +20,48 @@
           <div class='dropdown-ctnr'>
             <h2>About</h2>
             <ul class='dropdown'>
-              <li>Sweepa is a robot vacuum that uses algorithms X and Y to clean your floor and improve its path. You can draw your room's layout, place Sweepa anywhere in the room and watch it clean with different settings.</li>
+              <li>Sweepa is a robot vacuum that "cleans" your floor and uses search algorithms to return to its home. You can draw your room's layout, place Sweepa anywhere in the room and watch it clean with different settings.</li>
             </ul>
           </div>
           <div class='dropdown-ctnr'>
             <h2>Help</h2>
             <ul class='dropdown'>
-              <li>Click and drag on the grid to place down walls.</li>
-              <li>Click the Sweepa button and place Sweepa down by clicking on the grid.</li>
-              <li>Choose a cleaning mode and press Start to watch Sweepa clean your room!</li>
+              <li>Click and drag on the grid to place down walls. Click the Sweepa button and place Sweepa down by clicking on the grid. Choose a docking mode and press Start to watch Sweepa clean your room!</li>
             </ul>
           </div>
         </div>
       </nav>
       <nav class='bottom-nav'>
         <div class='object-btns'>
-          <div>
+          <!-- <div>
             <button id='dust-btn'>Dust</button>
+          </div> -->
+          <div>
+            <button id='wall-btn' class='button selected'>Wall</button>
           </div>
           <div>
-            <button id='wall-btn'>Wall</button>
-          </div>
-          <div>
-            <button id='sweepa-btn'>Sweepa</button>
+            <button id='sweepa-btn' class='button'>Sweepa</button>
           </div>
         </div>
-        <button id='start-btn'>Start</button>
+        <button id='start-btn' class='button'>Start</button>
         <div class='option-btns'>
+          <div>
+            <button id='clear-grid' class='button'>Clear grid</button>
+          </div>
+          <div>
+            <button id='clear-walls' class='button'>Clear walls</button>
+          </div>
           <div class='dropdown-ctnr'>
-            <h2>Modes</h2>
-            <ul class='dropdown small'>
-              <li>Okay</li>
-              <li>Smart</li>
-              <li>Smarter</li>
+            <button>Modes</button>
+            <ul class='dropdown search'>
+              <li>Dijkstra's Algorithm</li>
+              <li>A* Search</li>
+              <li>Greedy Best First Search</li>
             </ul>
           </div>
-          <div>
-            <button id='clear-grid'>Clear grid</button>
-          </div>
-          <div>
-            <button id='clear-walls'>Clear walls</button>
-          </div>
-          <div>
+          <!-- <div>
             <button id='clear-dust'>Clear dust</button>
-          </div>
+          </div> -->
         </div>
       </nav>
     </header>

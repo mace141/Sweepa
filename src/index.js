@@ -17,6 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (grid.edit) {
       document.getElementById('grid').innerHTML = "";
       grid = new Grid();
+
+      if (!wallBtn.className.includes('selected')) {
+        wallBtn.classList.add('selected');
+      }
+      sweepaBtn.classList.remove('selected');
     }
   });
 
@@ -34,21 +39,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
   sweepaBtn.addEventListener('click', () => {
     grid.setObject('sweepa');
+    sweepaBtn.classList.toggle('selected');
+    wallBtn.classList.toggle('selected');
   });
 
   wallBtn.addEventListener('click', () => {
     grid.setObject('wall');
+    sweepaBtn.classList.toggle('selected');
+    wallBtn.classList.toggle('selected');
   });
   
   startBtn.addEventListener('click', () => {
     if (grid.edit && grid.homeNode) {
       grid.toggleEdit();
 
-      const nodes = document.getElementsByClassName('visited');
-      while (nodes.length > 0) {
-        nodes[0].classList.add('unvisited');
-        nodes[0].classList.remove('return');
-        nodes[0].classList.remove('visited');
+      const visited = document.getElementsByClassName('visited');
+      const swept = document.getElementsByClassName('swept');
+      while (visited.length > 0 || swept.length > 0) {
+        if (visited[0]) {
+          visited[0].classList.add('unvisited');
+          visited[0].classList.remove('return');
+          visited[0].classList.remove('visited');
+        }
+
+        if (swept[0]) {
+          swept[0].classList.remove('swept');
+        }
       }
 
       sweepa = new Sweepa(grid);

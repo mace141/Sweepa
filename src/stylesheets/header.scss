@@ -22,11 +22,38 @@ header {
   position: absolute;
   top: 47px;
   right: 50%;
-  transform: translate(600px);
+  transform: translate(575px);
 
   button {
     white-space: nowrap;
   }
+}
+
+h1.center {
+  font-weight: bold;
+  font-size: 32px;
+  transform: translate(-50%, -5px);
+}
+
+button {
+  padding: 5px 15px;
+  color: $blue;
+  background: white;
+  border-radius: 5px;
+}
+
+.button {
+  box-shadow: 0 7px #999;
+}
+
+.button:hover {
+  background-color: #eeeeee;
+}
+
+.button:active, button.selected {
+  background-color: #eeeeee;
+  box-shadow: 0 4px #666;
+  transform: translateY(4px);
 }
 
 #start-btn {
@@ -66,9 +93,22 @@ header {
   padding: 10px;
   border-radius: 5px;
   font-size: 18px;
+  box-shadow: 0px 0px 10px -3px gray;
+  text-align: center;
 }
 
-.dropdown.small {
-  width: auto;
-  text-align: center;
+.dropdown.search {
+  padding: 0;
+  white-space: nowrap;
+  transform: translate(calc(50% - 36px));
+  overflow: hidden;
+
+  li {
+    padding: 5px 0;
+  }
+
+  li:hover {
+    background: rgb(226, 226, 226);
+    cursor: pointer;
+  }
 }
