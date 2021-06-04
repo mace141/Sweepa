@@ -1,0 +1,1 @@
+// roots of all trees are linked using a doubly linked list

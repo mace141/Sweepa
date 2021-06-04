@@ -86,7 +86,7 @@ class Sweepa {
     return closestNode;
   }
 
-  async dijkstras(graphList, start, destination) {
+  async listDijkstras(graphList, start, destination) {
     let distance = {};
     for (let node in graphList) {
       distance[node] = Infinity;
@@ -166,7 +166,7 @@ class Sweepa {
   }
 
   beginDocking() {
-    this.dijkstras(
+    this.listDijkstras(
       this.graphList, this.currNode.value, this.homeNode.value
     ).then(res => {
       const { previous } = res;
