@@ -17,8 +17,8 @@
 }
 
 .swept div {
-  height: 15px;
-  width: 15px;
+  height: $swept-size;
+  width: $swept-size;
   background: #ffdfc2;
   border-radius: 50%;
 }
@@ -48,10 +48,11 @@
 
 .wall {
   border: 1px solid $wall-color;
+  background: $wall-color;
   
   div {
-    height: $node-size;
-    width: $node-size;
     background: $wall-color;
+    height: $swept-size;
+    width: $swept-size;
   }
 }

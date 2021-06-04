@@ -39,14 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   sweepaBtn.addEventListener('click', () => {
     grid.setObject('sweepa');
-    sweepaBtn.classList.toggle('selected');
-    wallBtn.classList.toggle('selected');
+
+    if (!sweepaBtn.className.includes('selected')) {
+      sweepaBtn.classList.toggle('selected');
+      wallBtn.classList.toggle('selected');
+    }
   });
 
   wallBtn.addEventListener('click', () => {
     grid.setObject('wall');
-    sweepaBtn.classList.toggle('selected');
-    wallBtn.classList.toggle('selected');
+
+    if (!wallBtn.className.includes('selected')) {
+      sweepaBtn.classList.toggle('selected');
+      wallBtn.classList.toggle('selected');
+    }
   });
   
   startBtn.addEventListener('click', () => {
