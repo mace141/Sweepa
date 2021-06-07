@@ -7,11 +7,11 @@ class ListNode {
   }
 
   remove() {
-    const prev_node = this.prev;
-    const next_node = this.next;
+    const prevNode = this.prev;
+    const nextNode = this.next;
 
-    prev_node.next = next_node;
-    next_node.prev = prev_node;
+    prevNode.next = nextNode;
+    nextNode.prev = prevNode;
 
     return this;
   }

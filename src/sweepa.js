@@ -134,7 +134,6 @@ class Sweepa {
     }
     
     this.path = path;
-    return;
   }
 
   homeStep() {
