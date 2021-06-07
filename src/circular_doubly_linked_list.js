@@ -12,29 +12,33 @@ class CDLinkedList {
     if (this.head) {
       const lastNode = this.head.prev;
 
-      newNode.next = this.head;
       newNode.prev = lastNode;
+      newNode.next = this.head;
 
-      lastNode.next = newNode;
       this.head.prev = newNode;
+      lastNode.next = newNode;
 
       if (prepend) {
         this.head = newNode;
       }
 
-      if (this.min.value > newNode.value) {
+      if (this.min.key > newNode.key) {
         this.min = newNode;
       }
     }
 
     this.head = newNode;
     this.min = newNode;
-    newNode.next = newNode;
     newNode.prev = newNode;
+    newNode.next = newNode;
   }
 
-  remove() {
-    this.min.remove();
+  remove(node) {
+    node.remove();
+
+    if (this.head == node) {
+      this.head = node.next;
+    }
   }
 }
 
