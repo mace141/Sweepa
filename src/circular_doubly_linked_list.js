@@ -40,6 +40,18 @@ class CDLinkedList {
       this.head = node.next;
     }
   }
+
+  toArray() {
+    const arr = [];
+    let node = this.head.prev;
+
+    while (node != this.head) {
+      node = node.next;
+      arr.push(node);
+    }
+    
+    return arr;
+  }
 }
 
 export default CDLinkedList;

@@ -1,11 +1,11 @@
-class HeapNode {
+class FibHeapNode {
   constructor(key = null, val = null) {
     this.key = key;
     this.val = val;
     this.prev = null;
     this.next = null;
     this.parent = null;
-    this.child = null;
+    this.childList = null;
     this.degree = 0;
     this.mark = false;
   }
@@ -21,4 +21,4 @@ class HeapNode {
   }
 }
 
-export default HeapNode;
+export default FibHeapNode;

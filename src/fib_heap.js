@@ -1,7 +1,5 @@
 import CDLinkedList from './circular_doubly_linked_list';
 
-// roots of all trees are linked using a circular doubly linked list
-
 class FibonacciHeap {
   constructor() {
     this.min = null;
@@ -33,7 +31,7 @@ class FibonacciHeap {
     const minNode = this.min;
 
     if (minNode) {
-      minNode.child.forEach(child => {
+      minNode.childList.toArray().forEach(child => {
         this.rootList.insert(child, false);
         child.parent = null;
       });
@@ -51,6 +49,49 @@ class FibonacciHeap {
     }
 
     return minNode;
+  }
+
+  consolidate() {
+    const arr = new Array(this.count).fill(null);
+    let degree;
+
+    for (let nodeX of this.rootList.toArray()) {
+      degree = nodeX.degree;
+
+      while (arr[degree]) {
+        let nodeY = arr[degree];
+
+        if (nodeX.key > nodeY.key) {
+          [nodeX, nodeY] = [nodeY, nodeX];
+        }
+
+        this.link(nodeY, nodeX);
+        arr[degree] = null;
+        degree++;
+      }
+
+      arr[degree] = nodeX;
+    }
+
+    this.min = null;
+
+    for (let i = 0; i < this.count; i++) {
+      if (arr[i]) {
+        this.insert(arr[i]);
+        this.count--;
+      }
+    }
+  }
+
+  link(nodeY, nodeX) {
+    this.rootList.remove(nodeY);
+
+    if (nodeX.childList) {
+      nodeX.childList.insert(nodeY, false);
+      nodeX.degree++;
+    }
+    
+    nodeY.mark = false;    
   }
 }
 
