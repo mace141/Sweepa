@@ -25,12 +25,12 @@ class CDLinkedList {
       if (this.min.key > newNode.key) {
         this.min = newNode;
       }
+    } else {
+      this.head = newNode;
+      this.min = newNode;
+      newNode.prev = newNode;
+      newNode.next = newNode;
     }
-
-    this.head = newNode;
-    this.min = newNode;
-    newNode.prev = newNode;
-    newNode.next = newNode;
   }
 
   remove(node) {
@@ -42,12 +42,12 @@ class CDLinkedList {
   }
 
   toArray() {
-    const arr = [];
-    let node = this.head.prev;
+    const arr = [this.head];
+    let node = this.head.next;
 
     while (node != this.head) {
-      node = node.next;
       arr.push(node);
+      node = node.next;
     }
     
     return arr;

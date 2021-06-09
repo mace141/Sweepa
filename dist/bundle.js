@@ -445,6 +445,267 @@ module.exports = function (list, options) {
 
 /***/ }),
 
+/***/ "./src/circular_doubly_linked_list.js":
+/*!********************************************!*\
+  !*** ./src/circular_doubly_linked_list.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+class CDLinkedList {
+  constructor() {
+    this.head = null;
+    this.min = null;
+  }
+
+  peek() {
+    return this.head;
+  }
+
+  insert(newNode, prepend) {
+    if (this.head) {
+      const lastNode = this.head.prev;
+
+      newNode.prev = lastNode;
+      newNode.next = this.head;
+
+      this.head.prev = newNode;
+      lastNode.next = newNode;
+
+      if (prepend) {
+        this.head = newNode;
+      }
+
+      if (this.min.key > newNode.key) {
+        this.min = newNode;
+      }
+    } else {
+      this.head = newNode;
+      this.min = newNode;
+      newNode.prev = newNode;
+      newNode.next = newNode;
+    }
+  }
+
+  remove(node) {
+    node.remove();
+
+    if (this.head == node) {
+      this.head = node.next;
+    }
+  }
+
+  toArray() {
+    const arr = [this.head];
+    let node = this.head.next;
+
+    while (node != this.head) {
+      arr.push(node);
+      node = node.next;
+    }
+    
+    return arr;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (CDLinkedList);
+
+/***/ }),
+
+/***/ "./src/fib_heap.js":
+/*!*************************!*\
+  !*** ./src/fib_heap.js ***!
+  \*************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./circular_doubly_linked_list */ "./src/circular_doubly_linked_list.js");
+
+
+class FibonacciHeap {
+  constructor() {
+    this.min = null;
+    this.count = 0;
+    this.rootList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default();
+  }
+
+  insert(node) {
+    node.degree = 0;
+    node.parent = null;
+    node.childList = null;
+    node.mark = false;
+
+    if (this.min == null) {
+      this.rootList.insert(node, false);
+      this.min = node;
+    } else {
+      this.rootList.insert(node, false);
+      if (node.key < this.min.key) {
+        this.min = node;
+      }
+    }
+
+    this.count++;
+  }
+
+  extractMin() {
+    const minNode = this.min;
+    
+    if (minNode) {
+      if (minNode.childList) {
+        minNode.childList.toArray().forEach(child => {
+          this.rootList.insert(child, false);
+          child.parent = null;
+        });
+      }
+
+      this.rootList.remove(minNode);
+
+      if (minNode == minNode.next) {
+        this.min = null;
+      } else {
+        this.min = minNode.next;
+        this.consolidate();
+      }
+
+      this.count--;
+    }
+
+    return minNode;
+  }
+
+  consolidate() {
+    const arr = new Array(this.count + 1).fill(null);
+    let degree;
+    
+    for (let nodeX of this.rootList.toArray()) {
+      degree = nodeX.degree;
+      
+      while (arr[degree]) {
+        let nodeY = arr[degree];
+        
+        if (nodeX.key > nodeY.key) {
+          [nodeX, nodeY] = [nodeY, nodeX];
+        }
+
+        this.link(nodeY, nodeX);
+        arr[degree] = null;
+        degree++;
+      }
+
+      arr[degree] = nodeX;
+    }
+    
+    this.min = null;
+
+    for (let i = 0; i <= this.count; i++) {
+      if (arr[i]) {
+        if (!this.min) {
+          this.rootList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default();
+          this.min = arr[i];
+        } else {
+          this.rootList.insert(arr[i]);
+          if (arr[i].key < this.min.key) {
+            this.min = arr[i];
+          }
+        }
+      }
+    }
+  }
+
+  link(nodeY, nodeX) {
+    this.rootList.remove(nodeY);
+
+    if (!nodeX.childList) nodeX.childList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default(); 
+
+    nodeX.childList.insert(nodeY, false);
+    nodeY.parent = nodeX;
+
+    const tallestChild = nodeX.childList.toArray().reduce((a, b) => (
+      a.degree > b.degree ? a : b
+    ));
+    nodeX.degree = 1 + tallestChild.degree;
+
+    nodeY.mark = false;    
+  }
+
+  decreaseKey(node, newKey) {
+    node.key = newKey;
+    const parent = node.parent;
+    
+    if (parent && node.key < parent.key) {
+      this.cut(node, parent);
+      this.cascadingCut(parent);
+    }
+    
+    if (node.key < this.min.key) {
+      this.min = node;
+    }
+  }
+
+  cut(nodeX, nodeY) {
+    nodeY.childList.remove(nodeX);
+    
+    const tallestChild = nodeY.childList.toArray().reduce((a, b) => (
+      a.degree > b.degree ? a : b
+    ));
+    nodeY.degree = 1 + tallestChild.degree;
+
+    this.rootList.insert(nodeX);
+    nodeX.parent = null;
+    nodeX.mark = false;
+  }
+
+  cascadingCut(node) {
+    if (node && node.parent) {
+      if (node.mark == false) {
+        node.mark = true;
+      } else {
+        this.cut(node, node.parent);
+        this.cascadingCut(node.parent);
+      }
+    }
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (FibonacciHeap);
+
+/***/ }),
+
+/***/ "./src/fib_heap_node.js":
+/*!******************************!*\
+  !*** ./src/fib_heap_node.js ***!
+  \******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+class FibHeapNode {
+  constructor(key = null, val = null) {
+    this.key = key;
+    this.val = val;
+    this.prev = null;
+    this.next = null;
+    this.parent = null;
+    this.childList = null;
+    this.degree = 0;
+    this.mark = false;
+  }
+
+  remove() {
+    const prevNode = this.prev;
+    const nextNode = this.next;
+
+    nextNode.prev = prevNode;
+    prevNode.next = nextNode;
+
+    return this;
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (FibHeapNode);
+
+/***/ }),
+
 /***/ "./src/graph_node.js":
 /*!***************************!*\
   !*** ./src/graph_node.js ***!
@@ -622,8 +883,8 @@ class Grid {
   }
 
   makeGrid() {
-    const numRows = (window.innerHeight - 155) / 27;
-    const numCols = (window.innerWidth - 40) / 27;
+    const numRows = 10 || 0;
+    const numCols = 10 || 0;
     const grid = document.getElementById('grid');
     const graph = [];
 
@@ -667,6 +928,11 @@ class Grid {
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _fib_heap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fib_heap */ "./src/fib_heap.js");
+/* harmony import */ var _fib_heap_node__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fib_heap_node */ "./src/fib_heap_node.js");
+
+
+
 const dirDeltas = [
   [-1, -1],
   [-1,  0],
@@ -700,6 +966,8 @@ class Sweepa {
     this.graphList = grid.graphList;
     this.currNode = grid.homeNode;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
+    this.dockingIdx = 0;
+    this.dockingAlgos = [this.listDijkstras];
   }
 
   cleanStep() {
@@ -718,12 +986,12 @@ class Sweepa {
   beginCleaning() {
     const sweepaSeq = setInterval(() => {
       this.cleanStep();
-    }, 10);
+    }, 25);
 
     setTimeout(() => {
       clearInterval(sweepaSeq);
       this.beginDocking();
-    }, 10000);
+    }, 1000);
   }
 
   replaceSweepa(cleaning) {
@@ -756,14 +1024,14 @@ class Sweepa {
   }
 
   async listDijkstras(graphList, start, destination) {
-    let distance = {};
+    const distance = {};
     for (let node in graphList) {
       distance[node] = Infinity;
     }
     distance[start] = 0;
 
-    let unvisited = new Set(Object.keys(graphList));
-    let previous = {};
+    const unvisited = new Set(Object.keys(graphList));
+    const previous = {};
     
     while (unvisited.has(destination)) {
       let currNode = this.closestNode(Array.from(unvisited), distance);
@@ -791,6 +1059,52 @@ class Sweepa {
     return { distance, previous };
   }
 
+  async heapDijkstras(graphList, start, destination) {
+    const distance = {};
+    const heapNodes = {};
+    const queue = new _fib_heap__WEBPACK_IMPORTED_MODULE_0__.default();
+    distance[start] = 0;
+    
+    for (let node in graphList) {
+      if (node != start) {
+        distance[node] = Infinity;
+      }
+
+      const heapNode = new _fib_heap_node__WEBPACK_IMPORTED_MODULE_1__.default(distance[node], node);
+      queue.insert(heapNode);
+      heapNodes[node] = heapNode;
+    }
+    
+    const previous = {};
+    
+    while (queue.min != null) {
+      let minNode = queue.extractMin();
+      let currNode = minNode.val;
+      
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve(this.markVisited(currNode));
+        }, 10);
+      });
+      
+      if (currNode == destination) return { distance, previous };
+
+      for (let neighbor in graphList[currNode]) {
+        let distFromCurrToNeighbor = graphList[currNode][neighbor];
+        let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
+        
+        if (distance[neighbor] > distFromSourceToNeighbor) {
+          distance[neighbor] = distFromSourceToNeighbor;
+          previous[neighbor] = currNode;
+
+          queue.decreaseKey(heapNodes[neighbor], distFromSourceToNeighbor);
+        }
+      }
+    }
+    
+    return { distance, previous };
+  }
+
   retracePath(previous) {
     let path = [this.homeNode.value];
     let lastNode;
@@ -803,7 +1117,6 @@ class Sweepa {
     }
     
     this.path = path;
-    return;
   }
 
   homeStep() {
@@ -835,7 +1148,7 @@ class Sweepa {
   }
 
   beginDocking() {
-    this.listDijkstras(
+    this.heapDijkstras(
       this.graphList, this.currNode.value, this.homeNode.value
     ).then(res => {
       const { previous } = res;
@@ -928,6 +1241,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stylesheets_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stylesheets/main.scss */ "./src/stylesheets/main.scss");
 /* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./grid */ "./src/grid.js");
 /* harmony import */ var _sweepa__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sweepa */ "./src/sweepa.js");
+/* harmony import */ var _fib_heap_node__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fib_heap_node */ "./src/fib_heap_node.js");
+/* harmony import */ var _fib_heap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fib_heap */ "./src/fib_heap.js");
+/* harmony import */ var _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./circular_doubly_linked_list */ "./src/circular_doubly_linked_list.js");
+
+
+
 
 
 
@@ -1010,6 +1329,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.sweepa = sweepa;
   window.grid = grid;
+  window.FibHeapNode = _fib_heap_node__WEBPACK_IMPORTED_MODULE_3__.default;
+  window.FibHeap = _fib_heap__WEBPACK_IMPORTED_MODULE_4__.default;
+  window.CDLinkedList = _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_5__.default;
 });
 }();
 /******/ })()

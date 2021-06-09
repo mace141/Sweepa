@@ -1,6 +1,9 @@
 import './stylesheets/main.scss';
 import Grid from './grid';
 import Sweepa from './sweepa';
+import FibHeapNode from './fib_heap_node';
+import FibonacciHeap from './fib_heap';
+import CDLinkedList from './circular_doubly_linked_list';
 
 document.addEventListener('DOMContentLoaded', () => {
   const clearGridBtn = document.getElementById('clear-grid');
@@ -80,4 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.sweepa = sweepa;
   window.grid = grid;
+  window.FibHeapNode = FibHeapNode;
+  window.FibHeap = FibonacciHeap;
+  window.CDLinkedList = CDLinkedList;
 });
