@@ -462,7 +462,7 @@ class CDLinkedList {
     return this.head;
   }
 
-  insert(newNode, prepend) {
+  insert(newNode) {
     if (this.head) {
       const lastNode = this.head.prev;
 
@@ -471,10 +471,6 @@ class CDLinkedList {
 
       this.head.prev = newNode;
       lastNode.next = newNode;
-
-      if (prepend) {
-        this.head = newNode;
-      }
 
       if (this.min.key > newNode.key) {
         this.min = newNode;
@@ -526,7 +522,7 @@ class FibonacciHeap {
   constructor() {
     this.min = null;
     this.count = 0;
-    this.rootList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default();
+    this.rootList = null;
   }
 
   insert(node) {
@@ -536,10 +532,11 @@ class FibonacciHeap {
     node.mark = false;
 
     if (this.min == null) {
-      this.rootList.insert(node, false);
+      this.rootList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default();
+      this.rootList.insert(node);
       this.min = node;
     } else {
-      this.rootList.insert(node, false);
+      this.rootList.insert(node);
       if (node.key < this.min.key) {
         this.min = node;
       }
@@ -554,7 +551,7 @@ class FibonacciHeap {
     if (minNode) {
       if (minNode.childList) {
         minNode.childList.toArray().forEach(child => {
-          this.rootList.insert(child, false);
+          this.rootList.insert(child);
           child.parent = null;
         });
       }
@@ -575,7 +572,9 @@ class FibonacciHeap {
   }
 
   consolidate() {
-    const arr = new Array(this.count + 1).fill(null);
+    const goldenRatio = (1 + Math.sqrt(5)) / 2;
+    const maxDegree = Math.log(this.count) / Math.log(goldenRatio);
+    const arr = new Array(Math.floor(maxDegree)).fill(null);
     let degree;
     
     for (let nodeX of this.rootList.toArray()) {
@@ -598,10 +597,11 @@ class FibonacciHeap {
     
     this.min = null;
 
-    for (let i = 0; i <= this.count; i++) {
+    for (let i = 0; i <= maxDegree; i++) {
       if (arr[i]) {
         if (!this.min) {
           this.rootList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default();
+          this.rootList.insert(arr[i]);
           this.min = arr[i];
         } else {
           this.rootList.insert(arr[i]);
@@ -618,7 +618,7 @@ class FibonacciHeap {
 
     if (!nodeX.childList) nodeX.childList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default(); 
 
-    nodeX.childList.insert(nodeY, false);
+    nodeX.childList.insert(nodeY);
     nodeY.parent = nodeX;
 
     const tallestChild = nodeX.childList.toArray().reduce((a, b) => (
@@ -643,26 +643,27 @@ class FibonacciHeap {
     }
   }
 
-  cut(nodeX, nodeY) {
-    nodeY.childList.remove(nodeX);
+  cut(node, parent) {
+    parent.childList.remove(node);
     
-    const tallestChild = nodeY.childList.toArray().reduce((a, b) => (
+    const tallestChild = parent.childList.toArray().reduce((a, b) => (
       a.degree > b.degree ? a : b
     ));
-    nodeY.degree = 1 + tallestChild.degree;
+    parent.degree = 1 + tallestChild.degree;
 
-    this.rootList.insert(nodeX);
-    nodeX.parent = null;
-    nodeX.mark = false;
+    this.rootList.insert(node);
+    node.parent = null;
+    node.mark = false;
   }
 
   cascadingCut(node) {
-    if (node && node.parent) {
+    const parent = node.parent;
+    if (node && parent) {
       if (node.mark == false) {
         node.mark = true;
       } else {
-        this.cut(node, node.parent);
-        this.cascadingCut(node.parent);
+        this.cut(node, parent);
+        this.cascadingCut(parent);
       }
     }
   }
@@ -820,7 +821,6 @@ class Grid {
           nodeNeighbor.neighbors[delta] = graphNode;
         }
       }
-
     }
   }
 
@@ -865,7 +865,7 @@ class Grid {
       }
     });
 
-    node.addEventListener('mouseover', (e) => {
+    node.addEventListener('mouseenter', (e) => {
       const targetClasses = e.currentTarget.classList;
       const pos = e.currentTarget.id.split('-');
       const graphNode = this.graphArr[pos[0]][pos[1]];
@@ -883,8 +883,8 @@ class Grid {
   }
 
   makeGrid() {
-    const numRows = 10 || 0;
-    const numCols = 10 || 0;
+    const numRows = (window.innerHeight - 155) / 27;
+    const numCols = (window.innerWidth - 40) / 27;
     const grid = document.getElementById('grid');
     const graph = [];
 
@@ -1088,7 +1088,7 @@ class Sweepa {
       });
       
       if (currNode == destination) return { distance, previous };
-
+      
       for (let neighbor in graphList[currNode]) {
         let distFromCurrToNeighbor = graphList[currNode][neighbor];
         let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
@@ -1130,9 +1130,7 @@ class Sweepa {
 
       const stepHome = document.getElementById(nextNode);
       stepHome.classList.add('return');
-    }
-    
-    return;
+    } 
   }
 
   async homeSequence() {
@@ -1148,7 +1146,7 @@ class Sweepa {
   }
 
   beginDocking() {
-    this.heapDijkstras(
+    this.listDijkstras(
       this.graphList, this.currNode.value, this.homeNode.value
     ).then(res => {
       const { previous } = res;

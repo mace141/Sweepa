@@ -4,7 +4,7 @@ class FibonacciHeap {
   constructor() {
     this.min = null;
     this.count = 0;
-    this.rootList = new CDLinkedList();
+    this.rootList = null;
   }
 
   insert(node) {
@@ -14,10 +14,11 @@ class FibonacciHeap {
     node.mark = false;
 
     if (this.min == null) {
-      this.rootList.insert(node, false);
+      this.rootList = new CDLinkedList();
+      this.rootList.insert(node);
       this.min = node;
     } else {
-      this.rootList.insert(node, false);
+      this.rootList.insert(node);
       if (node.key < this.min.key) {
         this.min = node;
       }
@@ -32,7 +33,7 @@ class FibonacciHeap {
     if (minNode) {
       if (minNode.childList) {
         minNode.childList.toArray().forEach(child => {
-          this.rootList.insert(child, false);
+          this.rootList.insert(child);
           child.parent = null;
         });
       }
@@ -53,7 +54,9 @@ class FibonacciHeap {
   }
 
   consolidate() {
-    const arr = new Array(this.count + 1).fill(null);
+    const goldenRatio = (1 + Math.sqrt(5)) / 2;
+    const maxDegree = Math.log(this.count) / Math.log(goldenRatio);
+    const arr = new Array(Math.floor(maxDegree)).fill(null);
     let degree;
     
     for (let nodeX of this.rootList.toArray()) {
@@ -76,10 +79,11 @@ class FibonacciHeap {
     
     this.min = null;
 
-    for (let i = 0; i <= this.count; i++) {
+    for (let i = 0; i <= maxDegree; i++) {
       if (arr[i]) {
         if (!this.min) {
           this.rootList = new CDLinkedList();
+          this.rootList.insert(arr[i]);
           this.min = arr[i];
         } else {
           this.rootList.insert(arr[i]);
@@ -96,7 +100,7 @@ class FibonacciHeap {
 
     if (!nodeX.childList) nodeX.childList = new CDLinkedList(); 
 
-    nodeX.childList.insert(nodeY, false);
+    nodeX.childList.insert(nodeY);
     nodeY.parent = nodeX;
 
     const tallestChild = nodeX.childList.toArray().reduce((a, b) => (
@@ -121,26 +125,27 @@ class FibonacciHeap {
     }
   }
 
-  cut(nodeX, nodeY) {
-    nodeY.childList.remove(nodeX);
+  cut(node, parent) {
+    parent.childList.remove(node);
     
-    const tallestChild = nodeY.childList.toArray().reduce((a, b) => (
+    const tallestChild = parent.childList.toArray().reduce((a, b) => (
       a.degree > b.degree ? a : b
     ));
-    nodeY.degree = 1 + tallestChild.degree;
+    parent.degree = 1 + tallestChild.degree;
 
-    this.rootList.insert(nodeX);
-    nodeX.parent = null;
-    nodeX.mark = false;
+    this.rootList.insert(node);
+    node.parent = null;
+    node.mark = false;
   }
 
   cascadingCut(node) {
-    if (node && node.parent) {
+    const parent = node.parent;
+    if (node && parent) {
       if (node.mark == false) {
         node.mark = true;
       } else {
-        this.cut(node, node.parent);
-        this.cascadingCut(node.parent);
+        this.cut(node, parent);
+        this.cascadingCut(parent);
       }
     }
   }

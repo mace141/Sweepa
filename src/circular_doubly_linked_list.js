@@ -8,7 +8,7 @@ class CDLinkedList {
     return this.head;
   }
 
-  insert(newNode, prepend) {
+  insert(newNode) {
     if (this.head) {
       const lastNode = this.head.prev;
 
@@ -17,10 +17,6 @@ class CDLinkedList {
 
       this.head.prev = newNode;
       lastNode.next = newNode;
-
-      if (prepend) {
-        this.head = newNode;
-      }
 
       if (this.min.key > newNode.key) {
         this.min = newNode;

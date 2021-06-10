@@ -156,7 +156,7 @@ class Sweepa {
       });
       
       if (currNode == destination) return { distance, previous };
-
+      
       for (let neighbor in graphList[currNode]) {
         let distFromCurrToNeighbor = graphList[currNode][neighbor];
         let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
@@ -198,9 +198,7 @@ class Sweepa {
 
       const stepHome = document.getElementById(nextNode);
       stepHome.classList.add('return');
-    }
-    
-    return;
+    } 
   }
 
   async homeSequence() {
@@ -216,7 +214,7 @@ class Sweepa {
   }
 
   beginDocking() {
-    this.heapDijkstras(
+    this.listDijkstras(
       this.graphList, this.currNode.value, this.homeNode.value
     ).then(res => {
       const { previous } = res;

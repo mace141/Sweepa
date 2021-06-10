@@ -86,7 +86,6 @@ class Grid {
           nodeNeighbor.neighbors[delta] = graphNode;
         }
       }
-
     }
   }
 
@@ -131,7 +130,7 @@ class Grid {
       }
     });
 
-    node.addEventListener('mouseover', (e) => {
+    node.addEventListener('mouseenter', (e) => {
       const targetClasses = e.currentTarget.classList;
       const pos = e.currentTarget.id.split('-');
       const graphNode = this.graphArr[pos[0]][pos[1]];
@@ -149,8 +148,8 @@ class Grid {
   }
 
   makeGrid() {
-    const numRows = 10 || (window.innerHeight - 155) / 27;
-    const numCols = 10 || (window.innerWidth - 40) / 27;
+    const numRows = (window.innerHeight - 155) / 27;
+    const numCols = (window.innerWidth - 40) / 27;
     const grid = document.getElementById('grid');
     const graph = [];
 
