@@ -41,22 +41,15 @@
 }
 
 @keyframes visited {
-  0%   { background: rgb(30, 60, 228) }
-  // 50%  { background: rgb(99, 48, 180) }
-  100% { background: rgb(251, 197, 249) }
-}
-
-@keyframes visited {
-  0%   { background: rgb(30, 198, 228) }
-  // 50%  { background: rgb(99, 48, 180) }
-  100% { background: rgb(47, 98, 238) }
+  0% { background: white }
+  25% { background: rgb(47, 98, 238) }
+  100%   { background: rgb(30, 198, 228) }
 }
 
 .visited {
-  // transition: 0.3s;
   animation-name: visited;
-  animation-duration: 1.5s;
-  background: rgb(47, 98, 238);
+  animation-duration: 2s;
+  background: rgb(30, 198, 228);
 }
 
 .return {
