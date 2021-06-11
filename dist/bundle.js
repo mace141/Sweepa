@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font: inherit;\n  font-size: inherit;\n  color: inherit;\n  text-align: inherit;\n  text-decoration: inherit;\n  vertical-align: inherit;\n  box-sizing: inherit;\n  background: transparent;\n}\n\nul {\n  list-style: none;\n}\n\nimg {\n  display: block;\n  width: 100%;\n  height: auto;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nheader {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  margin: 15px;\n}\n\n.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {\n  display: flex;\n}\n\n.top-nav {\n  justify-content: space-between;\n  position: relative;\n}\n.top-nav a {\n  margin-right: 10px;\n}\n\n.bottom-nav {\n  position: absolute;\n  top: 47px;\n  right: 50%;\n  transform: translate(402px);\n  font-size: 16px;\n}\n.bottom-nav button {\n  white-space: nowrap;\n}\n\nh1.center {\n  font-weight: bold;\n  font-size: 32px;\n  transform: translate(-50%, -5px);\n}\n\nbutton {\n  padding: 5px 15px;\n  color: #12407c;\n  background: white;\n  border-radius: 5px;\n}\n\n.button {\n  box-shadow: 0 7px #999;\n}\n\n.button:hover {\n  background-color: #eeeeee;\n}\n\n.button:active, button.selected {\n  background-color: #eeeeee;\n  box-shadow: 0 4px #666;\n  transform: translateY(4px);\n}\n\n#start-btn {\n  margin: 0 30px;\n  background: #47a18b;\n  color: white;\n}\n#start-btn:hover {\n  background: #419580;\n}\n\n.center {\n  position: absolute;\n  left: 50%;\n  transform: translate(-50%);\n}\n\n.object-btns > div, .option-btns > div {\n  margin: 0 10px;\n}\n\n.dropdown-ctnr {\n  position: relative;\n  margin-left: 10px;\n}\n\n.dropdown-ctnr:hover .dropdown {\n  display: block;\n}\n\n.dropdown {\n  display: none;\n  position: absolute;\n  z-index: 10;\n  right: 0;\n  background: white;\n  color: #12407c;\n  width: 300px;\n  height: auto;\n  font-size: 16px;\n  padding: 10px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 10px -3px gray;\n  text-align: center;\n}\n\n.dropdown.search {\n  padding: 0;\n  white-space: nowrap;\n  transform: translate(calc(50% - 36px));\n  overflow: hidden;\n  width: 250px;\n}\n.dropdown.search li {\n  padding: 5px 0;\n}\n.dropdown.search li:hover {\n  background: #e2e2e2;\n  cursor: pointer;\n}\n\n.current-modes {\n  margin: 0 auto;\n  margin-top: 60px;\n  font-size: 16px;\n}\n\n#grid {\n  margin: 0 auto;\n  width: max-content;\n  background: white;\n  border: 1px solid #bef5ff;\n}\n\n.node {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: white;\n  border: 1px solid #bef5ff;\n  width: 25px;\n  height: 25px;\n}\n\n.swept div {\n  height: 15px;\n  width: 15px;\n  background: #ffdfc2;\n  border-radius: 50%;\n  transition: 0.2s;\n}\n\n.row {\n  display: flex;\n}\n\n.home {\n  background: #47a18b;\n}\n\n.sweepa div {\n  height: 25px;\n  width: 25px;\n  background: #12407c;\n  border-radius: 50%;\n  transition: 0.05s;\n}\n\n@keyframes visited {\n  0% {\n    background: #01285c;\n  }\n  25% {\n    background: #2f62ee;\n  }\n  100% {\n    background: #1ec6e4;\n  }\n}\n.visited {\n  animation-name: visited;\n  animation-duration: 2.5s;\n  background: #1ec6e4;\n}\n\n.return {\n  background: #c3ffe6;\n  animation-duration: 0s;\n}\n\n.wall {\n  border: 1px solid gray;\n  background: gray;\n  transition: 0.2s;\n}\n.wall div {\n  background: gray;\n  height: 15px;\n  width: 15px;\n  transition: 0.2s;\n}\n\nbody {\n  color: white;\n  background: #12407c;\n  font-size: 24px;\n  font-family: \"Segoe UI Symbol\", Helvetica, Arial, sans-serif;\n}", "",{"version":3,"sources":["webpack://./src/stylesheets/reset.scss","webpack://./src/stylesheets/main.scss","webpack://./src/stylesheets/header.scss","webpack://./src/stylesheets/constants.scss","webpack://./src/stylesheets/grid.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;EACA,mBAAA;EACA,wBAAA;EACA,uBAAA;EACA,mBAAA;EACA,uBAAA;ACCF;;ADEA;EACE,gBAAA;ACCF;;ADEA;EACE,cAAA;EACA,WAAA;EACA,YAAA;ACCF;;ADEA;EACE,eAAA;ACCF;;AC3BA;EACE,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;AD8BF;;AC3BA;EACE,aAAA;AD8BF;;AC3BA;EACE,8BAAA;EACA,kBAAA;AD8BF;AC5BE;EACE,kBAAA;AD8BJ;;AC1BA;EACE,kBAAA;EACA,SAAA;EACA,UAAA;EACA,2BAAA;EACA,eAAA;AD6BF;AC3BE;EACE,mBAAA;AD6BJ;;ACzBA;EACE,iBAAA;EACA,eAAA;EACA,gCAAA;AD4BF;;ACzBA;EACE,iBAAA;EACA,cCxCK;EDyCL,iBAAA;EACA,kBAAA;AD4BF;;ACzBA;EACE,sBAAA;AD4BF;;ACzBA;EACE,yBAAA;AD4BF;;ACzBA;EACE,yBAAA;EACA,sBAAA;EACA,0BAAA;AD4BF;;ACzBA;EACE,cAAA;EACA,mBAAA;EACA,YAAA;AD4BF;AC1BE;EACE,mBAAA;AD4BJ;;ACxBA;EACE,kBAAA;EACA,SAAA;EACA,0BAAA;AD2BF;;ACvBE;EACE,cAAA;AD0BJ;;ACtBA;EACE,kBAAA;EACA,iBAAA;ADyBF;;ACtBA;EACE,cAAA;ADyBF;;ACtBA;EACE,aAAA;EACA,kBAAA;EACA,WAAA;EACA,QAAA;EACA,iBAAA;EACA,cChGK;EDiGL,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,kCAAA;EACA,kBAAA;ADyBF;;ACtBA;EACE,UAAA;EACA,mBAAA;EACA,sCAAA;EACA,gBAAA;EACA,YAAA;ADyBF;ACvBE;EACE,cAAA;ADyBJ;ACtBE;EACE,mBAAA;EACA,eAAA;ADwBJ;;ACpBA;EACE,cAAA;EACA,gBAAA;EACA,eAAA;ADuBF;;AGrJA;EACE,cAAA;EACA,kBAAA;EACA,iBAAA;EACA,yBAAA;AHwJF;;AGrJA;EACE,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,iBAAA;EACA,yBAAA;EACA,WDTU;ECUV,YDVU;AFkKZ;;AGrJA;EACE,YDbW;ECcX,WDdW;ECeX,mBAAA;EACA,kBAAA;EACA,gBAAA;AHwJF;;AGrJA;EACE,aAAA;AHwJF;;AGrJA;EACE,mBAAA;AHwJF;;AGrJA;EACE,YD9BU;EC+BV,WD/BU;ECgCV,mBDpCK;ECqCL,kBAAA;EACA,iBAAA;AHwJF;;AGrJA;EACE;IAAK,mBAAA;EHyJL;EGxJA;IAAM,mBAAA;EH2JN;EG1JA;IAAS,mBAAA;EH6JT;AACF;AG3JA;EACE,uBAAA;EACA,wBAAA;EACA,mBAAA;AH6JF;;AG1JA;EACE,mBAAA;EACA,sBAAA;AH6JF;;AG1JA;EACE,sBAAA;EACA,gBD1DW;EC2DX,gBAAA;AH6JF;AG3JE;EACE,gBD9DS;EC+DT,YD5DS;EC6DT,WD7DS;EC8DT,gBAAA;AH6JJ;;AA3NA;EACE,YAAA;EACA,mBEPK;EFQL,eAAA;EACA,4DAAA;AA8NF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font: inherit;\n  font-size: inherit;\n  color: inherit;\n  text-align: inherit;\n  text-decoration: inherit;\n  vertical-align: inherit;\n  box-sizing: inherit;\n  background: transparent;\n}\n\nul {\n  list-style: none;\n}\n\nimg {\n  display: block;\n  width: 100%;\n  height: auto;\n}\n\nbutton {\n  cursor: pointer;\n}","@import './reset.scss';\n@import './constants.scss';\n@import './header.scss';\n@import './grid.scss';\n\nbody {\n  color: white;\n  background: $blue;\n  font-size: 24px;\n  font-family: \"Segoe UI Symbol\", Helvetica, Arial, sans-serif;\n}","header {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  margin: 15px;\n}\n\n.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {\n  display: flex;\n}\n\n.top-nav {\n  justify-content: space-between;\n  position: relative;\n\n  a {\n    margin-right: 10px;\n  }\n}\n\n.bottom-nav {\n  position: absolute;\n  top: 47px;\n  right: 50%;\n  transform: translate(402px);\n  font-size: 16px;\n\n  button {\n    white-space: nowrap;\n  }\n}\n\nh1.center {\n  font-weight: bold;\n  font-size: 32px;\n  transform: translate(-50%, -5px);\n}\n\nbutton {\n  padding: 5px 15px;\n  color: $blue;\n  background: white;\n  border-radius: 5px;\n}\n\n.button {\n  box-shadow: 0 7px #999;\n}\n\n.button:hover {\n  background-color: #eeeeee;\n}\n\n.button:active, button.selected {\n  background-color: #eeeeee;\n  box-shadow: 0 4px #666;\n  transform: translateY(4px);\n}\n\n#start-btn {\n  margin: 0 30px;\n  background: rgb(71, 161, 139);\n  color: white;\n\n  &:hover {\n    background: rgb(65, 149, 128);\n  }\n}\n\n.center {\n  position: absolute;\n  left: 50%;\n  transform: translate(-50%);\n}\n\n.object-btns, .option-btns {\n  > div {\n    margin: 0 10px;\n  }\n}\n\n.dropdown-ctnr {\n  position: relative;\n  margin-left: 10px;\n}\n\n.dropdown-ctnr:hover .dropdown {\n  display: block;\n}\n\n.dropdown {\n  display: none;\n  position: absolute;\n  z-index: 10;\n  right: 0;\n  background: white;\n  color: $blue;\n  width: 300px;\n  height: auto;\n  font-size: 16px;\n  padding: 10px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 10px -3px gray;\n  text-align: center;\n}\n\n.dropdown.search {\n  padding: 0;\n  white-space: nowrap;\n  transform: translate(calc(50% - 36px));\n  overflow: hidden;\n  width: 250px;\n\n  li {\n    padding: 5px 0;\n  }\n\n  li:hover {\n    background: rgb(226, 226, 226);\n    cursor: pointer;\n  }\n}\n\n.current-modes {\n  margin: 0 auto;\n  margin-top: 60px;\n  font-size: 16px;\n}","$blue: rgb(18, 64, 124);\n$grid-border: rgb(190, 245, 255);\n$wall-color: gray;\n\n$node-size: 25px;\n$swept-size: 15px;","#grid {\n  margin: 0 auto;\n  width: max-content;\n  background: white;\n  border: 1px solid $grid-border;\n}\n\n.node {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: white;\n  border: 1px solid $grid-border;\n  width: $node-size;\n  height: $node-size;\n}\n\n.swept div {\n  height: $swept-size;\n  width: $swept-size;\n  background: #ffdfc2;\n  border-radius: 50%;\n  transition: 0.2s;\n}\n\n.row {\n  display: flex;\n}\n\n.home {\n  background: rgb(71, 161, 139);\n}\n\n.sweepa div {\n  height: $node-size;\n  width: $node-size;\n  background: $blue;\n  border-radius: 50%;\n  transition: 0.05s;\n}\n\n@keyframes visited {\n  0% { background: rgb(1, 40, 92) }\n  25% { background: rgb(47, 98, 238) }\n  100%   { background: rgb(30, 198, 228) }\n}\n\n.visited {\n  animation-name: visited;\n  animation-duration: 2.5s;\n  background: rgb(30, 198, 228);\n}\n\n.return {\n  background: rgb(195, 255, 230);\n  animation-duration: 0s;\n}\n\n.wall {\n  border: 1px solid $wall-color;\n  background: $wall-color;\n  transition: 0.2s;\n  \n  div {\n    background: $wall-color;\n    height: $swept-size;\n    width: $swept-size;\n    transition: 0.2s;\n  }\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font: inherit;\n  font-size: inherit;\n  color: inherit;\n  text-align: inherit;\n  text-decoration: inherit;\n  vertical-align: inherit;\n  box-sizing: inherit;\n  background: transparent;\n}\n\nul {\n  list-style: none;\n}\n\nimg {\n  display: block;\n  width: 100%;\n  height: auto;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nheader {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  margin: 15px;\n}\n\n.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {\n  display: flex;\n}\n\n.top-nav {\n  justify-content: space-between;\n  position: relative;\n}\n.top-nav a {\n  margin-right: 10px;\n}\n\n.bottom-nav {\n  position: absolute;\n  top: 47px;\n  right: 50%;\n  transform: translate(402px);\n  font-size: 16px;\n}\n.bottom-nav button {\n  white-space: nowrap;\n}\n\nh1.center {\n  font-weight: bold;\n  font-size: 32px;\n  transform: translate(-50%, -5px);\n}\n\nbutton {\n  padding: 5px 15px;\n  color: #12407c;\n  background: white;\n  border-radius: 5px;\n}\n\n.button {\n  box-shadow: 0 7px #999;\n}\n\n.button:hover {\n  background-color: #eeeeee;\n}\n\n.button:active, button.selected {\n  background-color: #eeeeee;\n  box-shadow: 0 4px #666;\n  transform: translateY(4px);\n}\n\n#start-btn {\n  margin: 0 30px;\n  background: #47a18b;\n  color: white;\n}\n#start-btn:hover {\n  background: #419580;\n}\n\n.center {\n  position: absolute;\n  left: 50%;\n  transform: translate(-50%);\n}\n\n.object-btns > div, .option-btns > div {\n  margin: 0 10px;\n}\n\n.dropdown-ctnr {\n  position: relative;\n  margin-left: 10px;\n}\n\n.dropdown-ctnr:hover .dropdown {\n  display: block;\n}\n\n.dropdown {\n  display: none;\n  position: absolute;\n  z-index: 10;\n  right: 0;\n  background: white;\n  color: #12407c;\n  width: 300px;\n  height: auto;\n  font-size: 16px;\n  padding: 10px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 10px -3px gray;\n  text-align: center;\n}\n\n.dropdown.search {\n  padding: 0;\n  white-space: nowrap;\n  transform: translate(calc(50% - 36px));\n  overflow: hidden;\n  width: 250px;\n}\n.dropdown.search li {\n  padding: 5px 0;\n}\n.dropdown.search li:hover {\n  background: #e2e2e2;\n  cursor: pointer;\n}\n\n#algo-category {\n  border-bottom: 2px solid lightgray;\n  font-weight: 600;\n}\n#algo-category:hover {\n  cursor: default;\n  background: white;\n}\n\n.current-modes {\n  margin: 0 auto;\n  margin-top: 65px;\n  font-size: 16px;\n}\n\n#grid {\n  margin: 0 auto;\n  width: max-content;\n  background: white;\n  border: 1px solid #bef5ff;\n}\n\n.node {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: white;\n  border: 1px solid #bef5ff;\n  width: 25px;\n  height: 25px;\n}\n\n.swept div {\n  height: 15px;\n  width: 15px;\n  background: #ffdfc2;\n  border-radius: 50%;\n  transition: 0.2s;\n}\n\n.row {\n  display: flex;\n}\n\n.home {\n  background: #47a18b;\n}\n\n.sweepa div {\n  height: 25px;\n  width: 25px;\n  background: #12407c;\n  border-radius: 50%;\n  transition: 0.05s;\n}\n\n@keyframes visited {\n  0% {\n    background: #01285c;\n  }\n  25% {\n    background: #2f62ee;\n  }\n  100% {\n    background: #1ec6e4;\n  }\n}\n.visited {\n  animation-name: visited;\n  animation-duration: 2.5s;\n  background: #1ec6e4;\n}\n\n.return {\n  background: #c3ffe6;\n  animation-duration: 0s;\n}\n\n.wall {\n  border: 1px solid gray;\n  background: gray;\n  transition: 0.2s;\n}\n.wall div {\n  background: gray;\n  height: 15px;\n  width: 15px;\n  transition: 0.2s;\n}\n\nbody {\n  color: white;\n  background: #12407c;\n  font-size: 24px;\n  font-family: \"Segoe UI Symbol\", Helvetica, Arial, sans-serif;\n}", "",{"version":3,"sources":["webpack://./src/stylesheets/reset.scss","webpack://./src/stylesheets/main.scss","webpack://./src/stylesheets/header.scss","webpack://./src/stylesheets/constants.scss","webpack://./src/stylesheets/grid.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;EACA,mBAAA;EACA,wBAAA;EACA,uBAAA;EACA,mBAAA;EACA,uBAAA;ACCF;;ADEA;EACE,gBAAA;ACCF;;ADEA;EACE,cAAA;EACA,WAAA;EACA,YAAA;ACCF;;ADEA;EACE,eAAA;ACCF;;AC3BA;EACE,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;AD8BF;;AC3BA;EACE,aAAA;AD8BF;;AC3BA;EACE,8BAAA;EACA,kBAAA;AD8BF;AC5BE;EACE,kBAAA;AD8BJ;;AC1BA;EACE,kBAAA;EACA,SAAA;EACA,UAAA;EACA,2BAAA;EACA,eAAA;AD6BF;AC3BE;EACE,mBAAA;AD6BJ;;ACzBA;EACE,iBAAA;EACA,eAAA;EACA,gCAAA;AD4BF;;ACzBA;EACE,iBAAA;EACA,cCxCK;EDyCL,iBAAA;EACA,kBAAA;AD4BF;;ACzBA;EACE,sBAAA;AD4BF;;ACzBA;EACE,yBAAA;AD4BF;;ACzBA;EACE,yBAAA;EACA,sBAAA;EACA,0BAAA;AD4BF;;ACzBA;EACE,cAAA;EACA,mBAAA;EACA,YAAA;AD4BF;AC1BE;EACE,mBAAA;AD4BJ;;ACxBA;EACE,kBAAA;EACA,SAAA;EACA,0BAAA;AD2BF;;ACvBE;EACE,cAAA;AD0BJ;;ACtBA;EACE,kBAAA;EACA,iBAAA;ADyBF;;ACtBA;EACE,cAAA;ADyBF;;ACtBA;EACE,aAAA;EACA,kBAAA;EACA,WAAA;EACA,QAAA;EACA,iBAAA;EACA,cChGK;EDiGL,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,kCAAA;EACA,kBAAA;ADyBF;;ACtBA;EACE,UAAA;EACA,mBAAA;EACA,sCAAA;EACA,gBAAA;EACA,YAAA;ADyBF;ACvBE;EACE,cAAA;ADyBJ;ACtBE;EACE,mBAAA;EACA,eAAA;ADwBJ;;ACpBA;EACE,kCAAA;EACA,gBAAA;ADuBF;ACrBE;EACE,eAAA;EACA,iBAAA;ADuBJ;;ACnBA;EACE,cAAA;EACA,gBAAA;EACA,eAAA;ADsBF;;AG9JA;EACE,cAAA;EACA,kBAAA;EACA,iBAAA;EACA,yBAAA;AHiKF;;AG9JA;EACE,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,iBAAA;EACA,yBAAA;EACA,WDTU;ECUV,YDVU;AF2KZ;;AG9JA;EACE,YDbW;ECcX,WDdW;ECeX,mBAAA;EACA,kBAAA;EACA,gBAAA;AHiKF;;AG9JA;EACE,aAAA;AHiKF;;AG9JA;EACE,mBAAA;AHiKF;;AG9JA;EACE,YD9BU;EC+BV,WD/BU;ECgCV,mBDpCK;ECqCL,kBAAA;EACA,iBAAA;AHiKF;;AG9JA;EACE;IAAK,mBAAA;EHkKL;EGjKA;IAAM,mBAAA;EHoKN;EGnKA;IAAS,mBAAA;EHsKT;AACF;AGpKA;EACE,uBAAA;EACA,wBAAA;EACA,mBAAA;AHsKF;;AGnKA;EACE,mBAAA;EACA,sBAAA;AHsKF;;AGnKA;EACE,sBAAA;EACA,gBD1DW;EC2DX,gBAAA;AHsKF;AGpKE;EACE,gBD9DS;EC+DT,YD5DS;EC6DT,WD7DS;EC8DT,gBAAA;AHsKJ;;AApOA;EACE,YAAA;EACA,mBEPK;EFQL,eAAA;EACA,4DAAA;AAuOF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font: inherit;\n  font-size: inherit;\n  color: inherit;\n  text-align: inherit;\n  text-decoration: inherit;\n  vertical-align: inherit;\n  box-sizing: inherit;\n  background: transparent;\n}\n\nul {\n  list-style: none;\n}\n\nimg {\n  display: block;\n  width: 100%;\n  height: auto;\n}\n\nbutton {\n  cursor: pointer;\n}","@import './reset.scss';\n@import './constants.scss';\n@import './header.scss';\n@import './grid.scss';\n\nbody {\n  color: white;\n  background: $blue;\n  font-size: 24px;\n  font-family: \"Segoe UI Symbol\", Helvetica, Arial, sans-serif;\n}","header {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  margin: 15px;\n}\n\n.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {\n  display: flex;\n}\n\n.top-nav {\n  justify-content: space-between;\n  position: relative;\n\n  a {\n    margin-right: 10px;\n  }\n}\n\n.bottom-nav {\n  position: absolute;\n  top: 47px;\n  right: 50%;\n  transform: translate(402px);\n  font-size: 16px;\n\n  button {\n    white-space: nowrap;\n  }\n}\n\nh1.center {\n  font-weight: bold;\n  font-size: 32px;\n  transform: translate(-50%, -5px);\n}\n\nbutton {\n  padding: 5px 15px;\n  color: $blue;\n  background: white;\n  border-radius: 5px;\n}\n\n.button {\n  box-shadow: 0 7px #999;\n}\n\n.button:hover {\n  background-color: #eeeeee;\n}\n\n.button:active, button.selected {\n  background-color: #eeeeee;\n  box-shadow: 0 4px #666;\n  transform: translateY(4px);\n}\n\n#start-btn {\n  margin: 0 30px;\n  background: rgb(71, 161, 139);\n  color: white;\n\n  &:hover {\n    background: rgb(65, 149, 128);\n  }\n}\n\n.center {\n  position: absolute;\n  left: 50%;\n  transform: translate(-50%);\n}\n\n.object-btns, .option-btns {\n  > div {\n    margin: 0 10px;\n  }\n}\n\n.dropdown-ctnr {\n  position: relative;\n  margin-left: 10px;\n}\n\n.dropdown-ctnr:hover .dropdown {\n  display: block;\n}\n\n.dropdown {\n  display: none;\n  position: absolute;\n  z-index: 10;\n  right: 0;\n  background: white;\n  color: $blue;\n  width: 300px;\n  height: auto;\n  font-size: 16px;\n  padding: 10px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 10px -3px gray;\n  text-align: center;\n}\n\n.dropdown.search {\n  padding: 0;\n  white-space: nowrap;\n  transform: translate(calc(50% - 36px));\n  overflow: hidden;\n  width: 250px;\n\n  li {\n    padding: 5px 0;\n  }\n\n  li:hover {\n    background: rgb(226, 226, 226);\n    cursor: pointer;\n  }\n}\n\n#algo-category {\n  border-bottom: 2px solid lightgray;\n  font-weight: 600;\n\n  &:hover {\n    cursor: default;\n    background: white;\n  }\n}\n\n.current-modes {\n  margin: 0 auto;\n  margin-top: 65px;\n  font-size: 16px;\n}","$blue: rgb(18, 64, 124);\n$grid-border: rgb(190, 245, 255);\n$wall-color: gray;\n\n$node-size: 25px;\n$swept-size: 15px;","#grid {\n  margin: 0 auto;\n  width: max-content;\n  background: white;\n  border: 1px solid $grid-border;\n}\n\n.node {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: white;\n  border: 1px solid $grid-border;\n  width: $node-size;\n  height: $node-size;\n}\n\n.swept div {\n  height: $swept-size;\n  width: $swept-size;\n  background: #ffdfc2;\n  border-radius: 50%;\n  transition: 0.2s;\n}\n\n.row {\n  display: flex;\n}\n\n.home {\n  background: rgb(71, 161, 139);\n}\n\n.sweepa div {\n  height: $node-size;\n  width: $node-size;\n  background: $blue;\n  border-radius: 50%;\n  transition: 0.05s;\n}\n\n@keyframes visited {\n  0% { background: rgb(1, 40, 92) }\n  25% { background: rgb(47, 98, 238) }\n  100%   { background: rgb(30, 198, 228) }\n}\n\n.visited {\n  animation-name: visited;\n  animation-duration: 2.5s;\n  background: rgb(30, 198, 228);\n}\n\n.return {\n  background: rgb(195, 255, 230);\n  animation-duration: 0s;\n}\n\n.wall {\n  border: 1px solid $wall-color;\n  background: $wall-color;\n  transition: 0.2s;\n  \n  div {\n    background: $wall-color;\n    height: $swept-size;\n    width: $swept-size;\n    transition: 0.2s;\n  }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -960,11 +960,13 @@ class Grid {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-const GraphNode = __webpack_require__(/*! ./graph_node */ "./src/graph_node.js");
-
 class MinHeap {
   constructor() {
     this.array = [null];
+  }
+
+  empty() {
+    return this.array.length == 1;
   }
 
   insert(node) {
@@ -1007,14 +1009,6 @@ class MinHeap {
     this.siftDown(swapIdx);
   }
 }
-
-// const minHeap = new MinHeap();
-// for (let i = 0; i < 20; i++) {
-//   minHeap.insert(new GraphNode(i, i))
-// }
-// console.log(minHeap.array);
-// console.log(minHeap.extractMin());
-// console.log(minHeap.array);
 
 /* harmony default export */ __webpack_exports__["default"] = (MinHeap);
 
@@ -1066,7 +1060,18 @@ class Sweepa {
     this.nodes = grid.nodes;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     this.dockingIdx = grid.dockingIdx;
-    this.dockingAlgos = [this.heapDijkstras.bind(this), this.heapDijkstras.bind(this), this.greedyBestFirst.bind(this)];
+    this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
+  }
+  
+  beginCleaning() {
+    const sweepaSeq = setInterval(() => {
+      this.cleanStep();
+    }, 25);
+
+    setTimeout(() => {
+      clearInterval(sweepaSeq);
+      this.beginDocking();
+    }, 10000);
   }
 
   cleanStep() {
@@ -1082,15 +1087,59 @@ class Sweepa {
     }
   }
 
-  beginCleaning() {
-    const sweepaSeq = setInterval(() => {
-      this.cleanStep();
-    }, 25);
+  beginDocking() {
+    const dockingAlgo = this.dockingAlgos[this.dockingIdx];
 
-    setTimeout(() => {
-      clearInterval(sweepaSeq);
-      this.beginDocking();
-    }, 2000);
+    dockingAlgo(
+      this.graphList, this.currNode.value, this.homeNode.value
+    ).then(res => {
+      const { cameFrom } = res;
+      this.retracePath(cameFrom);
+    }).then(() => {
+      setTimeout(() => {
+        this.homeSequence();
+      }, 1250)
+    });
+  }
+  
+  retracePath(cameFrom) {
+    let path = [this.homeNode.value];
+    let lastNode;
+    let nextNode;
+    
+    while (!path.includes(this.currNode.value)) {
+      lastNode = path[0]
+      nextNode = cameFrom[lastNode];
+      path.unshift(nextNode);
+    }
+    
+    this.path = path;
+  }
+  
+  async homeSequence() {
+    while (this.currNode.value != this.homeNode.value) {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve(this.homeStep());
+        }, 25);
+      });
+    }
+
+    this.grid.toggleEdit();
+  }
+
+  homeStep() {
+    let nextNode = this.path[0];
+    
+    if (nextNode) {
+      const pos = nextNode.split('-');
+      this.currNode = this.graphArr[pos[0]][pos[1]];
+      this.replaceSweepa(false);
+      this.path.shift();
+
+      const stepHome = document.getElementById(nextNode);
+      stepHome.classList.add('return');
+    } 
   }
 
   replaceSweepa(cleaning) {
@@ -1104,18 +1153,22 @@ class Sweepa {
       nextDiv.classList.add('swept');
     }
   }
+  
+  octileDist(current, destination) {
+    const startPos = current.split('-');
+    const destPos = destination.split('-');
+    const d1 = 1;
+    const d2 = Math.sqrt(2);
+    const dy = Math.abs(destPos[0] - startPos[0]);
+    const dx = Math.abs(destPos[1] - startPos[1]);
+
+    return d1 * (dx + dy) + (d2 - 2 * d1) * Math.min(dx, dy);
+  }
 
   markVisited(node) {
     const visitedNode = document.getElementById(node);
     visitedNode.classList.add('visited');
     visitedNode.classList.remove('unvisited');
-  }
-
-  closestNode(nodes, distance) {
-    const closestNode = nodes.reduce((minNode, node) => (
-      distance[node] < distance[minNode] ? node : minNode
-    ));
-    return closestNode;
   }
 
   async heapDijkstras(graphList, start, destination) {
@@ -1133,7 +1186,7 @@ class Sweepa {
       }
     }
     
-    while (frontier.array.length > 1) {
+    while (!frontier.empty()) {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
       
@@ -1170,7 +1223,7 @@ class Sweepa {
     const cameFrom = {};
     cameFrom[start] = null;
 
-    while (frontier.array.length > 1) {
+    while (!frontier.empty()) {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
 
@@ -1195,70 +1248,49 @@ class Sweepa {
     return { cameFrom };
   }
 
-  octileDist(current, destination) {
-    const startPos = current.split('-');
-    const destPos = destination.split('-');
-    const d1 = 1;
-    const d2 = Math.sqrt(2);
-    const dy = Math.abs(destPos[0] - startPos[0]);
-    const dx = Math.abs(destPos[1] - startPos[1]);
-
-    return d1 * (dx + dy) + (d2 - 2 * d1) * Math.min(dx, dy);
-  }
-
-  retracePath(cameFrom) {
-    let path = [this.homeNode.value];
-    let lastNode;
-    let nextNode;
-    
-    while (!path.includes(this.currNode.value)) {
-      lastNode = path[0]
-      nextNode = cameFrom[lastNode];
-      path.unshift(nextNode);
+  async aStar(graphList, start, destination) {
+    const frontier = new _min_heap__WEBPACK_IMPORTED_MODULE_0__.default();
+    const cameFrom = {};
+    const gScore = {};
+    for (let node in this.nodes) {
+      if (node == start) {
+        gScore[start] = 0;
+        this.nodes[start].key = 0;
+        frontier.insert(this.nodes[start]);
+      } else {
+        gScore[node] = Infinity;
+        this.nodes[node].key = Infinity;
+      }
     }
     
-    this.path = path;
-  }
-
-  homeStep() {
-    let nextNode = this.path[0];
-    
-    if (nextNode) {
-      const pos = nextNode.split('-');
-      this.currNode = this.graphArr[pos[0]][pos[1]];
-      this.replaceSweepa(false);
-      this.path.shift();
-
-      const stepHome = document.getElementById(nextNode);
-      stepHome.classList.add('return');
-    } 
-  }
-
-  async homeSequence() {
-    while (this.currNode.value != this.homeNode.value) {
+    while (!frontier.empty()) {
+      const minNode = frontier.extractMin();
+      const currNodeVal = minNode.value;
+      
       await new Promise(resolve => {
         setTimeout(() => {
-          resolve(this.homeStep());
+          resolve(this.markVisited(currNodeVal));
         }, 25);
       });
+      
+      if (currNodeVal == destination) return { gScore, cameFrom };
+      
+      for (let neighbor in graphList[currNodeVal]) {
+        let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
+        let distFromSourceToNeighbor = gScore[currNodeVal] + distFromCurrToNeighbor;
+        
+        if (gScore[neighbor] > distFromSourceToNeighbor) {
+          gScore[neighbor] = distFromSourceToNeighbor;
+          cameFrom[neighbor] = currNodeVal;
+
+          const fScore = this.octileDist(neighbor, destination);
+          this.nodes[neighbor].key = distFromSourceToNeighbor + fScore;
+          frontier.insert(this.nodes[neighbor]);
+        }
+      }
     }
-
-    this.grid.toggleEdit();
-  }
-
-  beginDocking() {
-    const dockingAlgo = this.dockingAlgos[this.dockingIdx];
-
-    dockingAlgo(
-      this.graphList, this.currNode.value, this.homeNode.value
-    ).then(res => {
-      const { cameFrom } = res;
-      this.retracePath(cameFrom);
-    }).then(() => {
-      setTimeout(() => {
-        this.homeSequence();
-      }, 1000)
-    });
+    
+    return { gScore, cameFrom };
   }
 }
 

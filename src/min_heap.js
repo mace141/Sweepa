@@ -1,8 +1,10 @@
-const GraphNode = require("./graph_node");
-
 class MinHeap {
   constructor() {
     this.array = [null];
+  }
+
+  empty() {
+    return this.array.length == 1;
   }
 
   insert(node) {
@@ -45,13 +47,5 @@ class MinHeap {
     this.siftDown(swapIdx);
   }
 }
-
-// const minHeap = new MinHeap();
-// for (let i = 0; i < 20; i++) {
-//   minHeap.insert(new GraphNode(i, i))
-// }
-// console.log(minHeap.array);
-// console.log(minHeap.extractMin());
-// console.log(minHeap.array);
 
 export default MinHeap;

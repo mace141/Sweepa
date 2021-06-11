@@ -35,7 +35,18 @@ class Sweepa {
     this.nodes = grid.nodes;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     this.dockingIdx = grid.dockingIdx;
-    this.dockingAlgos = [this.heapDijkstras.bind(this), this.heapDijkstras.bind(this), this.greedyBestFirst.bind(this)];
+    this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
+  }
+  
+  beginCleaning() {
+    const sweepaSeq = setInterval(() => {
+      this.cleanStep();
+    }, 25);
+
+    setTimeout(() => {
+      clearInterval(sweepaSeq);
+      this.beginDocking();
+    }, 10000);
   }
 
   cleanStep() {
@@ -51,15 +62,59 @@ class Sweepa {
     }
   }
 
-  beginCleaning() {
-    const sweepaSeq = setInterval(() => {
-      this.cleanStep();
-    }, 25);
+  beginDocking() {
+    const dockingAlgo = this.dockingAlgos[this.dockingIdx];
 
-    setTimeout(() => {
-      clearInterval(sweepaSeq);
-      this.beginDocking();
-    }, 2000);
+    dockingAlgo(
+      this.graphList, this.currNode.value, this.homeNode.value
+    ).then(res => {
+      const { cameFrom } = res;
+      this.retracePath(cameFrom);
+    }).then(() => {
+      setTimeout(() => {
+        this.homeSequence();
+      }, 1250)
+    });
+  }
+  
+  retracePath(cameFrom) {
+    let path = [this.homeNode.value];
+    let lastNode;
+    let nextNode;
+    
+    while (!path.includes(this.currNode.value)) {
+      lastNode = path[0]
+      nextNode = cameFrom[lastNode];
+      path.unshift(nextNode);
+    }
+    
+    this.path = path;
+  }
+  
+  async homeSequence() {
+    while (this.currNode.value != this.homeNode.value) {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve(this.homeStep());
+        }, 25);
+      });
+    }
+
+    this.grid.toggleEdit();
+  }
+
+  homeStep() {
+    let nextNode = this.path[0];
+    
+    if (nextNode) {
+      const pos = nextNode.split('-');
+      this.currNode = this.graphArr[pos[0]][pos[1]];
+      this.replaceSweepa(false);
+      this.path.shift();
+
+      const stepHome = document.getElementById(nextNode);
+      stepHome.classList.add('return');
+    } 
   }
 
   replaceSweepa(cleaning) {
@@ -73,18 +128,22 @@ class Sweepa {
       nextDiv.classList.add('swept');
     }
   }
+  
+  octileDist(current, destination) {
+    const startPos = current.split('-');
+    const destPos = destination.split('-');
+    const d1 = 1;
+    const d2 = Math.sqrt(2);
+    const dy = Math.abs(destPos[0] - startPos[0]);
+    const dx = Math.abs(destPos[1] - startPos[1]);
+
+    return d1 * (dx + dy) + (d2 - 2 * d1) * Math.min(dx, dy);
+  }
 
   markVisited(node) {
     const visitedNode = document.getElementById(node);
     visitedNode.classList.add('visited');
     visitedNode.classList.remove('unvisited');
-  }
-
-  closestNode(nodes, distance) {
-    const closestNode = nodes.reduce((minNode, node) => (
-      distance[node] < distance[minNode] ? node : minNode
-    ));
-    return closestNode;
   }
 
   async heapDijkstras(graphList, start, destination) {
@@ -102,7 +161,7 @@ class Sweepa {
       }
     }
     
-    while (frontier.array.length > 1) {
+    while (!frontier.empty()) {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
       
@@ -139,7 +198,7 @@ class Sweepa {
     const cameFrom = {};
     cameFrom[start] = null;
 
-    while (frontier.array.length > 1) {
+    while (!frontier.empty()) {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
 
@@ -164,70 +223,49 @@ class Sweepa {
     return { cameFrom };
   }
 
-  octileDist(current, destination) {
-    const startPos = current.split('-');
-    const destPos = destination.split('-');
-    const d1 = 1;
-    const d2 = Math.sqrt(2);
-    const dy = Math.abs(destPos[0] - startPos[0]);
-    const dx = Math.abs(destPos[1] - startPos[1]);
-
-    return d1 * (dx + dy) + (d2 - 2 * d1) * Math.min(dx, dy);
-  }
-
-  retracePath(cameFrom) {
-    let path = [this.homeNode.value];
-    let lastNode;
-    let nextNode;
-    
-    while (!path.includes(this.currNode.value)) {
-      lastNode = path[0]
-      nextNode = cameFrom[lastNode];
-      path.unshift(nextNode);
+  async aStar(graphList, start, destination) {
+    const frontier = new MinHeap();
+    const cameFrom = {};
+    const gScore = {};
+    for (let node in this.nodes) {
+      if (node == start) {
+        gScore[start] = 0;
+        this.nodes[start].key = 0;
+        frontier.insert(this.nodes[start]);
+      } else {
+        gScore[node] = Infinity;
+        this.nodes[node].key = Infinity;
+      }
     }
     
-    this.path = path;
-  }
-
-  homeStep() {
-    let nextNode = this.path[0];
-    
-    if (nextNode) {
-      const pos = nextNode.split('-');
-      this.currNode = this.graphArr[pos[0]][pos[1]];
-      this.replaceSweepa(false);
-      this.path.shift();
-
-      const stepHome = document.getElementById(nextNode);
-      stepHome.classList.add('return');
-    } 
-  }
-
-  async homeSequence() {
-    while (this.currNode.value != this.homeNode.value) {
+    while (!frontier.empty()) {
+      const minNode = frontier.extractMin();
+      const currNodeVal = minNode.value;
+      
       await new Promise(resolve => {
         setTimeout(() => {
-          resolve(this.homeStep());
+          resolve(this.markVisited(currNodeVal));
         }, 25);
       });
+      
+      if (currNodeVal == destination) return { gScore, cameFrom };
+      
+      for (let neighbor in graphList[currNodeVal]) {
+        let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
+        let distFromSourceToNeighbor = gScore[currNodeVal] + distFromCurrToNeighbor;
+        
+        if (gScore[neighbor] > distFromSourceToNeighbor) {
+          gScore[neighbor] = distFromSourceToNeighbor;
+          cameFrom[neighbor] = currNodeVal;
+
+          const fScore = this.octileDist(neighbor, destination);
+          this.nodes[neighbor].key = distFromSourceToNeighbor + fScore;
+          frontier.insert(this.nodes[neighbor]);
+        }
+      }
     }
-
-    this.grid.toggleEdit();
-  }
-
-  beginDocking() {
-    const dockingAlgo = this.dockingAlgos[this.dockingIdx];
-
-    dockingAlgo(
-      this.graphList, this.currNode.value, this.homeNode.value
-    ).then(res => {
-      const { cameFrom } = res;
-      this.retracePath(cameFrom);
-    }).then(() => {
-      setTimeout(() => {
-        this.homeSequence();
-      }, 1000)
-    });
+    
+    return { gScore, cameFrom };
   }
 }
 
