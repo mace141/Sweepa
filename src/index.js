@@ -8,10 +8,13 @@ import CDLinkedList from './circular_doubly_linked_list';
 document.addEventListener('DOMContentLoaded', () => {
   const clearGridBtn = document.getElementById('clear-grid');
   const clearWallsBtn = document.getElementById('clear-walls');
-  // const clearDustBtn = document.getElementById('clear-dust');
   const sweepaBtn = document.getElementById('sweepa-btn');
   const wallBtn = document.getElementById('wall-btn');
   const startBtn = document.getElementById('start-btn');
+  const dijkstrasBtn = document.getElementById('dijkstras');
+  const aStarBtn = document.getElementById('a star');
+  const greedyBtn = document.getElementById('greedy');
+  const docking = document.getElementById('docking');
 
   let grid = new Grid();
   let sweepa;
@@ -81,9 +84,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  window.sweepa = sweepa;
-  window.grid = grid;
-  window.FibHeapNode = FibHeapNode;
-  window.FibHeap = FibonacciHeap;
-  window.CDLinkedList = CDLinkedList;
+  dijkstrasBtn.addEventListener('click', () => {
+    grid.dockingIdx = 0;
+    docking.innerHTML = "Dijkstra's Algorithm";
+  });
+
+  aStarBtn.addEventListener('click', () => {
+    grid.dockingIdx = 1;
+    docking.innerHTML = "A* Search";
+  });
+
+  greedyBtn.addEventListener('click', () => {
+    grid.dockingIdx = 2;
+    docking.innerHTML = "Greedy Best First Search";
+  });
 });

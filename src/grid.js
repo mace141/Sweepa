@@ -24,6 +24,7 @@ class Grid {
     this.drag = false;
     this.object = 'wall';
     this.homeNode = null;
+    this.dockingIdx = 0;
     this.graphList = {};
     this.nodes = {};
     this.graphArr = this.makeGrid();
@@ -150,7 +151,7 @@ class Grid {
   }
 
   makeGrid() {
-    const numRows = (window.innerHeight - 155) / 27;
+    const numRows = (window.innerHeight - 185) / 27;
     const numCols = (window.innerWidth - 40) / 27;
     const grid = document.getElementById('grid');
     const graph = [];

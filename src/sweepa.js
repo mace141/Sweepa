@@ -34,8 +34,8 @@ class Sweepa {
     this.currNode = grid.homeNode;
     this.nodes = grid.nodes;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
-    this.dockingIdx = 0;
-    this.dockingAlgos = [this.heapDijkstras];
+    this.dockingIdx = grid.dockingIdx;
+    this.dockingAlgos = [this.heapDijkstras.bind(this), this.heapDijkstras.bind(this), this.greedyBestFirst.bind(this)];
   }
 
   cleanStep() {
@@ -109,7 +109,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNodeVal));
-        }, 10);
+        }, 25);
       });
       
       if (currNodeVal == destination) return { distance, cameFrom };
@@ -146,7 +146,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNodeVal));
-        }, 10);
+        }, 25);
       });
 
       if (currNodeVal == destination) return { cameFrom };
@@ -216,7 +216,9 @@ class Sweepa {
   }
 
   beginDocking() {
-    this.greedyBestFirst(
+    const dockingAlgo = this.dockingAlgos[this.dockingIdx];
+
+    dockingAlgo(
       this.graphList, this.currNode.value, this.homeNode.value
     ).then(res => {
       const { cameFrom } = res;
@@ -224,7 +226,7 @@ class Sweepa {
     }).then(() => {
       setTimeout(() => {
         this.homeSequence();
-      }, 2000)
+      }, 1000)
     });
   }
 }

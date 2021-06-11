@@ -1,6 +1,5 @@
 #grid {
   margin: 0 auto;
-  margin-top: 76px;
   width: max-content;
   background: white;
   border: 1px solid $grid-border;
@@ -48,7 +47,7 @@
 
 .visited {
   animation-name: visited;
-  animation-duration: 2s;
+  animation-duration: 2.5s;
   background: rgb(30, 198, 228);
 }
 

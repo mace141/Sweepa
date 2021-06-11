@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font: inherit;\n  font-size: inherit;\n  color: inherit;\n  text-align: inherit;\n  text-decoration: inherit;\n  vertical-align: inherit;\n  box-sizing: inherit;\n  background: transparent;\n}\n\nul {\n  list-style: none;\n}\n\nimg {\n  display: block;\n  width: 100%;\n  height: auto;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nheader {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  margin: 15px;\n}\n\n.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {\n  display: flex;\n}\n\n.top-nav {\n  justify-content: space-between;\n  position: relative;\n}\n.top-nav a {\n  margin-right: 10px;\n}\n\n.bottom-nav {\n  position: absolute;\n  top: 47px;\n  right: 50%;\n  transform: translate(402px);\n  font-size: 16px;\n}\n.bottom-nav button {\n  white-space: nowrap;\n}\n\nh1.center {\n  font-weight: bold;\n  font-size: 32px;\n  transform: translate(-50%, -5px);\n}\n\nbutton {\n  padding: 5px 15px;\n  color: #12407c;\n  background: white;\n  border-radius: 5px;\n}\n\n.button {\n  box-shadow: 0 7px #999;\n}\n\n.button:hover {\n  background-color: #eeeeee;\n}\n\n.button:active, button.selected {\n  background-color: #eeeeee;\n  box-shadow: 0 4px #666;\n  transform: translateY(4px);\n}\n\n#start-btn {\n  margin: 0 30px;\n  background: #47a18b;\n  color: white;\n}\n#start-btn:hover {\n  background: #419580;\n}\n\n.center {\n  position: absolute;\n  left: 50%;\n  transform: translate(-50%);\n}\n\n.object-btns > div, .option-btns > div {\n  margin: 0 10px;\n}\n\n.dropdown-ctnr {\n  position: relative;\n  margin-left: 10px;\n}\n\n.dropdown-ctnr:hover .dropdown {\n  display: block;\n}\n\n.dropdown {\n  display: none;\n  position: absolute;\n  z-index: 10;\n  right: 0;\n  background: white;\n  color: #12407c;\n  width: 300px;\n  height: auto;\n  font-size: 16px;\n  padding: 10px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 10px -3px gray;\n  text-align: center;\n}\n\n.dropdown.search {\n  padding: 0;\n  white-space: nowrap;\n  transform: translate(calc(50% - 36px));\n  overflow: hidden;\n  width: 250px;\n}\n.dropdown.search li {\n  padding: 5px 0;\n}\n.dropdown.search li:hover {\n  background: #e2e2e2;\n  cursor: pointer;\n}\n\n#grid {\n  margin: 0 auto;\n  margin-top: 76px;\n  width: max-content;\n  background: white;\n  border: 1px solid #bef5ff;\n}\n\n.node {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: white;\n  border: 1px solid #bef5ff;\n  width: 25px;\n  height: 25px;\n}\n\n.swept div {\n  height: 15px;\n  width: 15px;\n  background: #ffdfc2;\n  border-radius: 50%;\n  transition: 0.2s;\n}\n\n.row {\n  display: flex;\n}\n\n.home {\n  background: #47a18b;\n}\n\n.sweepa div {\n  height: 25px;\n  width: 25px;\n  background: #12407c;\n  border-radius: 50%;\n  transition: 0.05s;\n}\n\n@keyframes visited {\n  0% {\n    background: #01285c;\n  }\n  25% {\n    background: #2f62ee;\n  }\n  100% {\n    background: #1ec6e4;\n  }\n}\n.visited {\n  animation-name: visited;\n  animation-duration: 2s;\n  background: #1ec6e4;\n}\n\n.return {\n  background: #c3ffe6;\n  animation-duration: 0s;\n}\n\n.wall {\n  border: 1px solid gray;\n  background: gray;\n  transition: 0.2s;\n}\n.wall div {\n  background: gray;\n  height: 15px;\n  width: 15px;\n  transition: 0.2s;\n}\n\nbody {\n  color: white;\n  background: #12407c;\n  font-size: 24px;\n  font-family: \"Segoe UI Symbol\", Helvetica, Arial, sans-serif;\n}", "",{"version":3,"sources":["webpack://./src/stylesheets/reset.scss","webpack://./src/stylesheets/main.scss","webpack://./src/stylesheets/header.scss","webpack://./src/stylesheets/constants.scss","webpack://./src/stylesheets/grid.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;EACA,mBAAA;EACA,wBAAA;EACA,uBAAA;EACA,mBAAA;EACA,uBAAA;ACCF;;ADEA;EACE,gBAAA;ACCF;;ADEA;EACE,cAAA;EACA,WAAA;EACA,YAAA;ACCF;;ADEA;EACE,eAAA;ACCF;;AC3BA;EACE,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;AD8BF;;AC3BA;EACE,aAAA;AD8BF;;AC3BA;EACE,8BAAA;EACA,kBAAA;AD8BF;AC5BE;EACE,kBAAA;AD8BJ;;AC1BA;EACE,kBAAA;EACA,SAAA;EACA,UAAA;EACA,2BAAA;EACA,eAAA;AD6BF;AC3BE;EACE,mBAAA;AD6BJ;;ACzBA;EACE,iBAAA;EACA,eAAA;EACA,gCAAA;AD4BF;;ACzBA;EACE,iBAAA;EACA,cCxCK;EDyCL,iBAAA;EACA,kBAAA;AD4BF;;ACzBA;EACE,sBAAA;AD4BF;;ACzBA;EACE,yBAAA;AD4BF;;ACzBA;EACE,yBAAA;EACA,sBAAA;EACA,0BAAA;AD4BF;;ACzBA;EACE,cAAA;EACA,mBAAA;EACA,YAAA;AD4BF;AC1BE;EACE,mBAAA;AD4BJ;;ACxBA;EACE,kBAAA;EACA,SAAA;EACA,0BAAA;AD2BF;;ACvBE;EACE,cAAA;AD0BJ;;ACtBA;EACE,kBAAA;EACA,iBAAA;ADyBF;;ACtBA;EACE,cAAA;ADyBF;;ACtBA;EACE,aAAA;EACA,kBAAA;EACA,WAAA;EACA,QAAA;EACA,iBAAA;EACA,cChGK;EDiGL,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,kCAAA;EACA,kBAAA;ADyBF;;ACtBA;EACE,UAAA;EACA,mBAAA;EACA,sCAAA;EACA,gBAAA;EACA,YAAA;ADyBF;ACvBE;EACE,cAAA;ADyBJ;ACtBE;EACE,mBAAA;EACA,eAAA;ADwBJ;;AG/IA;EACE,cAAA;EACA,gBAAA;EACA,kBAAA;EACA,iBAAA;EACA,yBAAA;AHkJF;;AG/IA;EACE,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,iBAAA;EACA,yBAAA;EACA,WDVU;ECWV,YDXU;AF6JZ;;AG/IA;EACE,YDdW;ECeX,WDfW;ECgBX,mBAAA;EACA,kBAAA;EACA,gBAAA;AHkJF;;AG/IA;EACE,aAAA;AHkJF;;AG/IA;EACE,mBAAA;AHkJF;;AG/IA;EACE,YD/BU;ECgCV,WDhCU;ECiCV,mBDrCK;ECsCL,kBAAA;EACA,iBAAA;AHkJF;;AG/IA;EACE;IAAK,mBAAA;EHmJL;EGlJA;IAAM,mBAAA;EHqJN;EGpJA;IAAS,mBAAA;EHuJT;AACF;AGrJA;EACE,uBAAA;EACA,sBAAA;EACA,mBAAA;AHuJF;;AGpJA;EACE,mBAAA;EACA,sBAAA;AHuJF;;AGpJA;EACE,sBAAA;EACA,gBD3DW;EC4DX,gBAAA;AHuJF;AGrJE;EACE,gBD/DS;ECgET,YD7DS;EC8DT,WD9DS;EC+DT,gBAAA;AHuJJ;;AAtNA;EACE,YAAA;EACA,mBEPK;EFQL,eAAA;EACA,4DAAA;AAyNF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font: inherit;\n  font-size: inherit;\n  color: inherit;\n  text-align: inherit;\n  text-decoration: inherit;\n  vertical-align: inherit;\n  box-sizing: inherit;\n  background: transparent;\n}\n\nul {\n  list-style: none;\n}\n\nimg {\n  display: block;\n  width: 100%;\n  height: auto;\n}\n\nbutton {\n  cursor: pointer;\n}","@import './reset.scss';\n@import './constants.scss';\n@import './header.scss';\n@import './grid.scss';\n\nbody {\n  color: white;\n  background: $blue;\n  font-size: 24px;\n  font-family: \"Segoe UI Symbol\", Helvetica, Arial, sans-serif;\n}","header {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  margin: 15px;\n}\n\n.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {\n  display: flex;\n}\n\n.top-nav {\n  justify-content: space-between;\n  position: relative;\n\n  a {\n    margin-right: 10px;\n  }\n}\n\n.bottom-nav {\n  position: absolute;\n  top: 47px;\n  right: 50%;\n  transform: translate(402px);\n  font-size: 16px;\n\n  button {\n    white-space: nowrap;\n  }\n}\n\nh1.center {\n  font-weight: bold;\n  font-size: 32px;\n  transform: translate(-50%, -5px);\n}\n\nbutton {\n  padding: 5px 15px;\n  color: $blue;\n  background: white;\n  border-radius: 5px;\n}\n\n.button {\n  box-shadow: 0 7px #999;\n}\n\n.button:hover {\n  background-color: #eeeeee;\n}\n\n.button:active, button.selected {\n  background-color: #eeeeee;\n  box-shadow: 0 4px #666;\n  transform: translateY(4px);\n}\n\n#start-btn {\n  margin: 0 30px;\n  background: rgb(71, 161, 139);\n  color: white;\n\n  &:hover {\n    background: rgb(65, 149, 128);\n  }\n}\n\n.center {\n  position: absolute;\n  left: 50%;\n  transform: translate(-50%);\n}\n\n.object-btns, .option-btns {\n  > div {\n    margin: 0 10px;\n  }\n}\n\n.dropdown-ctnr {\n  position: relative;\n  margin-left: 10px;\n}\n\n.dropdown-ctnr:hover .dropdown {\n  display: block;\n}\n\n.dropdown {\n  display: none;\n  position: absolute;\n  z-index: 10;\n  right: 0;\n  background: white;\n  color: $blue;\n  width: 300px;\n  height: auto;\n  font-size: 16px;\n  padding: 10px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 10px -3px gray;\n  text-align: center;\n}\n\n.dropdown.search {\n  padding: 0;\n  white-space: nowrap;\n  transform: translate(calc(50% - 36px));\n  overflow: hidden;\n  width: 250px;\n\n  li {\n    padding: 5px 0;\n  }\n\n  li:hover {\n    background: rgb(226, 226, 226);\n    cursor: pointer;\n  }\n}","$blue: rgb(18, 64, 124);\n$grid-border: rgb(190, 245, 255);\n$wall-color: gray;\n\n$node-size: 25px;\n$swept-size: 15px;","#grid {\n  margin: 0 auto;\n  margin-top: 76px;\n  width: max-content;\n  background: white;\n  border: 1px solid $grid-border;\n}\n\n.node {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: white;\n  border: 1px solid $grid-border;\n  width: $node-size;\n  height: $node-size;\n}\n\n.swept div {\n  height: $swept-size;\n  width: $swept-size;\n  background: #ffdfc2;\n  border-radius: 50%;\n  transition: 0.2s;\n}\n\n.row {\n  display: flex;\n}\n\n.home {\n  background: rgb(71, 161, 139);\n}\n\n.sweepa div {\n  height: $node-size;\n  width: $node-size;\n  background: $blue;\n  border-radius: 50%;\n  transition: 0.05s;\n}\n\n@keyframes visited {\n  0% { background: rgb(1, 40, 92) }\n  25% { background: rgb(47, 98, 238) }\n  100%   { background: rgb(30, 198, 228) }\n}\n\n.visited {\n  animation-name: visited;\n  animation-duration: 2s;\n  background: rgb(30, 198, 228);\n}\n\n.return {\n  background: rgb(195, 255, 230);\n  animation-duration: 0s;\n}\n\n.wall {\n  border: 1px solid $wall-color;\n  background: $wall-color;\n  transition: 0.2s;\n  \n  div {\n    background: $wall-color;\n    height: $swept-size;\n    width: $swept-size;\n    transition: 0.2s;\n  }\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font: inherit;\n  font-size: inherit;\n  color: inherit;\n  text-align: inherit;\n  text-decoration: inherit;\n  vertical-align: inherit;\n  box-sizing: inherit;\n  background: transparent;\n}\n\nul {\n  list-style: none;\n}\n\nimg {\n  display: block;\n  width: 100%;\n  height: auto;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nheader {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  margin: 15px;\n}\n\n.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {\n  display: flex;\n}\n\n.top-nav {\n  justify-content: space-between;\n  position: relative;\n}\n.top-nav a {\n  margin-right: 10px;\n}\n\n.bottom-nav {\n  position: absolute;\n  top: 47px;\n  right: 50%;\n  transform: translate(402px);\n  font-size: 16px;\n}\n.bottom-nav button {\n  white-space: nowrap;\n}\n\nh1.center {\n  font-weight: bold;\n  font-size: 32px;\n  transform: translate(-50%, -5px);\n}\n\nbutton {\n  padding: 5px 15px;\n  color: #12407c;\n  background: white;\n  border-radius: 5px;\n}\n\n.button {\n  box-shadow: 0 7px #999;\n}\n\n.button:hover {\n  background-color: #eeeeee;\n}\n\n.button:active, button.selected {\n  background-color: #eeeeee;\n  box-shadow: 0 4px #666;\n  transform: translateY(4px);\n}\n\n#start-btn {\n  margin: 0 30px;\n  background: #47a18b;\n  color: white;\n}\n#start-btn:hover {\n  background: #419580;\n}\n\n.center {\n  position: absolute;\n  left: 50%;\n  transform: translate(-50%);\n}\n\n.object-btns > div, .option-btns > div {\n  margin: 0 10px;\n}\n\n.dropdown-ctnr {\n  position: relative;\n  margin-left: 10px;\n}\n\n.dropdown-ctnr:hover .dropdown {\n  display: block;\n}\n\n.dropdown {\n  display: none;\n  position: absolute;\n  z-index: 10;\n  right: 0;\n  background: white;\n  color: #12407c;\n  width: 300px;\n  height: auto;\n  font-size: 16px;\n  padding: 10px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 10px -3px gray;\n  text-align: center;\n}\n\n.dropdown.search {\n  padding: 0;\n  white-space: nowrap;\n  transform: translate(calc(50% - 36px));\n  overflow: hidden;\n  width: 250px;\n}\n.dropdown.search li {\n  padding: 5px 0;\n}\n.dropdown.search li:hover {\n  background: #e2e2e2;\n  cursor: pointer;\n}\n\n.current-modes {\n  margin: 0 auto;\n  margin-top: 60px;\n  font-size: 16px;\n}\n\n#grid {\n  margin: 0 auto;\n  width: max-content;\n  background: white;\n  border: 1px solid #bef5ff;\n}\n\n.node {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: white;\n  border: 1px solid #bef5ff;\n  width: 25px;\n  height: 25px;\n}\n\n.swept div {\n  height: 15px;\n  width: 15px;\n  background: #ffdfc2;\n  border-radius: 50%;\n  transition: 0.2s;\n}\n\n.row {\n  display: flex;\n}\n\n.home {\n  background: #47a18b;\n}\n\n.sweepa div {\n  height: 25px;\n  width: 25px;\n  background: #12407c;\n  border-radius: 50%;\n  transition: 0.05s;\n}\n\n@keyframes visited {\n  0% {\n    background: #01285c;\n  }\n  25% {\n    background: #2f62ee;\n  }\n  100% {\n    background: #1ec6e4;\n  }\n}\n.visited {\n  animation-name: visited;\n  animation-duration: 2.5s;\n  background: #1ec6e4;\n}\n\n.return {\n  background: #c3ffe6;\n  animation-duration: 0s;\n}\n\n.wall {\n  border: 1px solid gray;\n  background: gray;\n  transition: 0.2s;\n}\n.wall div {\n  background: gray;\n  height: 15px;\n  width: 15px;\n  transition: 0.2s;\n}\n\nbody {\n  color: white;\n  background: #12407c;\n  font-size: 24px;\n  font-family: \"Segoe UI Symbol\", Helvetica, Arial, sans-serif;\n}", "",{"version":3,"sources":["webpack://./src/stylesheets/reset.scss","webpack://./src/stylesheets/main.scss","webpack://./src/stylesheets/header.scss","webpack://./src/stylesheets/constants.scss","webpack://./src/stylesheets/grid.scss"],"names":[],"mappings":"AAAA;EACE,SAAA;EACA,UAAA;EACA,SAAA;EACA,UAAA;EACA,aAAA;EACA,kBAAA;EACA,cAAA;EACA,mBAAA;EACA,wBAAA;EACA,uBAAA;EACA,mBAAA;EACA,uBAAA;ACCF;;ADEA;EACE,gBAAA;ACCF;;ADEA;EACE,cAAA;EACA,WAAA;EACA,YAAA;ACCF;;ADEA;EACE,eAAA;ACCF;;AC3BA;EACE,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,YAAA;AD8BF;;AC3BA;EACE,aAAA;AD8BF;;AC3BA;EACE,8BAAA;EACA,kBAAA;AD8BF;AC5BE;EACE,kBAAA;AD8BJ;;AC1BA;EACE,kBAAA;EACA,SAAA;EACA,UAAA;EACA,2BAAA;EACA,eAAA;AD6BF;AC3BE;EACE,mBAAA;AD6BJ;;ACzBA;EACE,iBAAA;EACA,eAAA;EACA,gCAAA;AD4BF;;ACzBA;EACE,iBAAA;EACA,cCxCK;EDyCL,iBAAA;EACA,kBAAA;AD4BF;;ACzBA;EACE,sBAAA;AD4BF;;ACzBA;EACE,yBAAA;AD4BF;;ACzBA;EACE,yBAAA;EACA,sBAAA;EACA,0BAAA;AD4BF;;ACzBA;EACE,cAAA;EACA,mBAAA;EACA,YAAA;AD4BF;AC1BE;EACE,mBAAA;AD4BJ;;ACxBA;EACE,kBAAA;EACA,SAAA;EACA,0BAAA;AD2BF;;ACvBE;EACE,cAAA;AD0BJ;;ACtBA;EACE,kBAAA;EACA,iBAAA;ADyBF;;ACtBA;EACE,cAAA;ADyBF;;ACtBA;EACE,aAAA;EACA,kBAAA;EACA,WAAA;EACA,QAAA;EACA,iBAAA;EACA,cChGK;EDiGL,YAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,kBAAA;EACA,kCAAA;EACA,kBAAA;ADyBF;;ACtBA;EACE,UAAA;EACA,mBAAA;EACA,sCAAA;EACA,gBAAA;EACA,YAAA;ADyBF;ACvBE;EACE,cAAA;ADyBJ;ACtBE;EACE,mBAAA;EACA,eAAA;ADwBJ;;ACpBA;EACE,cAAA;EACA,gBAAA;EACA,eAAA;ADuBF;;AGrJA;EACE,cAAA;EACA,kBAAA;EACA,iBAAA;EACA,yBAAA;AHwJF;;AGrJA;EACE,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,iBAAA;EACA,yBAAA;EACA,WDTU;ECUV,YDVU;AFkKZ;;AGrJA;EACE,YDbW;ECcX,WDdW;ECeX,mBAAA;EACA,kBAAA;EACA,gBAAA;AHwJF;;AGrJA;EACE,aAAA;AHwJF;;AGrJA;EACE,mBAAA;AHwJF;;AGrJA;EACE,YD9BU;EC+BV,WD/BU;ECgCV,mBDpCK;ECqCL,kBAAA;EACA,iBAAA;AHwJF;;AGrJA;EACE;IAAK,mBAAA;EHyJL;EGxJA;IAAM,mBAAA;EH2JN;EG1JA;IAAS,mBAAA;EH6JT;AACF;AG3JA;EACE,uBAAA;EACA,wBAAA;EACA,mBAAA;AH6JF;;AG1JA;EACE,mBAAA;EACA,sBAAA;AH6JF;;AG1JA;EACE,sBAAA;EACA,gBD1DW;EC2DX,gBAAA;AH6JF;AG3JE;EACE,gBD9DS;EC+DT,YD5DS;EC6DT,WD7DS;EC8DT,gBAAA;AH6JJ;;AA3NA;EACE,YAAA;EACA,mBEPK;EFQL,eAAA;EACA,4DAAA;AA8NF","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: 0;\n  font: inherit;\n  font-size: inherit;\n  color: inherit;\n  text-align: inherit;\n  text-decoration: inherit;\n  vertical-align: inherit;\n  box-sizing: inherit;\n  background: transparent;\n}\n\nul {\n  list-style: none;\n}\n\nimg {\n  display: block;\n  width: 100%;\n  height: auto;\n}\n\nbutton {\n  cursor: pointer;\n}","@import './reset.scss';\n@import './constants.scss';\n@import './header.scss';\n@import './grid.scss';\n\nbody {\n  color: white;\n  background: $blue;\n  font-size: 24px;\n  font-family: \"Segoe UI Symbol\", Helvetica, Arial, sans-serif;\n}","header {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  margin: 15px;\n}\n\n.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {\n  display: flex;\n}\n\n.top-nav {\n  justify-content: space-between;\n  position: relative;\n\n  a {\n    margin-right: 10px;\n  }\n}\n\n.bottom-nav {\n  position: absolute;\n  top: 47px;\n  right: 50%;\n  transform: translate(402px);\n  font-size: 16px;\n\n  button {\n    white-space: nowrap;\n  }\n}\n\nh1.center {\n  font-weight: bold;\n  font-size: 32px;\n  transform: translate(-50%, -5px);\n}\n\nbutton {\n  padding: 5px 15px;\n  color: $blue;\n  background: white;\n  border-radius: 5px;\n}\n\n.button {\n  box-shadow: 0 7px #999;\n}\n\n.button:hover {\n  background-color: #eeeeee;\n}\n\n.button:active, button.selected {\n  background-color: #eeeeee;\n  box-shadow: 0 4px #666;\n  transform: translateY(4px);\n}\n\n#start-btn {\n  margin: 0 30px;\n  background: rgb(71, 161, 139);\n  color: white;\n\n  &:hover {\n    background: rgb(65, 149, 128);\n  }\n}\n\n.center {\n  position: absolute;\n  left: 50%;\n  transform: translate(-50%);\n}\n\n.object-btns, .option-btns {\n  > div {\n    margin: 0 10px;\n  }\n}\n\n.dropdown-ctnr {\n  position: relative;\n  margin-left: 10px;\n}\n\n.dropdown-ctnr:hover .dropdown {\n  display: block;\n}\n\n.dropdown {\n  display: none;\n  position: absolute;\n  z-index: 10;\n  right: 0;\n  background: white;\n  color: $blue;\n  width: 300px;\n  height: auto;\n  font-size: 16px;\n  padding: 10px;\n  border-radius: 5px;\n  box-shadow: 0px 0px 10px -3px gray;\n  text-align: center;\n}\n\n.dropdown.search {\n  padding: 0;\n  white-space: nowrap;\n  transform: translate(calc(50% - 36px));\n  overflow: hidden;\n  width: 250px;\n\n  li {\n    padding: 5px 0;\n  }\n\n  li:hover {\n    background: rgb(226, 226, 226);\n    cursor: pointer;\n  }\n}\n\n.current-modes {\n  margin: 0 auto;\n  margin-top: 60px;\n  font-size: 16px;\n}","$blue: rgb(18, 64, 124);\n$grid-border: rgb(190, 245, 255);\n$wall-color: gray;\n\n$node-size: 25px;\n$swept-size: 15px;","#grid {\n  margin: 0 auto;\n  width: max-content;\n  background: white;\n  border: 1px solid $grid-border;\n}\n\n.node {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  background: white;\n  border: 1px solid $grid-border;\n  width: $node-size;\n  height: $node-size;\n}\n\n.swept div {\n  height: $swept-size;\n  width: $swept-size;\n  background: #ffdfc2;\n  border-radius: 50%;\n  transition: 0.2s;\n}\n\n.row {\n  display: flex;\n}\n\n.home {\n  background: rgb(71, 161, 139);\n}\n\n.sweepa div {\n  height: $node-size;\n  width: $node-size;\n  background: $blue;\n  border-radius: 50%;\n  transition: 0.05s;\n}\n\n@keyframes visited {\n  0% { background: rgb(1, 40, 92) }\n  25% { background: rgb(47, 98, 238) }\n  100%   { background: rgb(30, 198, 228) }\n}\n\n.visited {\n  animation-name: visited;\n  animation-duration: 2.5s;\n  background: rgb(30, 198, 228);\n}\n\n.return {\n  background: rgb(195, 255, 230);\n  animation-duration: 0s;\n}\n\n.wall {\n  border: 1px solid $wall-color;\n  background: $wall-color;\n  transition: 0.2s;\n  \n  div {\n    background: $wall-color;\n    height: $swept-size;\n    width: $swept-size;\n    transition: 0.2s;\n  }\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ __webpack_exports__["default"] = (___CSS_LOADER_EXPORT___);
 
@@ -785,6 +785,7 @@ class Grid {
     this.drag = false;
     this.object = 'wall';
     this.homeNode = null;
+    this.dockingIdx = 0;
     this.graphList = {};
     this.nodes = {};
     this.graphArr = this.makeGrid();
@@ -911,7 +912,7 @@ class Grid {
   }
 
   makeGrid() {
-    const numRows = (window.innerHeight - 155) / 27;
+    const numRows = (window.innerHeight - 185) / 27;
     const numCols = (window.innerWidth - 40) / 27;
     const grid = document.getElementById('grid');
     const graph = [];
@@ -1064,8 +1065,8 @@ class Sweepa {
     this.currNode = grid.homeNode;
     this.nodes = grid.nodes;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
-    this.dockingIdx = 0;
-    this.dockingAlgos = [this.heapDijkstras];
+    this.dockingIdx = grid.dockingIdx;
+    this.dockingAlgos = [this.heapDijkstras.bind(this), this.heapDijkstras.bind(this), this.greedyBestFirst.bind(this)];
   }
 
   cleanStep() {
@@ -1139,7 +1140,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNodeVal));
-        }, 10);
+        }, 25);
       });
       
       if (currNodeVal == destination) return { distance, cameFrom };
@@ -1176,7 +1177,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNodeVal));
-        }, 10);
+        }, 25);
       });
 
       if (currNodeVal == destination) return { cameFrom };
@@ -1246,7 +1247,9 @@ class Sweepa {
   }
 
   beginDocking() {
-    this.greedyBestFirst(
+    const dockingAlgo = this.dockingAlgos[this.dockingIdx];
+
+    dockingAlgo(
       this.graphList, this.currNode.value, this.homeNode.value
     ).then(res => {
       const { cameFrom } = res;
@@ -1254,7 +1257,7 @@ class Sweepa {
     }).then(() => {
       setTimeout(() => {
         this.homeSequence();
-      }, 2000)
+      }, 1000)
     });
   }
 }
@@ -1355,10 +1358,13 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', () => {
   const clearGridBtn = document.getElementById('clear-grid');
   const clearWallsBtn = document.getElementById('clear-walls');
-  // const clearDustBtn = document.getElementById('clear-dust');
   const sweepaBtn = document.getElementById('sweepa-btn');
   const wallBtn = document.getElementById('wall-btn');
   const startBtn = document.getElementById('start-btn');
+  const dijkstrasBtn = document.getElementById('dijkstras');
+  const aStarBtn = document.getElementById('a star');
+  const greedyBtn = document.getElementById('greedy');
+  const docking = document.getElementById('docking');
 
   let grid = new _grid__WEBPACK_IMPORTED_MODULE_1__.default();
   let sweepa;
@@ -1428,11 +1434,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  window.sweepa = sweepa;
-  window.grid = grid;
-  window.FibHeapNode = _fib_heap_node__WEBPACK_IMPORTED_MODULE_3__.default;
-  window.FibHeap = _fib_heap__WEBPACK_IMPORTED_MODULE_4__.default;
-  window.CDLinkedList = _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_5__.default;
+  dijkstrasBtn.addEventListener('click', () => {
+    grid.dockingIdx = 0;
+    docking.innerHTML = "Dijkstra's Algorithm";
+  });
+
+  aStarBtn.addEventListener('click', () => {
+    grid.dockingIdx = 1;
+    docking.innerHTML = "A* Search";
+  });
+
+  greedyBtn.addEventListener('click', () => {
+    grid.dockingIdx = 2;
+    docking.innerHTML = "Greedy Best First Search";
+  });
 });
 }();
 /******/ })()
