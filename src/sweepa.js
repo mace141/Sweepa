@@ -88,51 +88,84 @@ class Sweepa {
   }
 
   async heapDijkstras(graphList, start, destination) {
-    const minHeap = new MinHeap();
-    const previous = {};
+    const frontier = new MinHeap();
+    const cameFrom = {};
     const distance = {};
     for (let node in this.nodes) {
       if (node == start) {
-        distance[node] = 0;
-        this.nodes[node].key = 0;
-        minHeap.insert(this.nodes[node]);
+        distance[start] = 0;
+        this.nodes[start].key = 0;
+        frontier.insert(this.nodes[start]);
       } else {
         distance[node] = Infinity;
         this.nodes[node].key = Infinity;
       }
     }
     
-    while (minHeap.array.length > 1) {
-      let minNode = minHeap.extractMin();
-      let currNode = minNode.value;
+    while (frontier.array.length > 1) {
+      const minNode = frontier.extractMin();
+      const currNodeVal = minNode.value;
       
       await new Promise(resolve => {
         setTimeout(() => {
-          resolve(this.markVisited(currNode));
+          resolve(this.markVisited(currNodeVal));
         }, 10);
       });
       
-      if (currNode == destination) return { distance, previous };
+      if (currNodeVal == destination) return { distance, cameFrom };
       
-      for (let neighbor in graphList[currNode]) {
-        let distFromCurrToNeighbor = graphList[currNode][neighbor];
-        let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
+      for (let neighbor in graphList[currNodeVal]) {
+        let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
+        let distFromSourceToNeighbor = distance[currNodeVal] + distFromCurrToNeighbor;
         
         if (distance[neighbor] > distFromSourceToNeighbor) {
           distance[neighbor] = distFromSourceToNeighbor;
-          previous[neighbor] = currNode;
+          cameFrom[neighbor] = currNodeVal;
 
           this.nodes[neighbor].key = distFromSourceToNeighbor;
-          minHeap.insert(this.nodes[neighbor]);
+          frontier.insert(this.nodes[neighbor]);
         }
       }
     }
     
-    return { distance, previous };
+    return { distance, cameFrom };
   }
 
-  octileDist(start, destination) {
-    const startPos = start.split('-');
+  async greedyBestFirst(graphList, start, destination) {
+    const frontier = new MinHeap();
+    this.nodes[start].key = 0;
+    frontier.insert(this.nodes[start]);
+
+    const cameFrom = {};
+    cameFrom[start] = null;
+
+    while (frontier.array.length > 1) {
+      const minNode = frontier.extractMin();
+      const currNodeVal = minNode.value;
+
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve(this.markVisited(currNodeVal));
+        }, 10);
+      });
+
+      if (currNodeVal == destination) return { cameFrom };
+
+      for (let neighbor in graphList[currNodeVal]) {
+        if (!Object.keys(cameFrom).includes(neighbor)) {
+          const heuristic = this.octileDist(neighbor, destination);
+          this.nodes[neighbor].key = heuristic;
+          frontier.insert(this.nodes[neighbor]);
+          cameFrom[neighbor] = currNodeVal;
+        }
+      }
+    }
+
+    return { cameFrom };
+  }
+
+  octileDist(current, destination) {
+    const startPos = current.split('-');
     const destPos = destination.split('-');
     const d1 = 1;
     const d2 = Math.sqrt(2);
@@ -142,14 +175,14 @@ class Sweepa {
     return d1 * (dx + dy) + (d2 - 2 * d1) * Math.min(dx, dy);
   }
 
-  retracePath(previous) {
+  retracePath(cameFrom) {
     let path = [this.homeNode.value];
     let lastNode;
     let nextNode;
     
     while (!path.includes(this.currNode.value)) {
       lastNode = path[0]
-      nextNode = previous[lastNode];
+      nextNode = cameFrom[lastNode];
       path.unshift(nextNode);
     }
     
@@ -183,13 +216,15 @@ class Sweepa {
   }
 
   beginDocking() {
-    this.heapDijkstras(
+    this.greedyBestFirst(
       this.graphList, this.currNode.value, this.homeNode.value
     ).then(res => {
-      const { previous } = res;
-      this.retracePath(previous);
+      const { cameFrom } = res;
+      this.retracePath(cameFrom);
     }).then(() => {
-      this.homeSequence();
+      setTimeout(() => {
+        this.homeSequence();
+      }, 2000)
     });
   }
 }
