@@ -59,7 +59,7 @@ class Sweepa {
     setTimeout(() => {
       clearInterval(sweepaSeq);
       this.beginDocking();
-    }, 1000);
+    }, 2000);
   }
 
   replaceSweepa(cleaning) {
@@ -168,7 +168,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.homeStep());
-        }, 10);
+        }, 25);
       });
     }
 

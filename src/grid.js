@@ -23,8 +23,8 @@ class Grid {
     this.edit = true;
     this.drag = false;
     this.object = 'wall';
-    this.graphList = {};
     this.homeNode = null;
+    this.graphList = {};
     this.nodes = {};
     this.graphArr = this.makeGrid();
 
@@ -71,7 +71,6 @@ class Grid {
       targetClasses.toggle(this.object);
 
       for (let nodeNeighbor in this.graphList[graphNode.value]) {
-        debugger
         nodeNeighbor = this.nodes[nodeNeighbor];
         const neighborPos = nodeNeighbor.value.split('-');
         const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];

@@ -21,6 +21,7 @@
   width: $swept-size;
   background: #ffdfc2;
   border-radius: 50%;
+  transition: 0.2s;
 }
 
 .row {
@@ -36,9 +37,19 @@
   width: $node-size;
   background: $blue;
   border-radius: 50%;
+  transition: 0.05s;
+}
+
+@keyframes visited {
+  0%   { background: rgb(30, 60, 228) }
+  // 50%  { background: rgb(99, 48, 180) }
+  100% { background: rgb(251, 197, 249) }
 }
 
 .visited {
+  // transition: 0.3s;
+  animation-name: visited;
+  animation-duration: 1.5s;
   background: pink;
 }
 
@@ -49,10 +60,12 @@
 .wall {
   border: 1px solid $wall-color;
   background: $wall-color;
+  transition: 0.2s;
   
   div {
     background: $wall-color;
     height: $swept-size;
     width: $swept-size;
+    transition: 0.2s;
   }
 }
