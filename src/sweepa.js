@@ -32,6 +32,7 @@ class Sweepa {
     this.graphArr = grid.graphArr;
     this.graphList = grid.graphList;
     this.currNode = grid.homeNode;
+    this.nodes = grid.nodes;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     this.dockingIdx = 0;
     this.dockingAlgos = [this.listDijkstras];
@@ -79,8 +80,8 @@ class Sweepa {
 
   markVisited(node) {
     const visitedNode = document.getElementById(node);
-    visitedNode.classList.toggle('visited');
-    visitedNode.classList.toggle('unvisited');
+    visitedNode.classList.add('visited');
+    visitedNode.classList.remove('unvisited');
   }
 
   closestNode(nodes, distance) {
@@ -127,26 +128,23 @@ class Sweepa {
   }
 
   async heapDijkstras(graphList, start, destination) {
+    const minHeap = new MinHeap();
+    const previous = {};
     const distance = {};
-    const heapNodes = {};
-    const queue = new FibonacciHeap();
-    distance[start] = 0;
-    
-    for (let node in graphList) {
-      if (node != start) {
+    for (let node in this.nodes) {
+      if (node == start) {
+        distance[node] = 0;
+        this.nodes[node].key = 0;
+        minHeap.insert(this.nodes[node]);
+      } else {
         distance[node] = Infinity;
+        this.nodes[node].key = Infinity;
       }
-
-      const heapNode = new FibHeapNode(distance[node], node);
-      queue.insert(heapNode);
-      heapNodes[node] = heapNode;
     }
     
-    const previous = {};
-    
-    while (queue.min != null) {
-      let minNode = queue.extractMin();
-      let currNode = minNode.val;
+    while (minHeap.array.length > 1) {
+      let minNode = minHeap.extractMin();
+      let currNode = minNode.value;
       
       await new Promise(resolve => {
         setTimeout(() => {
@@ -159,12 +157,13 @@ class Sweepa {
       for (let neighbor in graphList[currNode]) {
         let distFromCurrToNeighbor = graphList[currNode][neighbor];
         let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
-        
+        debugger
         if (distance[neighbor] > distFromSourceToNeighbor) {
           distance[neighbor] = distFromSourceToNeighbor;
           previous[neighbor] = currNode;
 
-          queue.decreaseKey(heapNodes[neighbor], distFromSourceToNeighbor);
+          this.nodes[neighbor].key = distFromSourceToNeighbor;
+          minHeap.insert(this.nodes[neighbor]);
         }
       }
     }
@@ -213,7 +212,7 @@ class Sweepa {
   }
 
   beginDocking() {
-    this.listDijkstras(
+    this.heapDijkstras(
       this.graphList, this.currNode.value, this.homeNode.value
     ).then(res => {
       const { previous } = res;

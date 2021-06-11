@@ -1,3 +1,5 @@
+const GraphNode = require("./graph_node");
+
 class MinHeap {
   constructor() {
     this.array = [null];
@@ -10,16 +12,17 @@ class MinHeap {
 
   siftUp(idx) {
     if (idx == 1) return;
-
+    
     const parentIdx = Math.floor(idx / 2);
     if (this.array[idx].key < this.array[parentIdx].key) {
-      [this.array[idx], this.array[parentIdx]] = this.array[parentIdx], this.array[idx];
+      [this.array[idx], this.array[parentIdx]] = [this.array[parentIdx], this.array[idx]];
       this.siftUp(parentIdx);
     }
   }
 
   extractMin() {
     const min = this.array[1];
+    if (!min) return null;
     this.array[1] = this.array.pop();
     this.siftDown(1);
     return min;
@@ -29,18 +32,26 @@ class MinHeap {
     const leftIdx = idx * 2;
     const rightIdx = idx * 2 + 1;
     const arr = this.array;
-    const leftChild = arr[leftIdx];
-    const rightChild = arr[rightIdx];
+    let leftChild = arr[leftIdx];
+    let rightChild = arr[rightIdx];
     const node = arr[idx];
-
+    
     if (!leftChild) leftChild = { key: Infinity };
-    if (!rightChild) leftChild = { key: Infinity };
-    if (node.key < leftChild.key && node.key < rightChild.key) return;
-
+    if (!rightChild) rightChild = { key: Infinity };
+    if (node.key <= leftChild.key && node.key <= rightChild.key) return;
+    
     const swapIdx = leftChild.key < rightChild.key ? leftIdx : rightIdx;
     [arr[swapIdx], arr[idx]] = [arr[idx], arr[swapIdx]];
     this.siftDown(swapIdx);
   }
 }
+
+// const minHeap = new MinHeap();
+// for (let i = 0; i < 20; i++) {
+//   minHeap.insert(new GraphNode(i, i))
+// }
+// console.log(minHeap.array);
+// console.log(minHeap.extractMin());
+// console.log(minHeap.array);
 
 export default MinHeap;

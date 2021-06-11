@@ -1,5 +1,4 @@
 /******/ (function() { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/stylesheets/main.scss":
@@ -8,6 +7,7 @@
   \****************************************************************************************************************/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
@@ -31,6 +31,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  bo
   \*****************************************************/
 /***/ (function(module) {
 
+"use strict";
 
 
 /*
@@ -106,6 +107,7 @@ module.exports = function (cssWithMappingToString) {
   \************************************************************************/
 /***/ (function(module) {
 
+"use strict";
 
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -147,6 +149,7 @@ module.exports = function cssWithMappingToString(item) {
   \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
@@ -173,6 +176,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
   \****************************************************************************/
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
+"use strict";
 
 
 var isOldIE = function isOldIE() {
@@ -451,6 +455,7 @@ module.exports = function (list, options) {
   \********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 class CDLinkedList {
   constructor() {
@@ -514,6 +519,7 @@ class CDLinkedList {
   \*************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./circular_doubly_linked_list */ "./src/circular_doubly_linked_list.js");
 
@@ -679,6 +685,7 @@ class FibonacciHeap {
   \******************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 class FibHeapNode {
   constructor(key = null, val = null) {
@@ -711,17 +718,34 @@ class FibHeapNode {
 /*!***************************!*\
   !*** ./src/graph_node.js ***!
   \***************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module) {
 
-__webpack_require__.r(__webpack_exports__);
 class GraphNode {
-  constructor(value) {
+  constructor(key, value) {
+    this.key = key;
     this.value = value;
+    this.prev = null;
+    this.next = null;
+    this.parent = null;
+    this.childList = null;
+    this.degree = 0;
+    this.mark = false;
     this.neighbors = {};
+  }
+
+  remove() {
+    const prevNode = this.prev;
+    const nextNode = this.next;
+
+    nextNode.prev = prevNode;
+    prevNode.next = nextNode;
+
+    return this;
   }
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (GraphNode);
+// export default GraphNode;
+module.exports = GraphNode;
 
 /***/ }),
 
@@ -731,8 +755,10 @@ class GraphNode {
   \*********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _graph_node__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./graph_node */ "./src/graph_node.js");
+/* harmony import */ var _graph_node__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_graph_node__WEBPACK_IMPORTED_MODULE_0__);
 
 
 const diagDeltas = [
@@ -758,9 +784,10 @@ class Grid {
     this.edit = true;
     this.drag = false;
     this.object = 'wall';
-    this.graphArr = this.makeGrid();
     this.graphList = {};
     this.homeNode = null;
+    this.nodes = {};
+    this.graphArr = this.makeGrid();
 
     this.connectNodes();
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -906,7 +933,9 @@ class Grid {
         this.attachNodeEvents(newNode);
         gridRow.append(newNode);
         
-        graphRow.push(new _graph_node__WEBPACK_IMPORTED_MODULE_0__.default(newNode.id));
+        const graphNode = new (_graph_node__WEBPACK_IMPORTED_MODULE_0___default())(Infinity, newNode.id);
+        this.nodes[graphNode.value] = graphNode;
+        graphRow.push(graphNode);
       }
 
       grid.append(gridRow);
@@ -921,16 +950,83 @@ class Grid {
 
 /***/ }),
 
+/***/ "./src/min_heap.js":
+/*!*************************!*\
+  !*** ./src/min_heap.js ***!
+  \*************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const GraphNode = __webpack_require__(/*! ./graph_node */ "./src/graph_node.js");
+
+class MinHeap {
+  constructor() {
+    this.array = [null];
+  }
+
+  insert(node) {
+    this.array.push(node);
+    this.siftUp(this.array.length - 1);
+  }
+
+  siftUp(idx) {
+    if (idx == 1) return;
+    
+    const parentIdx = Math.floor(idx / 2);
+    if (this.array[idx].key < this.array[parentIdx].key) {
+      [this.array[idx], this.array[parentIdx]] = [this.array[parentIdx], this.array[idx]];
+      this.siftUp(parentIdx);
+    }
+  }
+
+  extractMin() {
+    const min = this.array[1];
+    if (!min) return null;
+    this.array[1] = this.array.pop();
+    this.siftDown(1);
+    return min;
+  }
+
+  siftDown(idx) {
+    const leftIdx = idx * 2;
+    const rightIdx = idx * 2 + 1;
+    const arr = this.array;
+    let leftChild = arr[leftIdx];
+    let rightChild = arr[rightIdx];
+    const node = arr[idx];
+    
+    if (!leftChild) leftChild = { key: Infinity };
+    if (!rightChild) rightChild = { key: Infinity };
+    if (node.key <= leftChild.key && node.key <= rightChild.key) return;
+    
+    const swapIdx = leftChild.key < rightChild.key ? leftIdx : rightIdx;
+    [arr[swapIdx], arr[idx]] = [arr[idx], arr[swapIdx]];
+    this.siftDown(swapIdx);
+  }
+}
+
+// const minHeap = new MinHeap();
+// for (let i = 0; i < 20; i++) {
+//   minHeap.insert(new GraphNode(i, i))
+// }
+// console.log(minHeap.array);
+// console.log(minHeap.extractMin());
+// console.log(minHeap.array);
+
+/* harmony default export */ __webpack_exports__["default"] = (MinHeap);
+
+/***/ }),
+
 /***/ "./src/sweepa.js":
 /*!***********************!*\
   !*** ./src/sweepa.js ***!
   \***********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _fib_heap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fib_heap */ "./src/fib_heap.js");
-/* harmony import */ var _fib_heap_node__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./fib_heap_node */ "./src/fib_heap_node.js");
-
+/* harmony import */ var _min_heap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./min_heap */ "./src/min_heap.js");
 
 
 const dirDeltas = [
@@ -965,6 +1061,7 @@ class Sweepa {
     this.graphArr = grid.graphArr;
     this.graphList = grid.graphList;
     this.currNode = grid.homeNode;
+    this.nodes = grid.nodes;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     this.dockingIdx = 0;
     this.dockingAlgos = [this.listDijkstras];
@@ -1012,8 +1109,8 @@ class Sweepa {
 
   markVisited(node) {
     const visitedNode = document.getElementById(node);
-    visitedNode.classList.toggle('visited');
-    visitedNode.classList.toggle('unvisited');
+    visitedNode.classList.add('visited');
+    visitedNode.classList.remove('unvisited');
   }
 
   closestNode(nodes, distance) {
@@ -1060,26 +1157,23 @@ class Sweepa {
   }
 
   async heapDijkstras(graphList, start, destination) {
+    const minHeap = new _min_heap__WEBPACK_IMPORTED_MODULE_0__.default();
+    const previous = {};
     const distance = {};
-    const heapNodes = {};
-    const queue = new _fib_heap__WEBPACK_IMPORTED_MODULE_0__.default();
-    distance[start] = 0;
-    
-    for (let node in graphList) {
-      if (node != start) {
+    for (let node in this.nodes) {
+      if (node == start) {
+        distance[node] = 0;
+        this.nodes[node].key = 0;
+        minHeap.insert(this.nodes[node]);
+      } else {
         distance[node] = Infinity;
+        this.nodes[node].key = Infinity;
       }
-
-      const heapNode = new _fib_heap_node__WEBPACK_IMPORTED_MODULE_1__.default(distance[node], node);
-      queue.insert(heapNode);
-      heapNodes[node] = heapNode;
     }
     
-    const previous = {};
-    
-    while (queue.min != null) {
-      let minNode = queue.extractMin();
-      let currNode = minNode.val;
+    while (minHeap.array.length > 1) {
+      let minNode = minHeap.extractMin();
+      let currNode = minNode.value;
       
       await new Promise(resolve => {
         setTimeout(() => {
@@ -1092,12 +1186,13 @@ class Sweepa {
       for (let neighbor in graphList[currNode]) {
         let distFromCurrToNeighbor = graphList[currNode][neighbor];
         let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
-        
+        debugger
         if (distance[neighbor] > distFromSourceToNeighbor) {
           distance[neighbor] = distFromSourceToNeighbor;
           previous[neighbor] = currNode;
 
-          queue.decreaseKey(heapNodes[neighbor], distFromSourceToNeighbor);
+          this.nodes[neighbor].key = distFromSourceToNeighbor;
+          minHeap.insert(this.nodes[neighbor]);
         }
       }
     }
@@ -1146,7 +1241,7 @@ class Sweepa {
   }
 
   beginDocking() {
-    this.listDijkstras(
+    this.heapDijkstras(
       this.graphList, this.currNode.value, this.homeNode.value
     ).then(res => {
       const { previous } = res;
@@ -1230,8 +1325,9 @@ class Sweepa {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
+"use strict";
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/

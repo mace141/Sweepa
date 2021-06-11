@@ -23,9 +23,10 @@ class Grid {
     this.edit = true;
     this.drag = false;
     this.object = 'wall';
-    this.graphArr = this.makeGrid();
     this.graphList = {};
     this.homeNode = null;
+    this.nodes = {};
+    this.graphArr = this.makeGrid();
 
     this.connectNodes();
     this.toggleEdit = this.toggleEdit.bind(this);
@@ -171,7 +172,9 @@ class Grid {
         this.attachNodeEvents(newNode);
         gridRow.append(newNode);
         
-        graphRow.push(new GraphNode(newNode.id));
+        const graphNode = new GraphNode(Infinity, newNode.id);
+        this.nodes[graphNode.value] = graphNode;
+        graphRow.push(graphNode);
       }
 
       grid.append(gridRow);
