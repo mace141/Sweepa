@@ -1,5 +1,4 @@
-import FibonacciHeap from "./fib_heap";
-import FibHeapNode from "./fib_heap_node";
+import MinHeap from './min_heap';
 
 const dirDeltas = [
   [-1, -1],
