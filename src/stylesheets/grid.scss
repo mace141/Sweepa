@@ -41,7 +41,7 @@
 }
 
 @keyframes visited {
-  0% { background: white }
+  0% { background: rgb(1, 40, 92) }
   25% { background: rgb(47, 98, 238) }
   100%   { background: rgb(30, 198, 228) }
 }
@@ -54,6 +54,7 @@
 
 .return {
   background: white;
+  animation-duration: 0s;
 }
 
 .wall {

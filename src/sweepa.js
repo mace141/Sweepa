@@ -70,11 +70,7 @@ class Sweepa {
     nextDiv.classList.add('sweepa');
     
     if (cleaning) {
-      if (!nextDiv.className.includes('swept')) {
-        nextDiv.classList.add('swept');
-      } else {
-        nextDiv.style.background = 'darken(rgb(255, 233, 166), 5%)';
-      }
+      nextDiv.classList.add('swept');
     }
   }
 
@@ -133,6 +129,17 @@ class Sweepa {
     }
     
     return { distance, previous };
+  }
+
+  octileDist(start, destination) {
+    const startPos = start.split('-');
+    const destPos = destination.split('-');
+    const d1 = 1;
+    const d2 = Math.sqrt(2);
+    const dy = Math.abs(destPos[0] - startPos[0]);
+    const dx = Math.abs(destPos[1] - startPos[1]);
+
+    return d1 * (dx + dy) + (d2 - 2 * d1) * Math.min(dx, dy);
   }
 
   retracePath(previous) {

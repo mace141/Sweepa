@@ -22,7 +22,8 @@ header {
   position: absolute;
   top: 47px;
   right: 50%;
-  transform: translate(575px);
+  transform: translate(402px);
+  font-size: 16px;
 
   button {
     white-space: nowrap;
@@ -57,7 +58,13 @@ button {
 }
 
 #start-btn {
-  margin: 0 100px;
+  margin: 0 30px;
+  background: rgb(71, 161, 139);
+  color: white;
+
+  &:hover {
+    background: rgb(65, 149, 128);
+  }
 }
 
 .center {
@@ -90,9 +97,9 @@ button {
   color: $blue;
   width: 300px;
   height: auto;
+  font-size: 16px;
   padding: 10px;
   border-radius: 5px;
-  font-size: 18px;
   box-shadow: 0px 0px 10px -3px gray;
   text-align: center;
 }
@@ -102,6 +109,7 @@ button {
   white-space: nowrap;
   transform: translate(calc(50% - 36px));
   overflow: hidden;
+  width: 250px;
 
   li {
     padding: 5px 0;
