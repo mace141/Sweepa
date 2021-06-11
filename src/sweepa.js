@@ -35,7 +35,7 @@ class Sweepa {
     this.nodes = grid.nodes;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     this.dockingIdx = 0;
-    this.dockingAlgos = [this.listDijkstras];
+    this.dockingAlgos = [this.heapDijkstras];
   }
 
   cleanStep() {
@@ -91,42 +91,6 @@ class Sweepa {
     return closestNode;
   }
 
-  async listDijkstras(graphList, start, destination) {
-    const distance = {};
-    for (let node in graphList) {
-      distance[node] = Infinity;
-    }
-    distance[start] = 0;
-
-    const unvisited = new Set(Object.keys(graphList));
-    const previous = {};
-    
-    while (unvisited.has(destination)) {
-      let currNode = this.closestNode(Array.from(unvisited), distance);
-      unvisited.delete(currNode);
-
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.markVisited(currNode));
-        }, 10);
-      });
-
-      if (currNode == destination) return { distance, previous };
-      
-      for (let neighbor in graphList[currNode]) {
-        let distFromCurrToNeighbor = graphList[currNode][neighbor];
-        let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
-        
-        if (distance[neighbor] > distFromSourceToNeighbor) {
-          distance[neighbor] = distFromSourceToNeighbor;
-          previous[neighbor] = currNode;
-        }
-      }
-    }
-    
-    return { distance, previous };
-  }
-
   async heapDijkstras(graphList, start, destination) {
     const minHeap = new MinHeap();
     const previous = {};
@@ -157,7 +121,7 @@ class Sweepa {
       for (let neighbor in graphList[currNode]) {
         let distFromCurrToNeighbor = graphList[currNode][neighbor];
         let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
-        debugger
+        
         if (distance[neighbor] > distFromSourceToNeighbor) {
           distance[neighbor] = distFromSourceToNeighbor;
           previous[neighbor] = currNode;

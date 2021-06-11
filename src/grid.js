@@ -70,7 +70,9 @@ class Grid {
     if (!targetClasses.value.includes('sweepa')) {
       targetClasses.toggle(this.object);
 
-      for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
+      for (let nodeNeighbor in this.graphList[graphNode.value]) {
+        debugger
+        nodeNeighbor = this.nodes[nodeNeighbor];
         const neighborPos = nodeNeighbor.value.split('-');
         const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
 

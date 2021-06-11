@@ -831,7 +831,9 @@ class Grid {
     if (!targetClasses.value.includes('sweepa')) {
       targetClasses.toggle(this.object);
 
-      for (let nodeNeighbor of Object.values(graphNode.neighbors)) {
+      for (let nodeNeighbor in this.graphList[graphNode.value]) {
+        debugger
+        nodeNeighbor = this.nodes[nodeNeighbor];
         const neighborPos = nodeNeighbor.value.split('-');
         const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
 
@@ -1064,7 +1066,7 @@ class Sweepa {
     this.nodes = grid.nodes;
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     this.dockingIdx = 0;
-    this.dockingAlgos = [this.listDijkstras];
+    this.dockingAlgos = [this.heapDijkstras];
   }
 
   cleanStep() {
@@ -1120,42 +1122,6 @@ class Sweepa {
     return closestNode;
   }
 
-  async listDijkstras(graphList, start, destination) {
-    const distance = {};
-    for (let node in graphList) {
-      distance[node] = Infinity;
-    }
-    distance[start] = 0;
-
-    const unvisited = new Set(Object.keys(graphList));
-    const previous = {};
-    
-    while (unvisited.has(destination)) {
-      let currNode = this.closestNode(Array.from(unvisited), distance);
-      unvisited.delete(currNode);
-
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.markVisited(currNode));
-        }, 10);
-      });
-
-      if (currNode == destination) return { distance, previous };
-      
-      for (let neighbor in graphList[currNode]) {
-        let distFromCurrToNeighbor = graphList[currNode][neighbor];
-        let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
-        
-        if (distance[neighbor] > distFromSourceToNeighbor) {
-          distance[neighbor] = distFromSourceToNeighbor;
-          previous[neighbor] = currNode;
-        }
-      }
-    }
-    
-    return { distance, previous };
-  }
-
   async heapDijkstras(graphList, start, destination) {
     const minHeap = new _min_heap__WEBPACK_IMPORTED_MODULE_0__.default();
     const previous = {};
@@ -1186,7 +1152,7 @@ class Sweepa {
       for (let neighbor in graphList[currNode]) {
         let distFromCurrToNeighbor = graphList[currNode][neighbor];
         let distFromSourceToNeighbor = distance[currNode] + distFromCurrToNeighbor;
-        debugger
+        
         if (distance[neighbor] > distFromSourceToNeighbor) {
           distance[neighbor] = distFromSourceToNeighbor;
           previous[neighbor] = currNode;
