@@ -26,6 +26,7 @@ class Grid {
     this.homeNode = null;
     this.dockingIdx = 0;
     this.graphList = {};
+    this.neighborList = {};
     this.nodes = {};
     this.graphArr = this.makeGrid();
 
@@ -46,6 +47,7 @@ class Grid {
       row.forEach((node, j) => {
         node.neighbors = {};
         this.graphList[node.value] = {};
+        this.neighborList[node.value] = [];
 
         dirDeltas.forEach(delta => {
           const posY = i + delta[0];
@@ -56,6 +58,8 @@ class Grid {
 
             node.neighbors[[delta[0], delta[1]]] = neighbor;
             
+            this.neighborList[node.value].push(neighbor.value);
+
             if (JSON.stringify(diagDeltas).includes(delta)) {
               this.graphList[node.value][neighbor.value] = 1.41;
             } else {
@@ -71,7 +75,7 @@ class Grid {
     if (!targetClasses.value.includes('sweepa')) {
       targetClasses.toggle(this.object);
 
-      for (let nodeNeighbor in this.graphList[graphNode.value]) {
+      for (let nodeNeighbor of this.neighborList[graphNode.value]) {
         nodeNeighbor = this.nodes[nodeNeighbor];
         const neighborPos = nodeNeighbor.value.split('-');
         const delta = [(pos[0] - neighborPos[0]), (pos[1] - neighborPos[1])];
@@ -151,8 +155,8 @@ class Grid {
   }
 
   makeGrid() {
-    const numRows = (window.innerHeight - 185) / 27;
-    const numCols = (window.innerWidth - 40) / 27;
+    const numRows = (window.innerHeight - 185) / 37;
+    const numCols = (window.innerWidth - 40) / 37;
     const grid = document.getElementById('grid');
     const graph = [];
 
