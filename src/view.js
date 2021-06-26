@@ -12,9 +12,6 @@ class View {
     const aStarBtn = document.getElementById('a star');
     const greedyBtn = document.getElementById('greedy');
     const docking = document.getElementById('docking');
-    const cleanDuration = document.getElementById('cleaning-duration');
-    const moveSpeed = document.getElementById('move-speed');
-    const searchSpeed = document.getElementById('search-speed');
 
     let grid = new Grid();
     let sweepa = new Sweepa(grid);

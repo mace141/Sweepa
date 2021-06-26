@@ -38,9 +38,31 @@ class Sweepa {
     this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
     
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
+    this.cleanDuration = 20000;
     this.moveSpeed = 30;
     this.searchSpeed = 25;
-    this.cleanDuration = 20000;
+
+    this.attachEvents();
+  }
+
+  attachEvents() {
+    const cleanDuration = document.getElementById('cleaning-duration');
+    const seconds = document.getElementById('seconds')
+    const moveSpeed = document.getElementById('move-speed');
+    const searchSpeed = document.getElementById('search-speed');
+
+    cleanDuration.addEventListener('input', e => {
+      this.cleanDuration = parseInt(e.target.value) * 1000;
+      seconds.innerHTML = e.target.value;
+    });
+
+    moveSpeed.addEventListener('input', e => {
+      this.moveSpeed = 100 - ((parseInt(e.target.value) - 1) * 10);
+    });
+
+    searchSpeed.addEventListener('input', e => {
+      this.searchSpeed = 50 - ((parseInt(e.target.value) - 1) * 5);
+    });
   }
 
   setGrid(grid) {
