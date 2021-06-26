@@ -843,10 +843,11 @@ class Sweepa {
     const cleanDuration = document.getElementById('cleaning-duration');
     const startTime = Date.now();
     let currTime = Date.now();
+    let duration = this.cleanDuration;
 
-    cleanDuration.disabled = true;
+    // cleanDuration.disabled = true;
 
-    while ((currTime - startTime) < this.cleanDuration) {
+    while ((currTime - startTime) < duration) {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.cleanStep());
@@ -854,6 +855,7 @@ class Sweepa {
       });
 
       currTime = Date.now();
+      duration = this.cleanDuration;
     }
 
     this.beginDocking();
@@ -912,7 +914,7 @@ class Sweepa {
       });
     }
 
-    cleanDuration.disabled = false;
+    // cleanDuration.disabled = false;
     this.grid.toggleEdit();
   }
 
