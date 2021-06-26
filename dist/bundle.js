@@ -1408,6 +1408,7 @@ document.addEventListener('DOMContentLoaded', () => {
   clearGridBtn.addEventListener('click', () => {
     if (grid.edit) {
       document.getElementById('grid').innerHTML = "";
+      docking.innerHTML = "Dijkstra's Algorithm";
       grid = new _grid__WEBPACK_IMPORTED_MODULE_1__.default();
 
       if (!wallBtn.className.includes('selected')) {
