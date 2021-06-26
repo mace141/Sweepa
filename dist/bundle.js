@@ -806,6 +806,16 @@ class Sweepa {
     this.searchSpeed = 25;
     this.cleanDuration = 20000;
   }
+
+  setGrid(grid) {
+    this.grid = grid;
+    this.homeNode = grid.homeNode;
+    this.graphArr = grid.graphArr;
+    this.graphList = grid.graphList;
+    this.currNode = grid.homeNode;
+    this.nodes = grid.nodes;
+    this.dockingIdx = grid.dockingIdx;
+  }
   
   beginCleaning() {
     const sweepaSeq = setInterval(() => {
@@ -1071,7 +1081,7 @@ class View {
     const searchSpeed = document.getElementById('search-speed');
 
     let grid = new _grid__WEBPACK_IMPORTED_MODULE_0__.default();
-    let sweepa;
+    let sweepa = new _sweepa__WEBPACK_IMPORTED_MODULE_1__.default(grid);
 
     clearGridBtn.addEventListener('click', () => {
       if (grid.edit) {
@@ -1135,7 +1145,7 @@ class View {
           }
         }
 
-        sweepa = new _sweepa__WEBPACK_IMPORTED_MODULE_1__.default(grid);
+        sweepa.setGrid(grid);
         sweepa.beginCleaning();
       }
     });

@@ -42,6 +42,16 @@ class Sweepa {
     this.searchSpeed = 25;
     this.cleanDuration = 20000;
   }
+
+  setGrid(grid) {
+    this.grid = grid;
+    this.homeNode = grid.homeNode;
+    this.graphArr = grid.graphArr;
+    this.graphList = grid.graphList;
+    this.currNode = grid.homeNode;
+    this.nodes = grid.nodes;
+    this.dockingIdx = grid.dockingIdx;
+  }
   
   beginCleaning() {
     const sweepaSeq = setInterval(() => {

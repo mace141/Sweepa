@@ -17,7 +17,7 @@ class View {
     const searchSpeed = document.getElementById('search-speed');
 
     let grid = new Grid();
-    let sweepa;
+    let sweepa = new Sweepa(grid);
 
     clearGridBtn.addEventListener('click', () => {
       if (grid.edit) {
@@ -81,7 +81,7 @@ class View {
           }
         }
 
-        sweepa = new Sweepa(grid);
+        sweepa.setGrid(grid);
         sweepa.beginCleaning();
       }
     });
