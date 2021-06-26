@@ -38,7 +38,7 @@ class Sweepa {
     this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
     
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
-    this.moveSpeed = 50;
+    this.moveSpeed = 30;
     this.searchSpeed = 25;
     this.cleanDuration = 20000;
   }

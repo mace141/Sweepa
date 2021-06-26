@@ -449,271 +449,6 @@ module.exports = function (list, options) {
 
 /***/ }),
 
-/***/ "./src/circular_doubly_linked_list.js":
-/*!********************************************!*\
-  !*** ./src/circular_doubly_linked_list.js ***!
-  \********************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-class CDLinkedList {
-  constructor() {
-    this.head = null;
-    this.min = null;
-  }
-
-  peek() {
-    return this.head;
-  }
-
-  insert(newNode) {
-    if (this.head) {
-      const lastNode = this.head.prev;
-
-      newNode.prev = lastNode;
-      newNode.next = this.head;
-
-      this.head.prev = newNode;
-      lastNode.next = newNode;
-
-      if (this.min.key > newNode.key) {
-        this.min = newNode;
-      }
-    } else {
-      this.head = newNode;
-      this.min = newNode;
-      newNode.prev = newNode;
-      newNode.next = newNode;
-    }
-  }
-
-  remove(node) {
-    node.remove();
-
-    if (this.head == node) {
-      this.head = node.next;
-    }
-  }
-
-  toArray() {
-    const arr = [this.head];
-    let node = this.head.next;
-
-    while (node != this.head) {
-      arr.push(node);
-      node = node.next;
-    }
-    
-    return arr;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (CDLinkedList);
-
-/***/ }),
-
-/***/ "./src/fib_heap.js":
-/*!*************************!*\
-  !*** ./src/fib_heap.js ***!
-  \*************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./circular_doubly_linked_list */ "./src/circular_doubly_linked_list.js");
-
-
-class FibonacciHeap {
-  constructor() {
-    this.min = null;
-    this.count = 0;
-    this.rootList = null;
-  }
-
-  insert(node) {
-    node.degree = 0;
-    node.parent = null;
-    node.childList = null;
-    node.mark = false;
-
-    if (this.min == null) {
-      this.rootList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default();
-      this.rootList.insert(node);
-      this.min = node;
-    } else {
-      this.rootList.insert(node);
-      if (node.key < this.min.key) {
-        this.min = node;
-      }
-    }
-
-    this.count++;
-  }
-
-  extractMin() {
-    const minNode = this.min;
-    
-    if (minNode) {
-      if (minNode.childList) {
-        minNode.childList.toArray().forEach(child => {
-          this.rootList.insert(child);
-          child.parent = null;
-        });
-      }
-
-      this.rootList.remove(minNode);
-
-      if (minNode == minNode.next) {
-        this.min = null;
-      } else {
-        this.min = minNode.next;
-        this.consolidate();
-      }
-
-      this.count--;
-    }
-
-    return minNode;
-  }
-
-  consolidate() {
-    const goldenRatio = (1 + Math.sqrt(5)) / 2;
-    const maxDegree = Math.log(this.count) / Math.log(goldenRatio);
-    const arr = new Array(Math.floor(maxDegree)).fill(null);
-    let degree;
-    
-    for (let nodeX of this.rootList.toArray()) {
-      degree = nodeX.degree;
-      
-      while (arr[degree]) {
-        let nodeY = arr[degree];
-        
-        if (nodeX.key > nodeY.key) {
-          [nodeX, nodeY] = [nodeY, nodeX];
-        }
-
-        this.link(nodeY, nodeX);
-        arr[degree] = null;
-        degree++;
-      }
-
-      arr[degree] = nodeX;
-    }
-    
-    this.min = null;
-
-    for (let i = 0; i <= maxDegree; i++) {
-      if (arr[i]) {
-        if (!this.min) {
-          this.rootList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default();
-          this.rootList.insert(arr[i]);
-          this.min = arr[i];
-        } else {
-          this.rootList.insert(arr[i]);
-          if (arr[i].key < this.min.key) {
-            this.min = arr[i];
-          }
-        }
-      }
-    }
-  }
-
-  link(nodeY, nodeX) {
-    this.rootList.remove(nodeY);
-
-    if (!nodeX.childList) nodeX.childList = new _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_0__.default(); 
-
-    nodeX.childList.insert(nodeY);
-    nodeY.parent = nodeX;
-
-    const tallestChild = nodeX.childList.toArray().reduce((a, b) => (
-      a.degree > b.degree ? a : b
-    ));
-    nodeX.degree = 1 + tallestChild.degree;
-
-    nodeY.mark = false;    
-  }
-
-  decreaseKey(node, newKey) {
-    node.key = newKey;
-    const parent = node.parent;
-    
-    if (parent && node.key < parent.key) {
-      this.cut(node, parent);
-      this.cascadingCut(parent);
-    }
-    
-    if (node.key < this.min.key) {
-      this.min = node;
-    }
-  }
-
-  cut(node, parent) {
-    parent.childList.remove(node);
-    
-    const tallestChild = parent.childList.toArray().reduce((a, b) => (
-      a.degree > b.degree ? a : b
-    ));
-    parent.degree = 1 + tallestChild.degree;
-
-    this.rootList.insert(node);
-    node.parent = null;
-    node.mark = false;
-  }
-
-  cascadingCut(node) {
-    const parent = node.parent;
-    if (node && parent) {
-      if (node.mark == false) {
-        node.mark = true;
-      } else {
-        this.cut(node, parent);
-        this.cascadingCut(parent);
-      }
-    }
-  }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (FibonacciHeap);
-
-/***/ }),
-
-/***/ "./src/fib_heap_node.js":
-/*!******************************!*\
-  !*** ./src/fib_heap_node.js ***!
-  \******************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-class FibHeapNode {
-  constructor(key = null, val = null) {
-    this.key = key;
-    this.val = val;
-    this.prev = null;
-    this.next = null;
-    this.parent = null;
-    this.childList = null;
-    this.degree = 0;
-    this.mark = false;
-  }
-
-  remove() {
-    const prevNode = this.prev;
-    const nextNode = this.next;
-
-    nextNode.prev = prevNode;
-    prevNode.next = nextNode;
-
-    return this;
-  }
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (FibHeapNode);
-
-/***/ }),
-
 /***/ "./src/graph_node.js":
 /*!***************************!*\
   !*** ./src/graph_node.js ***!
@@ -1067,7 +802,7 @@ class Sweepa {
     this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
     
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
-    this.moveSpeed = 50;
+    this.moveSpeed = 30;
     this.searchSpeed = 25;
     this.cleanDuration = 20000;
   }
@@ -1305,6 +1040,125 @@ class Sweepa {
 
 /* harmony default export */ __webpack_exports__["default"] = (Sweepa);
 
+/***/ }),
+
+/***/ "./src/view.js":
+/*!*********************!*\
+  !*** ./src/view.js ***!
+  \*********************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./grid */ "./src/grid.js");
+/* harmony import */ var _sweepa__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sweepa */ "./src/sweepa.js");
+
+
+
+class View {
+  static attachEvents() {
+    const clearGridBtn = document.getElementById('clear-grid');
+    const clearWallsBtn = document.getElementById('clear-walls');
+    const sweepaBtn = document.getElementById('sweepa-btn');
+    const wallBtn = document.getElementById('wall-btn');
+    const startBtn = document.getElementById('start-btn');
+    const dijkstrasBtn = document.getElementById('dijkstras');
+    const aStarBtn = document.getElementById('a star');
+    const greedyBtn = document.getElementById('greedy');
+    const docking = document.getElementById('docking');
+    const cleanDuration = document.getElementById('cleaning-duration');
+    const moveSpeed = document.getElementById('move-speed');
+    const searchSpeed = document.getElementById('search-speed');
+
+    let grid = new _grid__WEBPACK_IMPORTED_MODULE_0__.default();
+    let sweepa;
+
+    clearGridBtn.addEventListener('click', () => {
+      if (grid.edit) {
+        docking.innerHTML = "Dijkstra's Algorithm";
+
+        document.getElementById('grid').innerHTML = "";
+        grid = new _grid__WEBPACK_IMPORTED_MODULE_0__.default();
+
+        if (!wallBtn.className.includes('selected')) {
+          wallBtn.classList.add('selected');
+        }
+        sweepaBtn.classList.remove('selected');
+      }
+    });
+
+    clearWallsBtn.addEventListener('click', () => {
+      if (grid.edit) {
+        const walls = document.getElementsByClassName('wall');
+
+        grid.connectNodes();
+
+        while (walls.length > 0) {
+          walls[0].classList.remove('wall');
+        }
+      }
+    });
+
+    sweepaBtn.addEventListener('click', () => {
+      grid.setObject('sweepa');
+
+      if (!sweepaBtn.className.includes('selected')) {
+        sweepaBtn.classList.toggle('selected');
+        wallBtn.classList.toggle('selected');
+      }
+    });
+
+    wallBtn.addEventListener('click', () => {
+      grid.setObject('wall');
+
+      if (!wallBtn.className.includes('selected')) {
+        sweepaBtn.classList.toggle('selected');
+        wallBtn.classList.toggle('selected');
+      }
+    });
+
+    startBtn.addEventListener('click', () => {
+      if (grid.edit && grid.homeNode) {
+        grid.toggleEdit();
+
+        const visited = document.getElementsByClassName('visited');
+        const swept = document.getElementsByClassName('swept');
+        while (visited.length > 0 || swept.length > 0) {
+          if (visited[0]) {
+            visited[0].classList.add('unvisited');
+            visited[0].classList.remove('return');
+            visited[0].classList.remove('visited');
+          }
+
+          if (swept[0]) {
+            swept[0].classList.remove('swept');
+          }
+        }
+
+        sweepa = new _sweepa__WEBPACK_IMPORTED_MODULE_1__.default(grid);
+        sweepa.beginCleaning();
+      }
+    });
+
+    dijkstrasBtn.addEventListener('click', () => {
+      grid.dockingIdx = 0;
+      docking.innerHTML = "Dijkstra's Algorithm";
+    });
+
+    aStarBtn.addEventListener('click', () => {
+      grid.dockingIdx = 1;
+      docking.innerHTML = "A* Search";
+    });
+
+    greedyBtn.addEventListener('click', () => {
+      grid.dockingIdx = 2;
+      docking.innerHTML = "Greedy Best First Search";
+    });
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (View);
+
 /***/ })
 
 /******/ 	});
@@ -1384,113 +1238,12 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stylesheets_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stylesheets/main.scss */ "./src/stylesheets/main.scss");
-/* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./grid */ "./src/grid.js");
-/* harmony import */ var _sweepa__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sweepa */ "./src/sweepa.js");
-/* harmony import */ var _fib_heap_node__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fib_heap_node */ "./src/fib_heap_node.js");
-/* harmony import */ var _fib_heap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fib_heap */ "./src/fib_heap.js");
-/* harmony import */ var _circular_doubly_linked_list__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./circular_doubly_linked_list */ "./src/circular_doubly_linked_list.js");
-
-
-
-
+/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./view */ "./src/view.js");
 
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const clearGridBtn = document.getElementById('clear-grid');
-  const clearWallsBtn = document.getElementById('clear-walls');
-  const sweepaBtn = document.getElementById('sweepa-btn');
-  const wallBtn = document.getElementById('wall-btn');
-  const startBtn = document.getElementById('start-btn');
-  const dijkstrasBtn = document.getElementById('dijkstras');
-  const aStarBtn = document.getElementById('a star');
-  const greedyBtn = document.getElementById('greedy');
-  const docking = document.getElementById('docking');
-
-  let grid = new _grid__WEBPACK_IMPORTED_MODULE_1__.default();
-  let sweepa;
-
-  clearGridBtn.addEventListener('click', () => {
-    if (grid.edit) {
-      docking.innerHTML = "Dijkstra's Algorithm";
-      
-      document.getElementById('grid').innerHTML = "";
-      grid = new _grid__WEBPACK_IMPORTED_MODULE_1__.default();
-
-      if (!wallBtn.className.includes('selected')) {
-        wallBtn.classList.add('selected');
-      }
-      sweepaBtn.classList.remove('selected');
-    }
-  });
-
-  clearWallsBtn.addEventListener('click', () => {
-    if (grid.edit) {
-      const walls = document.getElementsByClassName('wall');
-
-      grid.connectNodes();
-
-      while (walls.length > 0) {
-        walls[0].classList.remove('wall');
-      }
-    }
-  });
-
-  sweepaBtn.addEventListener('click', () => {
-    grid.setObject('sweepa');
-
-    if (!sweepaBtn.className.includes('selected')) {
-      sweepaBtn.classList.toggle('selected');
-      wallBtn.classList.toggle('selected');
-    }
-  });
-
-  wallBtn.addEventListener('click', () => {
-    grid.setObject('wall');
-
-    if (!wallBtn.className.includes('selected')) {
-      sweepaBtn.classList.toggle('selected');
-      wallBtn.classList.toggle('selected');
-    }
-  });
-  
-  startBtn.addEventListener('click', () => {
-    if (grid.edit && grid.homeNode) {
-      grid.toggleEdit();
-
-      const visited = document.getElementsByClassName('visited');
-      const swept = document.getElementsByClassName('swept');
-      while (visited.length > 0 || swept.length > 0) {
-        if (visited[0]) {
-          visited[0].classList.add('unvisited');
-          visited[0].classList.remove('return');
-          visited[0].classList.remove('visited');
-        }
-
-        if (swept[0]) {
-          swept[0].classList.remove('swept');
-        }
-      }
-
-      sweepa = new _sweepa__WEBPACK_IMPORTED_MODULE_2__.default(grid);
-      sweepa.beginCleaning();
-    }
-  });
-
-  dijkstrasBtn.addEventListener('click', () => {
-    grid.dockingIdx = 0;
-    docking.innerHTML = "Dijkstra's Algorithm";
-  });
-
-  aStarBtn.addEventListener('click', () => {
-    grid.dockingIdx = 1;
-    docking.innerHTML = "A* Search";
-  });
-
-  greedyBtn.addEventListener('click', () => {
-    grid.dockingIdx = 2;
-    docking.innerHTML = "Greedy Best First Search";
-  });
+  _view__WEBPACK_IMPORTED_MODULE_1__.default.attachEvents();
 });
 }();
 /******/ })()
