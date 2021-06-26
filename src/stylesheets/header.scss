@@ -5,7 +5,7 @@ header {
   margin: 15px;
 }
 
-.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .option-btns {
+.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .util-btns {
   display: flex;
 }
 
@@ -58,6 +58,7 @@ button {
 }
 
 #start-btn {
+  height: 21px;
   margin: 0 30px;
   background: rgb(71, 161, 139);
   color: white;
@@ -73,7 +74,7 @@ button {
   transform: translate(-50%);
 }
 
-.object-btns, .option-btns {
+.object-btns, .util-btns {
   > div {
     margin: 0 10px;
   }
@@ -82,6 +83,10 @@ button {
 .dropdown-ctnr {
   position: relative;
   margin-left: 10px;
+
+  button {
+    transform: translateY(3px);
+  }
 }
 
 .dropdown-ctnr:hover .dropdown {
@@ -105,23 +110,30 @@ button {
 }
 
 .dropdown.search {
+  width: 250px;
   padding: 0;
   white-space: nowrap;
-  transform: translate(calc(50% - 36px));
   overflow: hidden;
-  width: 250px;
 
   li {
     padding: 5px 0;
   }
 
   li:hover {
-    background: rgb(226, 226, 226);
+    background: rgb(236, 236, 236);
     cursor: pointer;
   }
 }
 
-#algo-category {
+.dropdown.search {
+  transform: translate(calc(50% - 36px), 4px);
+}
+
+.dropdown.options {
+  transform: translate(35px, 4px);
+}
+
+#algo-category, .options-category {
   border-bottom: 2px solid lightgray;
   font-weight: 600;
   font-size: 14px;
@@ -133,8 +145,45 @@ button {
   }
 }
 
+.options-category:hover {
+  cursor: default;
+  background: white;
+}
+
 .current-modes {
   margin: 0 auto;
   margin-top: 65px;
   font-size: 16px;
+}
+
+.options {
+  width: 175px;
+  padding: 0;
+  overflow: hidden;
+
+  .options-category {
+    padding: 8px 0;
+    margin: 0;
+  }
+
+  li {
+    margin: 3px 0;
+    white-space: normal;
+
+    input {
+      width: 90%;
+    }
+  }
+}
+
+.options-ctnr, .modes-ctnr {
+  > button span {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-top: 7px solid $blue;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 2px solid transparent;
+  }
 }

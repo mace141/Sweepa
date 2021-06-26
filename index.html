@@ -50,23 +50,48 @@
       </nav>
       <nav class='bottom-nav'>
         <div class='object-btns'>
-          <div>
-            <button id='wall-btn' class='button selected'>Wall</button>
+          <div class='dropdown-ctnr options-ctnr'>
+            <button id='options-btn'>Options <span></span></button>
+            <ul class='options dropdown'>
+              <li class='options-category'>Time</li>
+              <li>
+                <label for="clean-duration">Cleaning Duration <span>(s)</span></label>
+                <input type="range" id="cleaning-duration" 
+                       min="10" max="30" value="20"
+                >
+              </li>
+              <li class='options-category'>Speed</li>
+              <li>
+                <label for="move-speed">Movement</label>
+                <input type="range" id="move-speed" 
+                       min="1" max="10" value="5"
+                >
+              </li>
+              <li>
+                <label for="search-speed">Searching</label>
+                <input type="range" id="search-speed"
+                       min="1" max="10" value="5"
+                >
+              </li>
+            </ul>
           </div>
           <div>
             <button id='sweepa-btn' class='button'>Sweepa</button>
           </div>
+          <div>
+            <button id='wall-btn' class='button selected'>Wall</button>
+          </div>
         </div>
         <button id='start-btn' class='button'>Start</button>
-        <div class='option-btns'>
+        <div class='util-btns'>
           <div>
             <button id='clear-grid' class='button'>Clear grid</button>
           </div>
           <div>
             <button id='clear-walls' class='button'>Clear walls</button>
           </div>
-          <div class='dropdown-ctnr'>
-            <button>Modes</button>
+          <div class='dropdown-ctnr modes-ctnr'>
+            <button id='modes-btn'>Modes <span></span></button>
             <ul class='dropdown search'>
               <li id='algo-category'>Docking Algorithms</li>
               <li id='dijkstras'>Dijkstra's Algorithm</li>

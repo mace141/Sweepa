@@ -33,20 +33,25 @@ class Sweepa {
     this.graphList = grid.graphList;
     this.currNode = grid.homeNode;
     this.nodes = grid.nodes;
-    this.dir = dirDeltas[Math.floor(Math.random() * 8)];
+
     this.dockingIdx = grid.dockingIdx;
     this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
+    
+    this.dir = dirDeltas[Math.floor(Math.random() * 8)];
+    this.moveSpeed = 50;
+    this.searchSpeed = 25;
+    this.cleanDuration = 20000;
   }
   
   beginCleaning() {
     const sweepaSeq = setInterval(() => {
       this.cleanStep();
-    }, 25);
+    }, this.moveSpeed);
 
     setTimeout(() => {
       clearInterval(sweepaSeq);
       this.beginDocking();
-    }, 10000);
+    }, this.cleanDuration);
   }
 
   cleanStep() {
@@ -96,7 +101,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.homeStep());
-        }, 25);
+        }, this.moveSpeed);
       });
     }
 
@@ -168,7 +173,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNodeVal));
-        }, 25);
+        }, this.searchSpeed);
       });
       
       if (currNodeVal == destination) return { distance, cameFrom };
@@ -205,7 +210,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNodeVal));
-        }, 25);
+        }, this.searchSpeed);
       });
 
       if (currNodeVal == destination) return { cameFrom };
@@ -245,7 +250,7 @@ class Sweepa {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNodeVal));
-        }, 25);
+        }, this.searchSpeed);
       });
       
       if (currNodeVal == destination) return { gScore, cameFrom };
