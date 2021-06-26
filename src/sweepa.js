@@ -75,15 +75,24 @@ class Sweepa {
     this.dockingIdx = grid.dockingIdx;
   }
   
-  beginCleaning() {
-    const sweepaSeq = setInterval(() => {
-      this.cleanStep();
-    }, this.moveSpeed);
+  async beginCleaning() {
+    const cleanDuration = document.getElementById('cleaning-duration');
+    const startTime = Date.now();
+    let currTime = Date.now();
 
-    setTimeout(() => {
-      clearInterval(sweepaSeq);
-      this.beginDocking();
-    }, this.cleanDuration);
+    cleanDuration.disabled = true;
+
+    while ((currTime - startTime) < this.cleanDuration) {
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve(this.cleanStep());
+        }, this.moveSpeed);
+      });
+
+      currTime = Date.now();
+    }
+
+    this.beginDocking();
   }
 
   cleanStep() {
@@ -129,6 +138,8 @@ class Sweepa {
   }
   
   async homeSequence() {
+    const cleanDuration = document.getElementById('cleaning-duration');
+
     while (this.currNode.value != this.homeNode.value) {
       await new Promise(resolve => {
         setTimeout(() => {
@@ -137,6 +148,7 @@ class Sweepa {
       });
     }
 
+    cleanDuration.disabled = false;
     this.grid.toggleEdit();
   }
 
