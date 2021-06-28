@@ -776,6 +776,17 @@ const dirDeltas = [
   [-1, -1]
 ];
 
+const deltaIndices = {
+  '[-1,  0]': 0,
+  '[-1,  1]': 1,
+  '[ 0,  1]': 2,
+  '[ 1,  1]': 3,
+  '[ 1,  0]': 4,
+  '[ 1, -1]': 5,
+  '[ 0, -1]': 6,
+  '[-1, -1]': 7
+};
+
 const cardinalDeltas = {
   'up':        [-1,  0],
   'right':     [ 0,  1],
@@ -864,7 +875,7 @@ class Sweepa {
 
   cleanStep() {
     let nextNode = this.currNode.neighbors[this.dir];
-    const cleaningAlgo = this.cleaningAlgos[this.cleaningIdx];
+    const nextDir = this.cleaningAlgos[this.cleaningIdx];
 
     if (nextNode) {
       this.currNode = nextNode;
@@ -872,19 +883,22 @@ class Sweepa {
 
       this.replaceSweepa(true);
     } else { 
-      this.dir = cleaningAlgo();
+      nextDir();
     }
   }
 
   randomDir() {
-    return dirDeltas[Math.floor(Math.random() * 8)];
+    this.dir = dirDeltas[Math.floor(Math.random() * 8)];
   }
 
   clockwiseDir() {
-    const lastDir = dirDeltas.shift();
-    dirDeltas.push(lastDir);
+    if (Math.random() < 0.7) {
+      const lastDirIdx = deltaIndices[JSON.stringify(this.dir)];
 
-    return dirDeltas[0];
+      this.dir = lastDirIdx == 7 ? [-1, 0] : dirDeltas[lastDirIdx + 1];
+    } else {
+      this.randomDir();
+    }
   }
 
   beginDocking() {
