@@ -174,6 +174,7 @@ class Sweepa {
       });
     }
 
+    document.getElementsByClassName('modes-ctnr')[0].classList.remove('disabled');
     this.grid.toggleEdit();
   }
 
@@ -245,20 +246,9 @@ class Sweepa {
       }
     }
 
-    // let lastNode;
-    // let currDir;
-    
     while (!frontier.empty()) {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
-      
-      // if (!currDir) {
-      //   currDir = [0, 0];
-      // } else {
-      //   currDir = this.pathDirection(lastNode, currNodeVal);
-      // }
-
-      // lastNode = currNodeVal;
 
       await new Promise(resolve => {
         setTimeout(() => {
@@ -276,16 +266,7 @@ class Sweepa {
           distance[neighbor] = distFromSourceToNeighbor;
           cameFrom[neighbor] = currNodeVal;
 
-          // const neighborDir = this.pathDirection(
-          //   currNodeVal, neighbor
-          // );
-
-          // if (JSON.stringify(currDir) != JSON.stringify(neighborDir)) {
-          //   this.nodes[neighbor].key = distFromSourceToNeighbor + 0.1;
-          // } else {
-            this.nodes[neighbor].key = distFromSourceToNeighbor;
-          // }
-
+          this.nodes[neighbor].key = distFromSourceToNeighbor;
           frontier.insert(this.nodes[neighbor]);
         }
       }

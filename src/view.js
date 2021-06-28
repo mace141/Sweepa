@@ -85,7 +85,7 @@ class View {
           }
         }
 
-        modesDropdown.classList.remove('enabled');
+        modesDropdown.classList.add('disabled');
         sweepa.setGrid(grid);
         sweepa.beginCleaning();
       }

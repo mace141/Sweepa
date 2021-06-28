@@ -87,10 +87,10 @@ button {
   button {
     transform: translateY(4px);
   }
-}
 
-.dropdown-ctnr.enabled:hover .dropdown {
-  display: block;
+  &:hover .dropdown {
+    display: block;
+  }
 }
 
 .dropdown {
@@ -109,11 +109,22 @@ button {
   text-align: center;
 }
 
-.dropdown.modes {
-  width: 250px;
+.modes-ctnr.disabled:hover {
+  button {
+    cursor: not-allowed;
+  }
+
+  .dropdown {
+    display: none;
+  }
+}
+
+.modes {
+  width: 200px;
   padding: 0;
   white-space: nowrap;
   overflow: hidden;
+  transform: translate(50px, 4px);
 
   li {
     padding: 5px 0;
@@ -123,14 +134,6 @@ button {
     background: rgb(236, 236, 236);
     cursor: pointer;
   }
-}
-
-.dropdown.modes {
-  transform: translate(calc(50% - 36px), 4px);
-}
-
-.dropdown.options {
-  transform: translate(35px, 4px);
 }
 
 .category {
@@ -154,6 +157,7 @@ button {
   width: 175px;
   padding: 0;
   overflow: hidden;
+  transform: translate(35px, 4px);
 
   .category {
     padding: 8px 0;
