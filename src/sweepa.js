@@ -76,12 +76,9 @@ class Sweepa {
   }
   
   async beginCleaning() {
-    const cleanDuration = document.getElementById('cleaning-duration');
     const startTime = Date.now();
     let currTime = Date.now();
     let duration = this.cleanDuration;
-
-    // cleanDuration.disabled = true;
 
     while ((currTime - startTime) < duration) {
       await new Promise(resolve => {
@@ -140,8 +137,6 @@ class Sweepa {
   }
   
   async homeSequence() {
-    const cleanDuration = document.getElementById('cleaning-duration');
-
     while (this.currNode.value != this.homeNode.value) {
       await new Promise(resolve => {
         setTimeout(() => {
@@ -150,7 +145,6 @@ class Sweepa {
       });
     }
 
-    // cleanDuration.disabled = false;
     this.grid.toggleEdit();
   }
 
@@ -197,6 +191,16 @@ class Sweepa {
     visitedNode.classList.remove('unvisited');
   }
 
+  pathDirection(lastPosVal, nextPosVal) {
+    const lastPosArr = lastPosVal.split('-');
+    const nextPosArr = nextPosVal.split('-');
+
+    const dirX = parseInt(nextPosArr[0]) - parseInt(lastPosArr[0]);
+    const dirY = parseInt(nextPosArr[1]) - parseInt(lastPosArr[1]);
+
+    return [dirX, dirY];
+  }
+
   async heapDijkstras(graphList, start, destination) {
     const frontier = new MinHeap();
     const cameFrom = {};
@@ -211,11 +215,22 @@ class Sweepa {
         this.nodes[node].key = Infinity;
       }
     }
+
+    // let lastNode;
+    // let currDir;
     
     while (!frontier.empty()) {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
       
+      // if (!currDir) {
+      //   currDir = [0, 0];
+      // } else {
+      //   currDir = this.pathDirection(lastNode, currNodeVal);
+      // }
+
+      // lastNode = currNodeVal;
+
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNodeVal));
@@ -232,7 +247,16 @@ class Sweepa {
           distance[neighbor] = distFromSourceToNeighbor;
           cameFrom[neighbor] = currNodeVal;
 
-          this.nodes[neighbor].key = distFromSourceToNeighbor;
+          // const neighborDir = this.pathDirection(
+          //   currNodeVal, neighbor
+          // );
+
+          // if (JSON.stringify(currDir) != JSON.stringify(neighborDir)) {
+          //   this.nodes[neighbor].key = distFromSourceToNeighbor + 0.1;
+          // } else {
+            this.nodes[neighbor].key = distFromSourceToNeighbor;
+          // }
+
           frontier.insert(this.nodes[neighbor]);
         }
       }
