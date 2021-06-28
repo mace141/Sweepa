@@ -12,14 +12,14 @@ const dirDeltas = [
 ];
 
 const deltaIndices = {
-  '[-1,  0]': 0,
-  '[-1,  1]': 1,
-  '[ 0,  1]': 2,
-  '[ 1,  1]': 3,
-  '[ 1,  0]': 4,
-  '[ 1, -1]': 5,
-  '[ 0, -1]': 6,
-  '[-1, -1]': 7
+  '[-1,0]': 0,
+  '[-1,1]': 1,
+  '[0,1]': 2,
+  '[1,1]': 3,
+  '[1,0]': 4,
+  '[1,-1]': 5,
+  '[0,-1]': 6,
+  '[-1,-1]': 7
 };
 
 const cardinalDeltas = {
@@ -50,7 +50,7 @@ class Sweepa {
     this.cleaningAlgos = [this.randomDir.bind(this), this.clockwiseDir.bind(this)];
     this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
     
-    this.dir = dirDeltas[0];
+    this.dir = [-1, 0];
     this.cleanDuration = 20000;
     this.moveSpeed = 30;
     this.searchSpeed = 25;
@@ -127,9 +127,9 @@ class Sweepa {
   }
 
   clockwiseDir() {
-    if (Math.random() < 0.7) {
+    if (Math.random() < 0.75) {
       const lastDirIdx = deltaIndices[JSON.stringify(this.dir)];
-
+      
       this.dir = lastDirIdx == 7 ? [-1, 0] : dirDeltas[lastDirIdx + 1];
     } else {
       this.randomDir();

@@ -8,6 +8,7 @@ class View {
     const sweepaBtn = document.getElementById('sweepa-btn');
     const wallBtn = document.getElementById('wall-btn');
     const startBtn = document.getElementById('start-btn');
+    const modesDropdown = document.getElementsByClassName('modes-ctnr')[0];
 
     const docking = document.getElementById('docking');
     const dijkstrasBtn = document.getElementById('dijkstras');
@@ -23,6 +24,7 @@ class View {
 
     clearGridBtn.addEventListener('click', () => {
       if (grid.edit) {
+        cleaning.innerHTML = "Random";
         docking.innerHTML = "Dijkstra's Algorithm";
 
         document.getElementById('grid').innerHTML = "";
@@ -83,6 +85,7 @@ class View {
           }
         }
 
+        modesDropdown.classList.remove('enabled');
         sweepa.setGrid(grid);
         sweepa.beginCleaning();
       }

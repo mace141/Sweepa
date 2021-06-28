@@ -111,7 +111,6 @@ class Grid {
 
               const prevSweepa = document.getElementsByClassName('sweepa')[0];
               if (prevSweepa) {
-                prevSweepa.innerHTML = "";
                 prevSweepa.classList.remove('sweepa', 'home');
               }
 

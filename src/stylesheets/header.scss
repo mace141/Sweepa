@@ -89,7 +89,7 @@ button {
   }
 }
 
-.dropdown-ctnr:hover .dropdown {
+.dropdown-ctnr.enabled:hover .dropdown {
   display: block;
 }
 
