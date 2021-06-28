@@ -50,33 +50,42 @@ class Sweepa {
     this.cleaningAlgos = [this.randomDir.bind(this), this.clockwiseDir.bind(this)];
     this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
     
-    this.dir = [-1, 0];
+    this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     this.cleanDuration = 20000;
     this.moveSpeed = 30;
     this.searchSpeed = 25;
-
+    
+    this.timeElapsed = 0;
     this.cleaning = false;
+    this.paused = false;
 
     this.attachEvents();
   }
 
   attachEvents() {
     const cleanDuration = document.getElementById('cleaning-duration');
-    const seconds = document.getElementById('seconds')
+    const seconds = document.getElementById('seconds');
     const moveSpeed = document.getElementById('move-speed');
     const searchSpeed = document.getElementById('search-speed');
 
     cleanDuration.addEventListener('input', e => {
-      this.cleanDuration = parseInt(e.target.value) * 1000;
       seconds.innerHTML = e.target.value;
+
+      if (!this.paused) {
+        this.cleanDuration = parseInt(e.target.value) * 1000;
+      }
     });
 
     moveSpeed.addEventListener('input', e => {
-      this.moveSpeed = 100 - ((parseInt(e.target.value) - 1) * 10);
+      if (!this.paused) {
+        this.moveSpeed = 100 - ((parseInt(e.target.value) - 1) * 10);
+      }
     });
 
     searchSpeed.addEventListener('input', e => {
-      this.searchSpeed = 50 - ((parseInt(e.target.value) - 1) * 5);
+      if (!this.paused) {
+        this.searchSpeed = 50 - ((parseInt(e.target.value) - 1) * 5);
+      }
     });
   }
 
@@ -89,27 +98,39 @@ class Sweepa {
     this.nodes = grid.nodes;
     this.dockingIdx = grid.dockingIdx;
     this.cleaningIdx = grid.cleaningIdx;
+    this.timeElapsed = 0;
+  }
+
+  pauseCleaning() {
+    this.paused = true;
+  }
+
+  resumeCleaning() {
+    this.paused = false;
+    this.cleanDuration -= this.timeElapsed;
+    this.beginCleaning();
   }
   
   async beginCleaning() {
     const startTime = Date.now();
     let currTime = Date.now();
-    let duration = this.cleanDuration;
-
+    this.timeElapsed = 0;
     this.cleaning = true;
-
-    while ((currTime - startTime) < duration) {
+    
+    while (this.timeElapsed < this.cleanDuration && !this.paused) {
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.cleanStep());
         }, this.moveSpeed);
       });
-
+      
       currTime = Date.now();
-      duration = this.cleanDuration;
+      this.timeElapsed = currTime - startTime;
     }
 
-    this.beginDocking();
+    if (!this.paused) {
+      this.beginDocking();
+    }
   }
 
   cleanStep() {

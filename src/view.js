@@ -91,8 +91,18 @@ class View {
 
         sweepa.setGrid(grid);
         sweepa.beginCleaning();
+        startBtn.classList.add('pause');
+        startBtn.innerHTML = 'Pause';
       } else if (sweepa.cleaning) {
-        
+        if (sweepa.paused) {
+          startBtn.classList.add('pause');
+          startBtn.innerHTML = 'Pause';
+          sweepa.resumeCleaning();
+        } else {
+          startBtn.classList.remove('pause');
+          startBtn.innerHTML = 'Start';
+          sweepa.pauseCleaning();
+        }
       }
     });
 
