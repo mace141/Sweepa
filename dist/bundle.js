@@ -520,8 +520,8 @@ class Grid {
     this.drag = false;
     this.object = 'wall';
     this.homeNode = null;
-    this.dockingIdx = 0;
     this.cleaningIdx = 0;
+    this.dockingIdx = 0;
     this.graphList = {};
     this.neighborList = {};
     this.nodes = {};
@@ -798,11 +798,13 @@ class Sweepa {
     this.graphList = grid.graphList;
     this.currNode = grid.homeNode;
     this.nodes = grid.nodes;
-
+    this.cleaningIdx = grid.cleaningIdx;
     this.dockingIdx = grid.dockingIdx;
+    
+    this.cleaningAlgos = [this.randomDir.bind(this), this.clockwiseDir.bind(this)];
     this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
     
-    this.dir = dirDeltas[Math.floor(Math.random() * 8)];
+    this.dir = dirDeltas[0];
     this.cleanDuration = 20000;
     this.moveSpeed = 30;
     this.searchSpeed = 25;
@@ -838,6 +840,7 @@ class Sweepa {
     this.currNode = grid.homeNode;
     this.nodes = grid.nodes;
     this.dockingIdx = grid.dockingIdx;
+    this.cleaningIdx = grid.cleaningIdx;
   }
   
   async beginCleaning() {
@@ -861,6 +864,7 @@ class Sweepa {
 
   cleanStep() {
     let nextNode = this.currNode.neighbors[this.dir];
+    const cleaningAlgo = this.cleaningAlgos[this.cleaningIdx];
 
     if (nextNode) {
       this.currNode = nextNode;
@@ -868,8 +872,19 @@ class Sweepa {
 
       this.replaceSweepa(true);
     } else { 
-      this.dir = dirDeltas[Math.floor(Math.random() * 8)];
+      this.dir = cleaningAlgo();
     }
+  }
+
+  randomDir() {
+    return dirDeltas[Math.floor(Math.random() * 8)];
+  }
+
+  clockwiseDir() {
+    const lastDir = dirDeltas.shift();
+    dirDeltas.push(lastDir);
+
+    return dirDeltas[0];
   }
 
   beginDocking() {
