@@ -66,6 +66,14 @@ button {
   &:hover {
     background: rgb(65, 149, 128);
   }
+
+  &.pause {
+    background: rgb(161, 71, 71);
+
+    &:hover {
+      background: rgb(149, 65, 65);
+    }
+  }
 }
 
 .center {

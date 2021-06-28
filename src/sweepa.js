@@ -55,6 +55,8 @@ class Sweepa {
     this.moveSpeed = 30;
     this.searchSpeed = 25;
 
+    this.cleaning = false;
+
     this.attachEvents();
   }
 
@@ -93,6 +95,8 @@ class Sweepa {
     const startTime = Date.now();
     let currTime = Date.now();
     let duration = this.cleanDuration;
+
+    this.cleaning = true;
 
     while ((currTime - startTime) < duration) {
       await new Promise(resolve => {
@@ -174,7 +178,14 @@ class Sweepa {
       });
     }
 
-    document.getElementsByClassName('modes-ctnr')[0].classList.remove('disabled');
+    this.cleaning = false;
+    const modesCtnr = document.getElementsByClassName('modes-ctnr')[0];
+    modesCtnr.classList.remove('disabled');
+
+    const startBtn = document.getElementById('start-btn');
+    startBtn.classList.remove('pause');
+    startBtn.innerHTML = 'Start';
+    
     this.grid.toggleEdit();
   }
 

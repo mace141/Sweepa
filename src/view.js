@@ -86,8 +86,13 @@ class View {
         }
 
         modesDropdown.classList.add('disabled');
+        startBtn.classList.add('pause');
+        startBtn.innerHTML = 'Pause';
+
         sweepa.setGrid(grid);
         sweepa.beginCleaning();
+      } else if (sweepa.cleaning) {
+        
       }
     });
 
