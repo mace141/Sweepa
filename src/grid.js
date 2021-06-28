@@ -25,6 +25,7 @@ class Grid {
     this.object = 'wall';
     this.homeNode = null;
     this.dockingIdx = 0;
+    this.cleaningIdx = 0;
     this.graphList = {};
     this.neighborList = {};
     this.nodes = {};

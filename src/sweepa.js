@@ -1,14 +1,14 @@
 import MinHeap from './min_heap';
 
 const dirDeltas = [
-  [-1, -1],
   [-1,  0],
   [-1,  1],
   [ 0,  1],
   [ 1,  1],
   [ 1,  0],
   [ 1, -1],
-  [ 0, -1]
+  [ 0, -1],
+  [-1, -1]
 ];
 
 const cardinalDeltas = {

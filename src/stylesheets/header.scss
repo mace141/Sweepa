@@ -109,7 +109,7 @@ button {
   text-align: center;
 }
 
-.dropdown.search {
+.dropdown.modes {
   width: 250px;
   padding: 0;
   white-space: nowrap;
@@ -125,7 +125,7 @@ button {
   }
 }
 
-.dropdown.search {
+.dropdown.modes {
   transform: translate(calc(50% - 36px), 4px);
 }
 
@@ -133,7 +133,7 @@ button {
   transform: translate(35px, 4px);
 }
 
-#algo-category, .options-category {
+.category {
   border-bottom: 2px solid lightgray;
   font-weight: 600;
   font-size: 14px;
@@ -141,13 +141,7 @@ button {
 
   &:hover {
     cursor: default;
-    background: white;
   }
-}
-
-.options-category:hover {
-  cursor: default;
-  background: white;
 }
 
 .current-modes {
@@ -161,7 +155,7 @@ button {
   padding: 0;
   overflow: hidden;
 
-  .options-category {
+  .category {
     padding: 8px 0;
     margin: 0;
   }
