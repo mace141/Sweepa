@@ -115,6 +115,8 @@ class Grid {
               }
 
               targetClasses.add('sweepa', 'home');
+
+              document.getElementById('start-btn').classList.add('enabled');
             }
 
             break;

@@ -129,6 +129,8 @@ class Sweepa {
     }
 
     if (!this.paused) {
+      this.cleaning = false;
+      document.getElementById('start-btn').classList.remove('enabled');
       this.beginDocking();
     }
   }
@@ -205,6 +207,7 @@ class Sweepa {
 
     const startBtn = document.getElementById('start-btn');
     startBtn.classList.remove('pause');
+    startBtn.classList.add('enabled');
     startBtn.innerHTML = 'Start';
     
     this.grid.toggleEdit();

@@ -55,6 +55,7 @@ button {
   background-color: #eeeeee;
   box-shadow: 0 4px #666;
   transform: translateY(4px);
+  cursor: pointer;
 }
 
 #start-btn {
@@ -62,6 +63,11 @@ button {
   margin: 0 30px;
   background: rgb(71, 161, 139);
   color: white;
+  cursor: not-allowed;
+
+  &.enabled {
+    cursor: pointer;
+  }
 
   &:hover {
     background: rgb(65, 149, 128);
