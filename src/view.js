@@ -8,10 +8,15 @@ class View {
     const sweepaBtn = document.getElementById('sweepa-btn');
     const wallBtn = document.getElementById('wall-btn');
     const startBtn = document.getElementById('start-btn');
+
+    const docking = document.getElementById('docking');
     const dijkstrasBtn = document.getElementById('dijkstras');
     const aStarBtn = document.getElementById('a star');
     const greedyBtn = document.getElementById('greedy');
-    const docking = document.getElementById('docking');
+
+    const cleaning = document.getElementById('cleaning');
+    const randomBtn = document.getElementById('random');
+    const clockwiseBtn = document.getElementById('clockwise');
 
     let grid = new Grid();
     let sweepa = new Sweepa(grid);
@@ -96,6 +101,16 @@ class View {
     greedyBtn.addEventListener('click', () => {
       grid.dockingIdx = 2;
       docking.innerHTML = "Greedy Best First Search";
+    });
+
+    randomBtn.addEventListener('click', () => {
+      grid.cleaningIdx = 0;
+      cleaning.innerHTML = "Random";
+    });
+
+    clockwiseBtn.addEventListener('click', () => {
+      grid.cleaningIdx = 1;
+      cleaning.innerHTML = "Clockwise Prone";
     });
   }
 }
