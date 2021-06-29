@@ -8,7 +8,6 @@ class View {
     const sweepaBtn = document.getElementById('sweepa-btn');
     const wallBtn = document.getElementById('wall-btn');
     const startBtn = document.getElementById('start-btn');
-    // const modesDropdown = document.getElementsByClassName('modes-ctnr')[0];
 
     const docking = document.getElementById('docking');
     const dijkstrasBtn = document.getElementById('dijkstras');
@@ -18,6 +17,8 @@ class View {
     const cleaning = document.getElementById('cleaning');
     const randomBtn = document.getElementById('random');
     const clockwiseBtn = document.getElementById('clockwise');
+
+    const controls = document.getElementById('controls');
 
     let grid = new Grid();
     let sweepa = new Sweepa(grid);
@@ -85,7 +86,6 @@ class View {
           }
         }
 
-        // modesDropdown.classList.add('disabled');
         startBtn.classList.add('pause');
         startBtn.innerHTML = 'Pause';
 
@@ -102,7 +102,6 @@ class View {
           startBtn.classList.remove('pause');
           startBtn.innerHTML = 'Start';
           sweepa.pauseCleaning();
-          // grid.toggleEdit();
         }
       }
     });
@@ -130,6 +129,21 @@ class View {
     clockwiseBtn.addEventListener('click', () => {
       grid.cleaningIdx = 1;
       cleaning.innerHTML = "Clockwise Prone";
+    });
+
+    if (window.innerHeight < 780) {
+      controls.style.overflowY = 'scroll';
+      controls.style.height = `${window.innerHeight - 160}px`;
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.innerHeight < 780) {
+        controls.style.overflowY = 'scroll';
+        controls.style.height = `${window.innerHeight - 160}px`;
+      } else {
+        controls.style.overflowY = null;
+        controls.style.height = null;
+      }
     });
   }
 }

@@ -202,9 +202,7 @@ class Sweepa {
     }
 
     this.cleaning = false;
-    // const modesCtnr = document.getElementsByClassName('modes-ctnr')[0];
-    // modesCtnr.classList.remove('disabled');
-
+    
     const startBtn = document.getElementById('start-btn');
     startBtn.classList.remove('pause');
     startBtn.classList.add('enabled');

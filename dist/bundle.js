@@ -968,9 +968,7 @@ class Sweepa {
     }
 
     this.cleaning = false;
-    // const modesCtnr = document.getElementsByClassName('modes-ctnr')[0];
-    // modesCtnr.classList.remove('disabled');
-
+    
     const startBtn = document.getElementById('start-btn');
     startBtn.classList.remove('pause');
     startBtn.classList.add('enabled');
@@ -1179,7 +1177,6 @@ class View {
     const sweepaBtn = document.getElementById('sweepa-btn');
     const wallBtn = document.getElementById('wall-btn');
     const startBtn = document.getElementById('start-btn');
-    // const modesDropdown = document.getElementsByClassName('modes-ctnr')[0];
 
     const docking = document.getElementById('docking');
     const dijkstrasBtn = document.getElementById('dijkstras');
@@ -1189,6 +1186,8 @@ class View {
     const cleaning = document.getElementById('cleaning');
     const randomBtn = document.getElementById('random');
     const clockwiseBtn = document.getElementById('clockwise');
+
+    const controls = document.getElementById('controls');
 
     let grid = new _grid__WEBPACK_IMPORTED_MODULE_0__.default();
     let sweepa = new _sweepa__WEBPACK_IMPORTED_MODULE_1__.default(grid);
@@ -1256,7 +1255,6 @@ class View {
           }
         }
 
-        // modesDropdown.classList.add('disabled');
         startBtn.classList.add('pause');
         startBtn.innerHTML = 'Pause';
 
@@ -1273,7 +1271,6 @@ class View {
           startBtn.classList.remove('pause');
           startBtn.innerHTML = 'Start';
           sweepa.pauseCleaning();
-          // grid.toggleEdit();
         }
       }
     });
@@ -1301,6 +1298,21 @@ class View {
     clockwiseBtn.addEventListener('click', () => {
       grid.cleaningIdx = 1;
       cleaning.innerHTML = "Clockwise Prone";
+    });
+
+    if (window.innerHeight < 780) {
+      controls.style.overflowY = 'scroll';
+      controls.style.height = `${window.innerHeight - 160}px`;
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.innerHeight < 780) {
+        controls.style.overflowY = 'scroll';
+        controls.style.height = `${window.innerHeight - 160}px`;
+      } else {
+        controls.style.overflowY = null;
+        controls.style.height = null;
+      }
     });
   }
 }
