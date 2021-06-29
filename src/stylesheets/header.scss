@@ -5,7 +5,7 @@ header {
   margin: 15px;
 }
 
-.top-nav, .bottom-nav, .links, .info-btns, .object-btns, .util-btns {
+.top-nav, .bottom-nav, .links, .info-btns {
   display: flex;
 }
 
@@ -17,6 +17,10 @@ header {
   a {
     margin-right: 10px;
   }
+}
+
+.info-btns {
+  padding-left: 61px;
 }
 
 .bottom-nav {
@@ -33,65 +37,9 @@ h1.center {
   font-size: 32px;
 }
 
-button {
-  padding: 5px 15px;
-  color: $blue;
-  background: white;
-  border-radius: 5px;
-}
-
-.button {
-  box-shadow: 0 7px #999;
-}
-
-.button:hover {
-  background-color: #eeeeee;
-}
-
-.button:active, button.selected {
-  background-color: #eeeeee;
-  box-shadow: 0 4px #666;
-  transform: translateY(4px);
-  cursor: pointer;
-}
-
-#start-btn {
-  height: 21px;
-  margin: 0 30px;
-  background: rgb(71, 161, 139);
-  color: white;
-  cursor: not-allowed;
-
-  &.enabled {
-    cursor: pointer;
-  }
-
-  &:hover {
-    background: rgb(65, 149, 128);
-  }
-
-  &.pause {
-    background: rgb(161, 71, 71);
-
-    &:hover {
-      background: rgb(149, 65, 65);
-    }
-  }
-}
-
-.object-btns, .util-btns {
-  > div {
-    margin: 0 10px;
-  }
-}
-
 .dropdown-ctnr {
   position: relative;
   margin-left: 10px;
-
-  button {
-    transform: translateY(4px);
-  }
 
   &:hover .dropdown {
     display: block;
@@ -114,78 +62,7 @@ button {
   text-align: center;
 }
 
-// .modes-ctnr.disabled:hover {
-//   button {
-//     cursor: not-allowed;
-//   }
-
-//   .dropdown {
-//     display: none;
-//   }
-// }
-
-// .modes {
-//   width: 200px;
-//   padding: 0;
-//   white-space: nowrap;
-//   overflow: hidden;
-//   transform: translate(50px, 4px);
-
-//   li {
-//     padding: 5px 0;
-//   }
-
-//   li:hover {
-//     background: rgb(236, 236, 236);
-//     cursor: pointer;
-//   }
-// }
-
-// .category {
-//   border-bottom: 2px solid lightgray;
-//   font-weight: 600;
-//   font-size: 14px;
-//   padding: 8px 0;
-
-//   &:hover {
-//     cursor: default;
-//   }
-// }
-
 .current-modes {
   margin: 0 auto;
   font-size: 16px;
 }
-
-// .options {
-//   width: 175px;
-//   padding: 0;
-//   overflow: hidden;
-//   transform: translate(35px, 4px);
-
-//   .category {
-//     padding: 8px 0;
-//     margin: 0;
-//   }
-
-//   li {
-//     margin: 3px 0;
-//     white-space: normal;
-
-//     input {
-//       width: 90%;
-//     }
-//   }
-// }
-
-// .options-ctnr, .modes-ctnr {
-//   > button span {
-//     display: inline-block;
-//     height: 0;
-//     width: 0;
-//     border-top: 7px solid $blue;
-//     border-left: 7px solid transparent;
-//     border-right: 7px solid transparent;
-//     border-bottom: 2px solid transparent;
-//   }
-// }

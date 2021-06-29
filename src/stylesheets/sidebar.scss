@@ -2,21 +2,32 @@ main {
   display: flex;
 
   aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  aside > div {
     width: 200px;
     background: white;
     color: $blue;
-    margin: 0px 10px;
+    margin: 0px 20px;
     border-radius: 8px;
     text-align: center;
     overflow: hidden;
+    
+    .category {
+      padding: 8px 0;
+      border-bottom: 2px solid lightgray;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: default;
+    }
 
     ul {
-      .category {
-        padding: 8px 0;
-        border-bottom: 2px solid lightgray;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: default;
+      &.buttons {
+        display: flex;
+        justify-content: space-evenly;
       }
 
       li {
@@ -35,6 +46,54 @@ main {
     .modes li:hover {
       background: rgb(236, 236, 236);
       cursor: pointer;
+    }
+  }
+}
+
+button {
+  padding: 5px 15px;
+  color: $blue;
+  background: #eeeeee;
+  border-radius: 5px;
+}
+
+.button {
+  box-shadow: 0 7px #999;
+}
+
+.button:hover {
+  background-color: #dddddd;
+}
+
+.button:active, button.selected {
+  background-color: #dddddd;
+  box-shadow: 0 4px #666;
+  transform: translateY(4px);
+  cursor: pointer;
+}
+
+#start-btn {
+  height: 21px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  background: rgb(71, 161, 139);
+  color: white;
+  cursor: not-allowed;
+  align-self: center;
+
+  &.enabled {
+    cursor: pointer;
+  }
+
+  &:hover {
+    background: rgb(65, 149, 128);
+  }
+
+  &.pause {
+    background: rgb(161, 71, 71);
+
+    &:hover {
+      background: rgb(149, 65, 65);
     }
   }
 }

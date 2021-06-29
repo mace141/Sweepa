@@ -157,8 +157,8 @@ class Grid {
   }
 
   makeGrid() {
-    const numRows = (window.innerHeight - 165) / 27;
-    const numCols = (window.innerWidth - 260) / 27;
+    const numRows = (window.innerHeight - 125) / 27;
+    const numCols = (window.innerWidth - 270) / 27;
     const grid = document.getElementById('grid');
     const graph = [];
 
