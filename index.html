@@ -61,7 +61,7 @@
       </nav>
       <nav class='bottom-nav'>
         <div class='object-btns'>
-          <div class='dropdown-ctnr options-ctnr'>
+          <!-- <div class='dropdown-ctnr options-ctnr'>
             <button id='options-btn'>Options <span></span></button>
             <ul class='options dropdown'>
               <p class='category'>Time</p>
@@ -85,7 +85,7 @@
                 >
               </li>
             </ul>
-          </div>
+          </div> -->
           <div>
             <button id='sweepa-btn' class='button'>Sweepa</button>
           </div>
@@ -101,7 +101,7 @@
           <div>
             <button id='clear-walls' class='button'>Clear walls</button>
           </div>
-          <div class='dropdown-ctnr modes-ctnr'>
+          <!-- <div class='dropdown-ctnr modes-ctnr'>
             <button id='modes-btn'>Modes <span></span></button>
             <ul class='dropdown modes'>
               <p class='category'>Cleaning</p>
@@ -112,11 +112,48 @@
               <li id='a star'>A* Search</li>
               <li id='greedy'>Greedy Best First Search</li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </nav>
       <p class='current-modes'>Cleaning Mode: <span id='cleaning'>Random</span> | Docking Mode: <span id='docking'>Dijkstra's Algorithm</span></p>
     </header>
-    <main id='grid'></main>
+    <main>
+      <div>
+        <aside>
+          <ul class='modes'>
+            <p class='category'>Cleaning</p>
+            <li id='random'>Random</li>
+            <li id='clockwise'>Clockwise Prone</li>
+            <p class='category'>Docking</p>
+            <li id='dijkstras'>Dijkstra's Algorithm</li>
+            <li id='a star'>A* Search</li>
+            <li id='greedy'>Greedy Best First Search</li>
+          </ul>
+          <ul class='options'>
+            <p class='category'>Time</p>
+            <li>
+              <label for="clean-duration">Cleaning Duration: <span id='seconds'>20</span>s</label>
+              <input type="range" id="cleaning-duration" 
+                    min="10" max="30" value="20"
+              >
+            </li>
+            <p class='category'>Speed</p>
+            <li>
+              <label for="move-speed">Movement</label>
+              <input type="range" id="move-speed" 
+                    min="1" max="10" value="7"
+              >
+            </li>
+            <li>
+              <label for="search-speed">Pathfinding</label>
+              <input type="range" id="search-speed"
+                    min="1" max="10" value="5"
+              >
+            </li>
+          </ul>
+        </aside>
+      </div>
+      <section id='grid'></section>
+    </main>
   </body>
 </html>

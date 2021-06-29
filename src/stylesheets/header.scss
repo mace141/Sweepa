@@ -12,6 +12,7 @@ header {
 .top-nav {
   justify-content: space-between;
   position: relative;
+  font-size: 24px;
 
   a {
     margin-right: 10px;
@@ -19,11 +20,8 @@ header {
 }
 
 .bottom-nav {
-  position: absolute;
-  top: 47px;
-  right: 50%;
-  transform: translate(402px);
   font-size: 16px;
+  margin: 0 auto;
 
   button {
     white-space: nowrap;
@@ -33,7 +31,6 @@ header {
 h1.center {
   font-weight: bold;
   font-size: 32px;
-  transform: translate(-50%, -5px);
 }
 
 button {
@@ -82,12 +79,6 @@ button {
   }
 }
 
-.center {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-}
-
 .object-btns, .util-btns {
   > div {
     margin: 0 10px;
@@ -123,79 +114,78 @@ button {
   text-align: center;
 }
 
-.modes-ctnr.disabled:hover {
-  button {
-    cursor: not-allowed;
-  }
+// .modes-ctnr.disabled:hover {
+//   button {
+//     cursor: not-allowed;
+//   }
 
-  .dropdown {
-    display: none;
-  }
-}
+//   .dropdown {
+//     display: none;
+//   }
+// }
 
-.modes {
-  width: 200px;
-  padding: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  transform: translate(50px, 4px);
+// .modes {
+//   width: 200px;
+//   padding: 0;
+//   white-space: nowrap;
+//   overflow: hidden;
+//   transform: translate(50px, 4px);
 
-  li {
-    padding: 5px 0;
-  }
+//   li {
+//     padding: 5px 0;
+//   }
 
-  li:hover {
-    background: rgb(236, 236, 236);
-    cursor: pointer;
-  }
-}
+//   li:hover {
+//     background: rgb(236, 236, 236);
+//     cursor: pointer;
+//   }
+// }
 
-.category {
-  border-bottom: 2px solid lightgray;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 8px 0;
+// .category {
+//   border-bottom: 2px solid lightgray;
+//   font-weight: 600;
+//   font-size: 14px;
+//   padding: 8px 0;
 
-  &:hover {
-    cursor: default;
-  }
-}
+//   &:hover {
+//     cursor: default;
+//   }
+// }
 
 .current-modes {
   margin: 0 auto;
-  margin-top: 65px;
   font-size: 16px;
 }
 
-.options {
-  width: 175px;
-  padding: 0;
-  overflow: hidden;
-  transform: translate(35px, 4px);
+// .options {
+//   width: 175px;
+//   padding: 0;
+//   overflow: hidden;
+//   transform: translate(35px, 4px);
 
-  .category {
-    padding: 8px 0;
-    margin: 0;
-  }
+//   .category {
+//     padding: 8px 0;
+//     margin: 0;
+//   }
 
-  li {
-    margin: 3px 0;
-    white-space: normal;
+//   li {
+//     margin: 3px 0;
+//     white-space: normal;
 
-    input {
-      width: 90%;
-    }
-  }
-}
+//     input {
+//       width: 90%;
+//     }
+//   }
+// }
 
-.options-ctnr, .modes-ctnr {
-  > button span {
-    display: inline-block;
-    height: 0;
-    width: 0;
-    border-top: 7px solid $blue;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-bottom: 2px solid transparent;
-  }
-}
+// .options-ctnr, .modes-ctnr {
+//   > button span {
+//     display: inline-block;
+//     height: 0;
+//     width: 0;
+//     border-top: 7px solid $blue;
+//     border-left: 7px solid transparent;
+//     border-right: 7px solid transparent;
+//     border-bottom: 2px solid transparent;
+//   }
+// }

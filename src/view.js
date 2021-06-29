@@ -8,7 +8,7 @@ class View {
     const sweepaBtn = document.getElementById('sweepa-btn');
     const wallBtn = document.getElementById('wall-btn');
     const startBtn = document.getElementById('start-btn');
-    const modesDropdown = document.getElementsByClassName('modes-ctnr')[0];
+    // const modesDropdown = document.getElementsByClassName('modes-ctnr')[0];
 
     const docking = document.getElementById('docking');
     const dijkstrasBtn = document.getElementById('dijkstras');
@@ -68,7 +68,7 @@ class View {
     });
 
     startBtn.addEventListener('click', () => {
-      if (grid.edit && grid.homeNode) {
+      if (grid.edit && grid.homeNode && !sweepa.cleaning) {
         grid.toggleEdit();
 
         const visited = document.getElementsByClassName('visited');
@@ -85,7 +85,7 @@ class View {
           }
         }
 
-        modesDropdown.classList.add('disabled');
+        // modesDropdown.classList.add('disabled');
         startBtn.classList.add('pause');
         startBtn.innerHTML = 'Pause';
 
@@ -102,6 +102,7 @@ class View {
           startBtn.classList.remove('pause');
           startBtn.innerHTML = 'Start';
           sweepa.pauseCleaning();
+          // grid.toggleEdit();
         }
       }
     });
