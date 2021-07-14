@@ -12,13 +12,13 @@ const dirDeltas = [
 ];
 
 const deltaIndices = {
-  '[-1,0]': 0,
-  '[-1,1]': 1,
-  '[0,1]': 2,
-  '[1,1]': 3,
-  '[1,0]': 4,
-  '[1,-1]': 5,
-  '[0,-1]': 6,
+  '[-1,0]':  0,
+  '[-1,1]':  1,
+  '[0,1]':   2,
+  '[1,1]':   3,
+  '[1,0]':   4,
+  '[1,-1]':  5,
+  '[0,-1]':  6,
   '[-1,-1]': 7
 };
 
@@ -48,7 +48,12 @@ class Sweepa {
     this.dockingIdx = grid.dockingIdx;
     
     this.cleaningAlgos = [this.randomDir.bind(this), this.clockwiseDir.bind(this)];
-    this.dockingAlgos = [this.heapDijkstras.bind(this), this.aStar.bind(this), this.greedyBestFirst.bind(this)];
+    this.dockingAlgos = [
+      this.heapDijkstras.bind(this), 
+      this.aStar.bind(this), 
+      this.greedyBestFirst.bind(this),
+      this.breadthFirstSearch.bind(this)
+    ];
     
     this.dir = dirDeltas[Math.floor(Math.random() * 8)];
     this.cleanDuration = 20000;
@@ -167,7 +172,7 @@ class Sweepa {
     const dockingAlgo = this.dockingAlgos[this.dockingIdx];
 
     dockingAlgo(
-      this.graphList, this.currNode.value, this.homeNode.value
+      this.currNode.value, this.homeNode.value, this.graphList
     ).then(res => {
       const { cameFrom } = res;
       this.retracePath(cameFrom);
@@ -264,7 +269,7 @@ class Sweepa {
     return [dirX, dirY];
   }
 
-  async heapDijkstras(graphList, start, destination) {
+  async heapDijkstras(start, destination, graphList) {
     const frontier = new MinHeap();
     const cameFrom = {};
     const distance = {};
@@ -308,7 +313,7 @@ class Sweepa {
     return { distance, cameFrom };
   }
 
-  async greedyBestFirst(graphList, start, destination) {
+  async greedyBestFirst(start, destination, graphList) {
     const frontier = new MinHeap();
     this.nodes[start].key = 0;
     frontier.insert(this.nodes[start]);
@@ -341,7 +346,7 @@ class Sweepa {
     return { cameFrom };
   }
 
-  async aStar(graphList, start, destination) {
+  async aStar(start, destination, graphList) {
     const frontier = new MinHeap();
     const cameFrom = {};
     const gScore = {};
@@ -384,6 +389,34 @@ class Sweepa {
     }
     
     return { gScore, cameFrom };
+  }
+
+  async breadthFirstSearch(start, destination, graphList) {
+    const queue = [start];
+    const visited = new Set();
+    const cameFrom = {};
+
+    while (queue.length) {
+      const currNodeVal = queue.shift();
+      visited.add(currNodeVal);
+
+      await new Promise(resolve => {
+        setTimeout(() => {
+          resolve(this.markVisited(currNodeVal));
+        }, this.searchSpeed);
+      });
+
+      if (currNodeVal == destination) return { cameFrom };
+
+      for (let neighbor in graphList[currNodeVal]) {
+        if (!visited.has(neighbor)) {
+          cameFrom[neighbor] = currNodeVal;
+          queue.push(neighbor);
+        }
+      }
+    }
+
+    return { cameFrom };
   }
 }
 
