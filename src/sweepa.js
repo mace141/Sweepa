@@ -395,23 +395,26 @@ class Sweepa {
     const queue = [start];
     const visited = new Set();
     const cameFrom = {};
+    visited.add(start);
 
     while (queue.length) {
       const currNodeVal = queue.shift();
-      visited.add(currNodeVal);
-
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.markVisited(currNodeVal));
-        }, this.searchSpeed);
-      });
 
       if (currNodeVal == destination) return { cameFrom };
-
+      
       for (let neighbor in graphList[currNodeVal]) {
         if (!visited.has(neighbor)) {
-          cameFrom[neighbor] = currNodeVal;
           queue.push(neighbor);
+          visited.add(neighbor);
+          cameFrom[neighbor] = currNodeVal;
+    
+          await new Promise(resolve => {
+            setTimeout(() => {
+              resolve(this.markVisited(neighbor));
+            }, this.searchSpeed);
+          });
+
+          if (neighbor == destination) return { cameFrom };
         }
       }
     }

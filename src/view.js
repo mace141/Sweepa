@@ -75,15 +75,20 @@ class View {
 
         const visited = document.getElementsByClassName('visited');
         const swept = document.getElementsByClassName('swept');
-        while (visited.length > 0 || swept.length > 0) {
+        const returnPath = document.getElementsByClassName('return');
+
+        while (visited.length || swept.length || returnPath.length) {
           if (visited[0]) {
             visited[0].classList.add('unvisited');
-            visited[0].classList.remove('return');
             visited[0].classList.remove('visited');
           }
-
+          
           if (swept[0]) {
             swept[0].classList.remove('swept');
+          }
+          
+          if (returnPath[0]) {
+            returnPath[0].classList.remove('return');
           }
         }
 
