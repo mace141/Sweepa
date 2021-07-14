@@ -11,8 +11,9 @@ class View {
 
     const docking = document.getElementById('docking');
     const dijkstrasBtn = document.getElementById('dijkstras');
-    const greedyBtn = document.getElementById('greedy');
     const aStarBtn = document.getElementById('a star');
+    const greedyBtn = document.getElementById('greedy');
+    const bfsBtn = document.getElementById('bfs');
 
     const cleaning = document.getElementById('cleaning');
     const randomBtn = document.getElementById('random');
@@ -119,6 +120,11 @@ class View {
     greedyBtn.addEventListener('click', () => {
       grid.dockingIdx = 2;
       docking.innerHTML = "Greedy Best First Search";
+    });
+
+    bfsBtn.addEventListener('click', () => {
+      grid.dockingIdx = 3;
+      docking.innerHTML = "Breadth First Search";
     });
 
     randomBtn.addEventListener('click', () => {
