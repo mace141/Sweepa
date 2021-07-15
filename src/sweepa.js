@@ -214,6 +214,8 @@ class Sweepa {
     startBtn.innerHTML = 'Start';
     
     this.grid.toggleEdit();
+    document.getElementById('clear-grid').classList.remove('disabled');
+    document.getElementById('clear-walls').classList.remove('disabled');
   }
 
   homeStep() {

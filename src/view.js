@@ -72,6 +72,8 @@ class View {
     startBtn.addEventListener('click', () => {
       if (grid.edit && grid.homeNode && !sweepa.cleaning) {
         grid.toggleEdit();
+        clearGridBtn.classList.add('disabled');
+        clearWallsBtn.classList.add('disabled');
 
         const visited = document.getElementsByClassName('visited');
         const swept = document.getElementsByClassName('swept');

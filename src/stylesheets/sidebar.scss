@@ -59,10 +59,14 @@ button {
 
 .button {
   box-shadow: 0 7px #999;
-}
+  
+  &:hover {
+    background-color: #dddddd;
+  }
 
-.button:hover {
-  background-color: #dddddd;
+  &.disabled {
+    cursor: not-allowed;
+  }
 }
 
 .button:active, button.selected {
