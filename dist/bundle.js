@@ -1351,15 +1351,15 @@ class View {
       cleaning.innerHTML = "Clockwise Prone";
     });
 
-    if (window.innerHeight < 780) {
+    if (window.innerHeight < 810) {
       controls.style.overflowY = 'scroll';
-      controls.style.height = `${window.innerHeight - 160}px`;
+      controls.style.height = `${window.innerHeight - 170}px`;
     }
 
     window.addEventListener('resize', () => {
-      if (window.innerHeight < 780) {
+      if (window.innerHeight < 810) {
         controls.style.overflowY = 'scroll';
-        controls.style.height = `${window.innerHeight - 160}px`;
+        controls.style.height = `${window.innerHeight - 170}px`;
       } else {
         controls.style.overflowY = null;
         controls.style.height = null;
