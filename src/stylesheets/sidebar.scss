@@ -63,10 +63,10 @@ button {
   &:hover {
     background-color: #dddddd;
   }
+}
 
-  &.disabled {
-    cursor: not-allowed;
-  }
+.disabled, .modes li.disabled:hover {
+  cursor: not-allowed;
 }
 
 .button:active, button.selected {

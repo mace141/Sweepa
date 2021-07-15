@@ -72,8 +72,7 @@ class View {
     startBtn.addEventListener('click', () => {
       if (grid.edit && grid.homeNode && !sweepa.cleaning) {
         grid.toggleEdit();
-        clearGridBtn.classList.add('disabled');
-        clearWallsBtn.classList.add('disabled');
+        this.disableControls();
 
         const visited = document.getElementsByClassName('visited');
         const swept = document.getElementsByClassName('swept');
@@ -115,33 +114,45 @@ class View {
     });
 
     dijkstrasBtn.addEventListener('click', () => {
-      grid.dockingIdx = 0;
-      docking.innerHTML = "Dijkstra's Algorithm";
+      if (grid.edit) {
+        grid.dockingIdx = 0;
+        docking.innerHTML = "Dijkstra's Algorithm";
+      }
     });
 
     aStarBtn.addEventListener('click', () => {
-      grid.dockingIdx = 1;
-      docking.innerHTML = "A* Search";
+      if (grid.edit) {
+        grid.dockingIdx = 1;
+        docking.innerHTML = "A* Search";
+      }
     });
 
     greedyBtn.addEventListener('click', () => {
-      grid.dockingIdx = 2;
-      docking.innerHTML = "Greedy Best First Search";
+      if (grid.edit) {
+        grid.dockingIdx = 2;
+        docking.innerHTML = "Greedy Best First Search";
+      }
     });
 
     bfsBtn.addEventListener('click', () => {
-      grid.dockingIdx = 3;
-      docking.innerHTML = "Breadth First Search";
+      if (grid.edit) {
+        grid.dockingIdx = 3;
+        docking.innerHTML = "Breadth First Search"; 4
+      }
     });
 
     randomBtn.addEventListener('click', () => {
-      grid.cleaningIdx = 0;
-      cleaning.innerHTML = "Random";
+      if (grid.edit) {
+        grid.cleaningIdx = 0;
+        cleaning.innerHTML = "Random";
+      }
     });
 
     clockwiseBtn.addEventListener('click', () => {
-      grid.cleaningIdx = 1;
-      cleaning.innerHTML = "Clockwise Prone";
+      if (grid.edit) {
+        grid.cleaningIdx = 1;
+        cleaning.innerHTML = "Clockwise Prone";
+      }
     });
 
     if (window.innerHeight < 810) {
@@ -158,6 +169,17 @@ class View {
         controls.style.height = null;
       }
     });
+  }
+
+  static disableControls() {
+    document.getElementById('clear-grid').classList.add('disabled');
+    document.getElementById('clear-walls').classList.add('disabled');
+    document.getElementById('dijkstras').classList.add('disabled');
+    document.getElementById('a-star').classList.add('disabled');
+    document.getElementById('greedy').classList.add('disabled');
+    document.getElementById('bfs').classList.add('disabled');
+    document.getElementById('random').classList.add('disabled');
+    document.getElementById('clockwise').classList.add('disabled');
   }
 }
 
