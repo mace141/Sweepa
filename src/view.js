@@ -11,7 +11,7 @@ class View {
 
     const docking = document.getElementById('docking');
     const dijkstrasBtn = document.getElementById('dijkstras');
-    const aStarBtn = document.getElementById('a star');
+    const aStarBtn = document.getElementById('a-star');
     const greedyBtn = document.getElementById('greedy');
     const bfsBtn = document.getElementById('bfs');
 
