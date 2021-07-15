@@ -833,6 +833,17 @@ class Sweepa {
     this.attachEvents();
   }
 
+  static enableControls() {
+    document.getElementById('clear-grid').classList.remove('disabled');
+    document.getElementById('clear-walls').classList.remove('disabled');
+    document.getElementById('dijkstras').classList.remove('disabled');
+    document.getElementById('a-star').classList.remove('disabled');
+    document.getElementById('greedy').classList.remove('disabled');
+    document.getElementById('bfs').classList.remove('disabled');
+    document.getElementById('random').classList.remove('disabled');
+    document.getElementById('clockwise').classList.remove('disabled');
+  }
+
   attachEvents() {
     const cleanDuration = document.getElementById('cleaning-duration');
     const seconds = document.getElementById('seconds');
@@ -980,8 +991,7 @@ class Sweepa {
     startBtn.innerHTML = 'Start';
     
     this.grid.toggleEdit();
-    document.getElementById('clear-grid').classList.remove('disabled');
-    document.getElementById('clear-walls').classList.remove('disabled');
+    Sweepa.enableControls();
   }
 
   homeStep() {
