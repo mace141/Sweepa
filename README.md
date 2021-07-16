@@ -41,48 +41,49 @@ Users are able to:
 
 # Code Snippets
 ```javascript
-  async heapDijkstras(start, destination, graphList) {
+  async aStar(start, destination, graphList) {
     const frontier = new MinHeap();
     const cameFrom = {};
-    const distance = {};
+    const gScore = {};
     for (let node in this.nodes) {
       if (node == start) {
-        distance[start] = 0;
+        gScore[start] = 0;
         this.nodes[start].key = 0;
         frontier.insert(this.nodes[start]);
       } else {
-        distance[node] = Infinity;
+        gScore[node] = Infinity;
         this.nodes[node].key = Infinity;
       }
     }
-
+    
     while (!frontier.empty()) {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
-
+      
       await new Promise(resolve => {
         setTimeout(() => {
           resolve(this.markVisited(currNodeVal));
         }, this.searchSpeed);
       });
       
-      if (currNodeVal == destination) return { distance, cameFrom };
+      if (currNodeVal == destination) return { gScore, cameFrom };
       
       for (let neighbor in graphList[currNodeVal]) {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
-        let distFromSourceToNeighbor = distance[currNodeVal] + distFromCurrToNeighbor;
+        let distFromSourceToNeighbor = gScore[currNodeVal] + distFromCurrToNeighbor;
         
-        if (distance[neighbor] > distFromSourceToNeighbor) {
-          distance[neighbor] = distFromSourceToNeighbor;
+        if (gScore[neighbor] > distFromSourceToNeighbor) {
+          gScore[neighbor] = distFromSourceToNeighbor;
           cameFrom[neighbor] = currNodeVal;
 
-          this.nodes[neighbor].key = distFromSourceToNeighbor;
+          const fScore = this.octileDist(neighbor, destination);
+          this.nodes[neighbor].key = distFromSourceToNeighbor + fScore;
           frontier.insert(this.nodes[neighbor]);
         }
       }
     }
     
-    return { distance, cameFrom };
+    return { gScore, cameFrom };
   }
 ```
 
