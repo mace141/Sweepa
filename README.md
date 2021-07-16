@@ -2,6 +2,8 @@
 
 Sweepa is a robot vacuum that "cleans" your floor and uses search algorithms to return to its home. You can draw your room's layout, place Sweepa anywhere in the room and watch it clean with different settings.
 
+Here's the [live site!](https://mace141.github.io/Sweepa)
+
 # Technologies
 
 * Vanilla JavaScript
