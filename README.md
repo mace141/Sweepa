@@ -25,19 +25,19 @@ Users are able to:
 
 ### Dijkstra's Algorithm
 
-<img src="/dist/assets/gifs/dijkstras.gif" alt="Dijkstra's Algorithm" width="500" height="auto"/>
+<img src="/dist/assets/gifs/dijkstras_short.gif" alt="Dijkstra's Algorithm" width="500" height="auto"/>
 
 ### A* Search Algorithm
 
-<img src="/dist/assets/gifs/astar.gif" alt="A* Search Algorithm" width="500" height="auto"/>
+<img src="/dist/assets/gifs/astar_short.gif" alt="A* Search Algorithm" width="500" height="auto"/>
 
 ### Greedy Best First Search
 
-<img src="/dist/assets/gifs/greedybestfirst.gif" alt="Greedy Best First Search" width="500" height="auto"/>
+<img src="/dist/assets/gifs/greedybestfirst_short.gif" alt="Greedy Best First Search" width="500" height="auto"/>
 
 ### Breadth First Search
 
-<img src="/dist/assets/gifs/breadthfirst.gif" alt="Breadth First Search" width="500" height="auto"/>
+<img src="/dist/assets/gifs/breadthfirst_short.gif" alt="Breadth First Search" width="500" height="auto"/>
 
 ## Code Snippets
 ```javascript
