@@ -15,9 +15,27 @@ Users are able to:
 * Select from various cleaning modes: 
   * Dijkstra's Algorithm (guarantees the shortest path, weighted)
   * A* Search Algorithm (guarantees the shortest path, weighted, guided)
-  * Greedy Best First Algorithm (does not guarantee the shortest path, weighted, guided)
+  * Greedy Best First Search (does not guarantee the shortest path, weighted, guided)
   * Breadth First Search (guarantees the shortest path, unweighted)
 * Alter Sweepa's cleaning duration, movement speed, & pathfinding speed
+
+# Pathfinding In Action
+
+## Dijkstra's Algorithm
+
+<img src="/dist/assets/gifs/dijkstras.gif" alt="Dijkstra's Algorithm" width="500" height="auto"/>
+
+## A* Search Algorithm
+
+<img src="/dist/assets/gifs/astar.gif" alt="A* Search Algorithm" width="500" height="auto"/>
+
+## Greedy Best First Search
+
+<img src="/dist/assets/gifs/greedybestfirst.gif" alt="Greedy Best First Search" width="500" height="auto"/>
+
+## Breadth First Search
+
+<img src="/dist/assets/gifs/breadthfirst.gif" alt="Breadth First Search" width="500" height="auto"/>
 
 # Code Snippets
 ```javascript
