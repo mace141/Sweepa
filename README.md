@@ -4,13 +4,13 @@ Sweepa is a robot vacuum that "cleans" your floor and uses search algorithms to 
 
 Here's the [live site!](https://mace141.github.io/Sweepa)
 
-# Technologies
+## Technologies
 
 * Vanilla JavaScript
 * HTML
 * SCSS
 
-# Functionality
+## Functionality
 
 Users are able to:
 * Draw walls on a grid and place Sweepa down
@@ -21,25 +21,25 @@ Users are able to:
   * Breadth First Search (guarantees the shortest path, unweighted)
 * Alter Sweepa's cleaning duration, movement speed, & pathfinding speed
 
-# Pathfinding In Action
+## Pathfinding In Action
 
-## Dijkstra's Algorithm
+### Dijkstra's Algorithm
 
 <img src="/dist/assets/gifs/dijkstras.gif" alt="Dijkstra's Algorithm" width="500" height="auto"/>
 
-## A* Search Algorithm
+### A* Search Algorithm
 
 <img src="/dist/assets/gifs/astar.gif" alt="A* Search Algorithm" width="500" height="auto"/>
 
-## Greedy Best First Search
+### Greedy Best First Search
 
 <img src="/dist/assets/gifs/greedybestfirst.gif" alt="Greedy Best First Search" width="500" height="auto"/>
 
-## Breadth First Search
+### Breadth First Search
 
 <img src="/dist/assets/gifs/breadthfirst.gif" alt="Breadth First Search" width="500" height="auto"/>
 
-# Code Snippets
+## Code Snippets
 ```javascript
   async aStar(start, destination, graphList) {
     const frontier = new MinHeap();
