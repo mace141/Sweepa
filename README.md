@@ -89,3 +89,9 @@ Note: Breadth First Search is unweighted; diagonal directions and cardinal direc
   }
 ```
 
+## Future Direction
+
+* Prevent Sweepa from traveling through "cracks" in the walls (diagonally placed walls)
+* Allow users to view the pathfinding algorithms in action without first viewing the cleaning process
+* Design a more efficient cleaning algorithm that cleans the floor line by line
+* Allow users to place down dust for Sweepa to clean
