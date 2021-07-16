@@ -37,6 +37,8 @@ Users are able to:
 
 ### Breadth First Search
 
+Note: Breadth First Search is unweighted; diagonal paths and cardinal paths are the same distance
+
 <img src="/dist/assets/gifs/breadthfirst_short.gif" alt="Breadth First Search" width="500" height="auto"/>
 
 ## Code Snippets
