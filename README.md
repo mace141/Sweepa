@@ -37,7 +37,7 @@ Users are able to:
 
 ### Breadth First Search
 
-Note: Breadth First Search is unweighted; diagonal directions and cardinal directions are the same distance in this case
+Note: Breadth First Search is unweighted; diagonal and cardinal directions are the same distance in this case
 
 <img src="/dist/assets/gifs/breadthfirst_short.gif" alt="Breadth First Search" width="500" height="auto"/>
 
