@@ -14,7 +14,8 @@ Here's the [live site!](https://mace141.github.io/Sweepa)
 
 Users are able to:
 * Draw walls on a grid and place Sweepa down
-* Select from various cleaning modes: 
+* Select from various cleaning modes: Random, Clockwise Prone
+* Select from various docking modes: 
   * Dijkstra's Algorithm (guarantees the shortest path, weighted)
   * A* Search Algorithm (guarantees the shortest path, weighted, guided)
   * Greedy Best First Search (does not guarantee the shortest path, weighted, guided)
