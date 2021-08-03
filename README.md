@@ -15,6 +15,9 @@ Here's the [live site!](https://mace141.github.io/Sweepa)
 Users are able to:
 * Draw walls on a grid and place Sweepa down
 * Select from various cleaning modes: 
+  * Random
+  * Clockwise Prone
+* Select from various docking modes: 
   * Dijkstra's Algorithm (guarantees the shortest path, weighted)
   * A* Search Algorithm (guarantees the shortest path, weighted, guided)
   * Greedy Best First Search (does not guarantee the shortest path, weighted, guided)
@@ -37,7 +40,7 @@ Users are able to:
 
 ### Breadth First Search
 
-Note: Breadth First Search is unweighted; diagonal directions and cardinal directions are the same distance in this case
+Note: Breadth First Search is unweighted; diagonal and cardinal directions are the same distance in this case
 
 <img src="/dist/assets/gifs/breadthfirst_short.gif" alt="Breadth First Search" width="500" height="auto"/>
 
