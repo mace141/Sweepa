@@ -48,7 +48,7 @@ Note: Breadth First Search is unweighted; diagonal directions and cardinal direc
     const cameFrom = {};
     const gScore = {};
     for (let node in this.nodes) {
-      if (node == start) {
+      if (node === start) {
         gScore[start] = 0;
         this.nodes[start].key = 0;
         frontier.insert(this.nodes[start]);
@@ -68,7 +68,7 @@ Note: Breadth First Search is unweighted; diagonal directions and cardinal direc
         }, this.searchSpeed);
       });
       
-      if (currNodeVal == destination) return { gScore, cameFrom };
+      if (currNodeVal === destination) return { gScore, cameFrom };
       
       for (let neighbor in graphList[currNodeVal]) {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
