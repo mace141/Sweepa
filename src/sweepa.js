@@ -173,7 +173,7 @@ class Sweepa {
     if (Math.random() < 0.75) {
       const lastDirIdx = deltaIndices[JSON.stringify(this.dir)];
       
-      this.dir = lastDirIdx == 7 ? [-1, 0] : dirDeltas[lastDirIdx + 1];
+      this.dir = lastDirIdx === 7 ? [-1, 0] : dirDeltas[lastDirIdx + 1];
     } else {
       this.randomDir();
     }
@@ -286,7 +286,7 @@ class Sweepa {
     const cameFrom = {};
     const distance = {};
     for (let node in this.nodes) {
-      if (node == start) {
+      if (node === start) {
         distance[start] = 0;
         this.nodes[start].key = 0;
         frontier.insert(this.nodes[start]);
@@ -306,7 +306,7 @@ class Sweepa {
         }, this.searchSpeed);
       });
       
-      if (currNodeVal == destination) return { distance, cameFrom };
+      if (currNodeVal === destination) return { distance, cameFrom };
       
       for (let neighbor in graphList[currNodeVal]) {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
@@ -343,7 +343,7 @@ class Sweepa {
         }, this.searchSpeed);
       });
 
-      if (currNodeVal == destination) return { cameFrom };
+      if (currNodeVal === destination) return { cameFrom };
 
       for (let neighbor in graphList[currNodeVal]) {
         if (!Object.keys(cameFrom).includes(neighbor)) {
@@ -363,7 +363,7 @@ class Sweepa {
     const cameFrom = {};
     const gScore = {};
     for (let node in this.nodes) {
-      if (node == start) {
+      if (node === start) {
         gScore[start] = 0;
         this.nodes[start].key = 0;
         frontier.insert(this.nodes[start]);
@@ -383,7 +383,7 @@ class Sweepa {
         }, this.searchSpeed);
       });
       
-      if (currNodeVal == destination) return { gScore, cameFrom };
+      if (currNodeVal === destination) return { gScore, cameFrom };
       
       for (let neighbor in graphList[currNodeVal]) {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
@@ -412,7 +412,7 @@ class Sweepa {
     while (queue.length) {
       const currNodeVal = queue.shift();
 
-      if (currNodeVal == destination) return { cameFrom };
+      if (currNodeVal === destination) return { cameFrom };
       
       for (let neighbor in graphList[currNodeVal]) {
         if (!visited.has(neighbor)) {
@@ -426,7 +426,7 @@ class Sweepa {
             }, this.searchSpeed);
           });
 
-          if (neighbor == destination) return { cameFrom };
+          if (neighbor === destination) return { cameFrom };
         }
       }
     }

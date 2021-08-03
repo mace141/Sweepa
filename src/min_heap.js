@@ -4,7 +4,7 @@ class MinHeap {
   }
 
   empty() {
-    return this.array.length == 1;
+    return this.array.length === 1;
   }
 
   insert(node) {
@@ -13,7 +13,7 @@ class MinHeap {
   }
 
   siftUp(idx) {
-    if (idx == 1) return;
+    if (idx === 1) return;
     
     const parentIdx = Math.floor(idx / 2);
     if (this.array[idx].key < this.array[parentIdx].key) {

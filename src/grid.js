@@ -145,7 +145,7 @@ class Grid {
       const graphNode = this.graphArr[pos[0]][pos[1]];
 
       if (this.drag) {
-        if (this.object == 'wall') {
+        if (this.object === 'wall') {
           this.toggleWall(targetClasses, pos, graphNode, e);
         }
       }

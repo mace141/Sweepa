@@ -13,7 +13,7 @@ class FibonacciHeap {
     node.childList = null;
     node.mark = false;
 
-    if (this.min == null) {
+    if (this.min === null) {
       this.rootList = new CDLinkedList();
       this.rootList.insert(node);
       this.min = node;
@@ -40,7 +40,7 @@ class FibonacciHeap {
 
       this.rootList.remove(minNode);
 
-      if (minNode == minNode.next) {
+      if (minNode === minNode.next) {
         this.min = null;
       } else {
         this.min = minNode.next;
@@ -141,7 +141,7 @@ class FibonacciHeap {
   cascadingCut(node) {
     const parent = node.parent;
     if (node && parent) {
-      if (node.mark == false) {
+      if (node.mark === false) {
         node.mark = true;
       } else {
         this.cut(node, parent);

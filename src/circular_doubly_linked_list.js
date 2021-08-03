@@ -32,7 +32,7 @@ class CDLinkedList {
   remove(node) {
     node.remove();
 
-    if (this.head == node) {
+    if (this.head === node) {
       this.head = node.next;
     }
   }
