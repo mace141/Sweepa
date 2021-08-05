@@ -413,11 +413,7 @@ class Sweepa {
           visited.add(neighbor);
           cameFrom[neighbor] = currNodeVal;
     
-          await new Promise(resolve => {
-            setTimeout(() => {
-              resolve(this.markVisited(neighbor));
-            }, this.searchSpeed);
-          });
+          await this.markVisited(neighbor);
 
           if (neighbor === destination) return { cameFrom };
         }
