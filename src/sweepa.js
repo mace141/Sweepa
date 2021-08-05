@@ -266,9 +266,14 @@ class Sweepa {
   }
 
   markVisited(node) {
-    const visitedNode = document.getElementById(node);
-    visitedNode.classList.add('visited');
-    visitedNode.classList.remove('unvisited');
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve('marking visited');
+        const visitedNode = document.getElementById(node);
+        visitedNode.classList.add('visited');
+        visitedNode.classList.remove('unvisited');
+      }, this.searchSpeed);
+    });
   }
 
   pathDirection(lastPosVal, nextPosVal) {
@@ -300,11 +305,7 @@ class Sweepa {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
 
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.markVisited(currNodeVal));
-        }, this.searchSpeed);
-      });
+      await this.markVisited(currNodeVal);
       
       if (currNodeVal === destination) return { distance, cameFrom };
       
@@ -337,11 +338,7 @@ class Sweepa {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
 
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.markVisited(currNodeVal));
-        }, this.searchSpeed);
-      });
+      await this.markVisited(currNodeVal);
 
       if (currNodeVal === destination) return { cameFrom };
 
@@ -377,11 +374,7 @@ class Sweepa {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
       
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.markVisited(currNodeVal));
-        }, this.searchSpeed);
-      });
+      await this.markVisited(currNodeVal);
       
       if (currNodeVal === destination) return { gScore, cameFrom };
       

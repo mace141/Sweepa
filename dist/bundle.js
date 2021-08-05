@@ -641,7 +641,7 @@ class Grid {
       const graphNode = this.graphArr[pos[0]][pos[1]];
 
       if (this.drag) {
-        if (this.object == 'wall') {
+        if (this.object === 'wall') {
           this.toggleWall(targetClasses, pos, graphNode, e);
         }
       }
@@ -707,7 +707,7 @@ class MinHeap {
   }
 
   empty() {
-    return this.array.length == 1;
+    return this.array.length === 1;
   }
 
   insert(node) {
@@ -716,7 +716,7 @@ class MinHeap {
   }
 
   siftUp(idx) {
-    if (idx == 1) return;
+    if (idx === 1) return;
     
     const parentIdx = Math.floor(idx / 2);
     if (this.array[idx].key < this.array[parentIdx].key) {
@@ -939,7 +939,7 @@ class Sweepa {
     if (Math.random() < 0.75) {
       const lastDirIdx = deltaIndices[JSON.stringify(this.dir)];
       
-      this.dir = lastDirIdx == 7 ? [-1, 0] : dirDeltas[lastDirIdx + 1];
+      this.dir = lastDirIdx === 7 ? [-1, 0] : dirDeltas[lastDirIdx + 1];
     } else {
       this.randomDir();
     }
@@ -1032,9 +1032,14 @@ class Sweepa {
   }
 
   markVisited(node) {
-    const visitedNode = document.getElementById(node);
-    visitedNode.classList.add('visited');
-    visitedNode.classList.remove('unvisited');
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve('marking visited');
+        const visitedNode = document.getElementById(node);
+        visitedNode.classList.add('visited');
+        visitedNode.classList.remove('unvisited');
+      }, this.searchSpeed);
+    });
   }
 
   pathDirection(lastPosVal, nextPosVal) {
@@ -1052,7 +1057,7 @@ class Sweepa {
     const cameFrom = {};
     const distance = {};
     for (let node in this.nodes) {
-      if (node == start) {
+      if (node === start) {
         distance[start] = 0;
         this.nodes[start].key = 0;
         frontier.insert(this.nodes[start]);
@@ -1066,13 +1071,9 @@ class Sweepa {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
 
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.markVisited(currNodeVal));
-        }, this.searchSpeed);
-      });
+      await this.markVisited(currNodeVal);
       
-      if (currNodeVal == destination) return { distance, cameFrom };
+      if (currNodeVal === destination) return { distance, cameFrom };
       
       for (let neighbor in graphList[currNodeVal]) {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
@@ -1103,13 +1104,9 @@ class Sweepa {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
 
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.markVisited(currNodeVal));
-        }, this.searchSpeed);
-      });
+      await this.markVisited(currNodeVal);
 
-      if (currNodeVal == destination) return { cameFrom };
+      if (currNodeVal === destination) return { cameFrom };
 
       for (let neighbor in graphList[currNodeVal]) {
         if (!Object.keys(cameFrom).includes(neighbor)) {
@@ -1129,7 +1126,7 @@ class Sweepa {
     const cameFrom = {};
     const gScore = {};
     for (let node in this.nodes) {
-      if (node == start) {
+      if (node === start) {
         gScore[start] = 0;
         this.nodes[start].key = 0;
         frontier.insert(this.nodes[start]);
@@ -1143,13 +1140,9 @@ class Sweepa {
       const minNode = frontier.extractMin();
       const currNodeVal = minNode.value;
       
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.markVisited(currNodeVal));
-        }, this.searchSpeed);
-      });
+      await this.markVisited(currNodeVal);
       
-      if (currNodeVal == destination) return { gScore, cameFrom };
+      if (currNodeVal === destination) return { gScore, cameFrom };
       
       for (let neighbor in graphList[currNodeVal]) {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
@@ -1178,7 +1171,7 @@ class Sweepa {
     while (queue.length) {
       const currNodeVal = queue.shift();
 
-      if (currNodeVal == destination) return { cameFrom };
+      if (currNodeVal === destination) return { cameFrom };
       
       for (let neighbor in graphList[currNodeVal]) {
         if (!visited.has(neighbor)) {
@@ -1192,7 +1185,7 @@ class Sweepa {
             }, this.searchSpeed);
           });
 
-          if (neighbor == destination) return { cameFrom };
+          if (neighbor === destination) return { cameFrom };
         }
       }
     }
