@@ -1,4 +1,5 @@
 /******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/stylesheets/main.scss":
@@ -7,7 +8,6 @@
   \****************************************************************************************************************/
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
 /* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
@@ -31,7 +31,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  bo
   \*****************************************************/
 /***/ (function(module) {
 
-"use strict";
 
 
 /*
@@ -107,7 +106,6 @@ module.exports = function (cssWithMappingToString) {
   \************************************************************************/
 /***/ (function(module) {
 
-"use strict";
 
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
@@ -149,7 +147,6 @@ module.exports = function cssWithMappingToString(item) {
   \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
@@ -176,7 +173,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
   \****************************************************************************/
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-"use strict";
 
 
 var isOldIE = function isOldIE() {
@@ -453,8 +449,9 @@ module.exports = function (list, options) {
 /*!***************************!*\
   !*** ./src/graph_node.js ***!
   \***************************/
-/***/ (function(module) {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+__webpack_require__.r(__webpack_exports__);
 class GraphNode {
   constructor(key, value) {
     this.key = key;
@@ -479,8 +476,7 @@ class GraphNode {
   }
 }
 
-// export default GraphNode;
-module.exports = GraphNode;
+/* harmony default export */ __webpack_exports__["default"] = (GraphNode);
 
 /***/ }),
 
@@ -490,10 +486,8 @@ module.exports = GraphNode;
   \*********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _graph_node__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./graph_node */ "./src/graph_node.js");
-/* harmony import */ var _graph_node__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_graph_node__WEBPACK_IMPORTED_MODULE_0__);
 
 
 const diagDeltas = [
@@ -676,7 +670,7 @@ class Grid {
         this.attachNodeEvents(newNode);
         gridRow.append(newNode);
         
-        const graphNode = new (_graph_node__WEBPACK_IMPORTED_MODULE_0___default())(Infinity, newNode.id);
+        const graphNode = new _graph_node__WEBPACK_IMPORTED_MODULE_0__.default(Infinity, newNode.id);
         this.nodes[graphNode.value] = graphNode;
         graphRow.push(graphNode);
       }
@@ -699,7 +693,6 @@ class Grid {
   \*************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 class MinHeap {
   constructor() {
@@ -761,7 +754,6 @@ class MinHeap {
   \***********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _min_heap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./min_heap */ "./src/min_heap.js");
 
@@ -1020,7 +1012,7 @@ class Sweepa {
     }
   }
   
-  octileDist(current, destination) {
+  static octileDist(current, destination) {
     const startPos = current.split('-');
     const destPos = destination.split('-');
     const d1 = 1;
@@ -1056,16 +1048,9 @@ class Sweepa {
     const frontier = new _min_heap__WEBPACK_IMPORTED_MODULE_0__.default();
     const cameFrom = {};
     const distance = {};
-    for (let node in this.nodes) {
-      if (node === start) {
-        distance[start] = 0;
-        this.nodes[start].key = 0;
-        frontier.insert(this.nodes[start]);
-      } else {
-        distance[node] = Infinity;
-        this.nodes[node].key = Infinity;
-      }
-    }
+    distance[start] = 0;
+    this.nodes[start].key = 0;
+    frontier.insert(this.nodes[start]);
 
     while (!frontier.empty()) {
       const minNode = frontier.extractMin();
@@ -1079,7 +1064,7 @@ class Sweepa {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
         let distFromSourceToNeighbor = distance[currNodeVal] + distFromCurrToNeighbor;
         
-        if (distance[neighbor] > distFromSourceToNeighbor) {
+        if (!(neighbor in cameFrom) || distance[neighbor] > distFromSourceToNeighbor) {
           distance[neighbor] = distFromSourceToNeighbor;
           cameFrom[neighbor] = currNodeVal;
 
@@ -1109,8 +1094,8 @@ class Sweepa {
       if (currNodeVal === destination) return { cameFrom };
 
       for (let neighbor in graphList[currNodeVal]) {
-        if (!Object.keys(cameFrom).includes(neighbor)) {
-          const heuristic = this.octileDist(neighbor, destination);
+        if (!(neighbor in cameFrom)) {
+          const heuristic = Sweepa.octileDist(neighbor, destination);
           this.nodes[neighbor].key = heuristic;
           frontier.insert(this.nodes[neighbor]);
           cameFrom[neighbor] = currNodeVal;
@@ -1125,16 +1110,9 @@ class Sweepa {
     const frontier = new _min_heap__WEBPACK_IMPORTED_MODULE_0__.default();
     const cameFrom = {};
     const gScore = {};
-    for (let node in this.nodes) {
-      if (node === start) {
-        gScore[start] = 0;
-        this.nodes[start].key = 0;
-        frontier.insert(this.nodes[start]);
-      } else {
-        gScore[node] = Infinity;
-        this.nodes[node].key = Infinity;
-      }
-    }
+    gScore[start] = 0;
+    this.nodes[start].key = 0;
+    frontier.insert(this.nodes[start]);
     
     while (!frontier.empty()) {
       const minNode = frontier.extractMin();
@@ -1148,11 +1126,11 @@ class Sweepa {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
         let distFromSourceToNeighbor = gScore[currNodeVal] + distFromCurrToNeighbor;
         
-        if (gScore[neighbor] > distFromSourceToNeighbor) {
+        if (!(neighbor in cameFrom) || gScore[neighbor] > distFromSourceToNeighbor) {
           gScore[neighbor] = distFromSourceToNeighbor;
           cameFrom[neighbor] = currNodeVal;
 
-          const fScore = this.octileDist(neighbor, destination);
+          const fScore = Sweepa.octileDist(neighbor, destination);
           this.nodes[neighbor].key = distFromSourceToNeighbor + fScore;
           frontier.insert(this.nodes[neighbor]);
         }
@@ -1200,7 +1178,6 @@ class Sweepa {
   \*********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./grid */ "./src/grid.js");
 /* harmony import */ var _sweepa__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sweepa */ "./src/sweepa.js");
@@ -1462,9 +1439,8 @@ class View {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 !function() {
-"use strict";
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/

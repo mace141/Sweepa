@@ -22,5 +22,4 @@ class GraphNode {
   }
 }
 
-// export default GraphNode;
-module.exports = GraphNode;
+export default GraphNode;

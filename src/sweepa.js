@@ -254,7 +254,7 @@ class Sweepa {
     }
   }
   
-  octileDist(current, destination) {
+  static octileDist(current, destination) {
     const startPos = current.split('-');
     const destPos = destination.split('-');
     const d1 = 1;
@@ -290,16 +290,9 @@ class Sweepa {
     const frontier = new MinHeap();
     const cameFrom = {};
     const distance = {};
-    for (let node in this.nodes) {
-      if (node === start) {
-        distance[start] = 0;
-        this.nodes[start].key = 0;
-        frontier.insert(this.nodes[start]);
-      } else {
-        distance[node] = Infinity;
-        this.nodes[node].key = Infinity;
-      }
-    }
+    distance[start] = 0;
+    this.nodes[start].key = 0;
+    frontier.insert(this.nodes[start]);
 
     while (!frontier.empty()) {
       const minNode = frontier.extractMin();
@@ -313,7 +306,7 @@ class Sweepa {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
         let distFromSourceToNeighbor = distance[currNodeVal] + distFromCurrToNeighbor;
         
-        if (distance[neighbor] > distFromSourceToNeighbor) {
+        if (!(neighbor in cameFrom) || distance[neighbor] > distFromSourceToNeighbor) {
           distance[neighbor] = distFromSourceToNeighbor;
           cameFrom[neighbor] = currNodeVal;
 
@@ -343,8 +336,8 @@ class Sweepa {
       if (currNodeVal === destination) return { cameFrom };
 
       for (let neighbor in graphList[currNodeVal]) {
-        if (!Object.keys(cameFrom).includes(neighbor)) {
-          const heuristic = this.octileDist(neighbor, destination);
+        if (!(neighbor in cameFrom)) {
+          const heuristic = Sweepa.octileDist(neighbor, destination);
           this.nodes[neighbor].key = heuristic;
           frontier.insert(this.nodes[neighbor]);
           cameFrom[neighbor] = currNodeVal;
@@ -359,16 +352,9 @@ class Sweepa {
     const frontier = new MinHeap();
     const cameFrom = {};
     const gScore = {};
-    for (let node in this.nodes) {
-      if (node === start) {
-        gScore[start] = 0;
-        this.nodes[start].key = 0;
-        frontier.insert(this.nodes[start]);
-      } else {
-        gScore[node] = Infinity;
-        this.nodes[node].key = Infinity;
-      }
-    }
+    gScore[start] = 0;
+    this.nodes[start].key = 0;
+    frontier.insert(this.nodes[start]);
     
     while (!frontier.empty()) {
       const minNode = frontier.extractMin();
@@ -382,11 +368,11 @@ class Sweepa {
         let distFromCurrToNeighbor = graphList[currNodeVal][neighbor];
         let distFromSourceToNeighbor = gScore[currNodeVal] + distFromCurrToNeighbor;
         
-        if (gScore[neighbor] > distFromSourceToNeighbor) {
+        if (!(neighbor in cameFrom) || gScore[neighbor] > distFromSourceToNeighbor) {
           gScore[neighbor] = distFromSourceToNeighbor;
           cameFrom[neighbor] = currNodeVal;
 
-          const fScore = this.octileDist(neighbor, destination);
+          const fScore = Sweepa.octileDist(neighbor, destination);
           this.nodes[neighbor].key = distFromSourceToNeighbor + fScore;
           frontier.insert(this.nodes[neighbor]);
         }
