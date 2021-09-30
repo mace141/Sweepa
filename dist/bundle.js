@@ -830,7 +830,7 @@ class Sweepa {
     document.getElementById('bfs').classList.remove('disabled');
     document.getElementById('random').classList.remove('disabled');
     document.getElementById('clockwise').classList.remove('disabled');
-    document.getElementById('smart').classList.remove('disabled');
+    // document.getElementById('smart').classList.remove('disabled');
   }
 
   static octileDist(current, destination) {
@@ -896,7 +896,7 @@ class Sweepa {
   async beginCleaning() {
     this.timeElapsed = 0;
     this.cleaning = true;
-    debugger
+    
     if (this.cleaningIdx === 2) {
       await new Promise(res => {
         this.dir = dirDeltas[0];
@@ -909,19 +909,18 @@ class Sweepa {
         await this.cleanStep();
       }
     }
-    debugger
-    // if (!this.paused) {
-    //   this.cleaning = false;
-    //   document.getElementById('start-btn').classList.remove('enabled');
-    //   this.beginDocking();
-    // }
+    
+    if (!this.paused) {
+      this.cleaning = false;
+      document.getElementById('start-btn').classList.remove('enabled');
+      this.beginDocking();
+    }
   }
 
   smartClean() {
     if (this.unswept.size === 0) return;
 
     this.drawPerimeter();
-    // this.smartClean();
   }
 
   scanFrontNeighbors() {
@@ -956,37 +955,29 @@ class Sweepa {
 
   async goStraight() {
     let nextNode = this.currNode.neighbors[this.dir];
-    debugger
+
     while (nextNode && this.unswept.has(nextNode.value)) {
-      debugger
       this.unswept.delete(nextNode.value);
       this.swept.add(nextNode.value);
       this.currNode = nextNode;
       nextNode = this.currNode.neighbors[this.dir];
       this.scanFrontNeighbors();
       await this.replaceSweepa(true);
-      debugger
     }
   }
 
   drawPerimeter() {
     let turns = 0;
     let dirIdx = 0;
-    let nextNode = this.currNode.neighbors[this.dir];
-    debugger
+
     while (turns < 6) {
-      debugger
       this.goStraight();
-      debugger
       dirIdx += 2;
       if (dirIdx > 7) {
         dirIdx = 0;
       }
-      debugger
       this.dir = dirDeltas[dirIdx];
       turns++;
-      nextNode = this.currNode.neighbors[this.dir];
-      debugger
     }
   }
 
@@ -1420,12 +1411,12 @@ class View {
       }
     });
 
-    smartBtn.addEventListener('click', () => {
-      if (grid.edit) {
-        grid.cleaningIdx = 2;
-        cleaning.innerHTML = "Smart";
-      }
-    });
+    // smartBtn.addEventListener('click', () => {
+    //   if (grid.edit) {
+    //     grid.cleaningIdx = 2;
+    //     cleaning.innerHTML = "Smart";
+    //   }
+    // });
 
     if (window.innerHeight < 810) {
       controls.style.overflowY = 'scroll';
@@ -1452,7 +1443,7 @@ class View {
     document.getElementById('bfs').classList.add('disabled');
     document.getElementById('random').classList.add('disabled');
     document.getElementById('clockwise').classList.add('disabled');
-    document.getElementById('smart').classList.add('disabled');
+    // document.getElementById('smart').classList.add('disabled');
   }
 }
 

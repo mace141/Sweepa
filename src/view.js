@@ -156,12 +156,12 @@ class View {
       }
     });
 
-    smartBtn.addEventListener('click', () => {
-      if (grid.edit) {
-        grid.cleaningIdx = 2;
-        cleaning.innerHTML = "Smart";
-      }
-    });
+    // smartBtn.addEventListener('click', () => {
+    //   if (grid.edit) {
+    //     grid.cleaningIdx = 2;
+    //     cleaning.innerHTML = "Smart";
+    //   }
+    // });
 
     if (window.innerHeight < 810) {
       controls.style.overflowY = 'scroll';
@@ -188,7 +188,7 @@ class View {
     document.getElementById('bfs').classList.add('disabled');
     document.getElementById('random').classList.add('disabled');
     document.getElementById('clockwise').classList.add('disabled');
-    document.getElementById('smart').classList.add('disabled');
+    // document.getElementById('smart').classList.add('disabled');
   }
 }
 
