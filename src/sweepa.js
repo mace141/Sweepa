@@ -47,7 +47,10 @@ class Sweepa {
     this.cleaningIdx = grid.cleaningIdx;
     this.dockingIdx = grid.dockingIdx;
     
-    this.cleaningAlgos = [this.randomDir.bind(this), this.clockwiseDir.bind(this)];
+    this.cleaningAlgos = [
+      this.randomDir.bind(this), 
+      this.clockwiseDir.bind(this)
+    ];
     this.dockingAlgos = [
       this.heapDijkstras.bind(this), 
       this.aStar.bind(this), 
@@ -86,22 +89,15 @@ class Sweepa {
 
     cleanDuration.addEventListener('input', e => {
       seconds.innerHTML = e.target.value;
-
-      if (!this.paused) {
-        this.cleanDuration = parseInt(e.target.value) * 1000;
-      }
+      this.cleanDuration = parseInt(e.target.value) * 1000;
     });
 
     moveSpeed.addEventListener('input', e => {
-      if (!this.paused) {
-        this.moveSpeed = 100 - ((parseInt(e.target.value) - 1) * 10);
-      }
+      this.moveSpeed = 100 - ((parseInt(e.target.value) - 1) * 10);
     });
 
     searchSpeed.addEventListener('input', e => {
-      if (!this.paused) {
-        this.searchSpeed = 50 - ((parseInt(e.target.value) - 1) * 5);
-      }
+      this.searchSpeed = 50 - ((parseInt(e.target.value) - 1) * 5);
     });
   }
 
@@ -128,26 +124,63 @@ class Sweepa {
   }
   
   async beginCleaning() {
-    const startTime = Date.now();
-    let currTime = Date.now();
     this.timeElapsed = 0;
     this.cleaning = true;
-    
+  
     while (this.timeElapsed < this.cleanDuration && !this.paused) {
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.cleanStep());
-        }, this.moveSpeed);
-      });
-      
-      currTime = Date.now();
-      this.timeElapsed = currTime - startTime;
+      // if (this.cleaningIdx === 2) {
+      //   this.dir = dirDeltas[0];
+      //   this.smartClean();
+      // } else {
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(this.cleanStep());
+            this.timeElapsed += this.moveSpeed;
+          }, this.moveSpeed);
+        });
+      // }
+      // currTime = Date.now();
+      // this.timeElapsed = currTime - startTime;
     }
 
     if (!this.paused) {
       this.cleaning = false;
       document.getElementById('start-btn').classList.remove('enabled');
       this.beginDocking();
+    }
+  }
+
+  async smartClean() {
+    while (this.timeElapsed < this.cleanDuration && !this.paused) {
+      await new Promise(res => {res(this.drawPerimeter())});
+    }
+  }
+
+  async drawPerimeter() {
+    const visited = new Set();
+    let turns = 0;
+    let dirIdx = 0;
+    let nextNode = this.currNode.neighbors[this.dir];
+    let value = this.currNode.value;
+
+    while (turns < 4 && !visited.has(value)) {
+      while (nextNode) {
+        visited.add(this.currNode.value);
+        this.currNode = nextNode;
+        value = this.currNode.value;
+        nextNode = this.currNode.neighbors[this.dir];
+        await new Promise(resolve => {
+          setTimeout(() => {
+            resolve(this.replaceSweepa(true))
+          }, this.moveSpeed);
+        });
+      }
+      dirIdx += 2;
+      if (dirIdx > 7) {
+        dirIdx = 0;
+      }
+      this.dir = dirDeltas[dirIdx];
+      turns++;
     }
   }
 

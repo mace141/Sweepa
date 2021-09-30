@@ -805,7 +805,10 @@ class Sweepa {
     this.cleaningIdx = grid.cleaningIdx;
     this.dockingIdx = grid.dockingIdx;
     
-    this.cleaningAlgos = [this.randomDir.bind(this), this.clockwiseDir.bind(this)];
+    this.cleaningAlgos = [
+      this.randomDir.bind(this), 
+      this.clockwiseDir.bind(this)
+    ];
     this.dockingAlgos = [
       this.heapDijkstras.bind(this), 
       this.aStar.bind(this), 
@@ -891,21 +894,61 @@ class Sweepa {
     this.timeElapsed = 0;
     this.cleaning = true;
     
-    while (this.timeElapsed < this.cleanDuration && !this.paused) {
-      await new Promise(resolve => {
-        setTimeout(() => {
-          resolve(this.cleanStep());
-        }, this.moveSpeed);
-      });
-      
-      currTime = Date.now();
-      this.timeElapsed = currTime - startTime;
+    if (this.cleaningIdx === 2) {
+      this.dir = dirDeltas[0];
+      this.smartClean();
+    } else {
+      while (this.timeElapsed < this.cleanDuration && !this.paused) {
+        await new Promise(resolve => {
+          setTimeout(() => {
+            resolve(this.cleanStep());
+          }, this.moveSpeed);
+        });
+        
+        currTime = Date.now();
+        this.timeElapsed = currTime - startTime;
+      }
     }
 
     if (!this.paused) {
       this.cleaning = false;
       document.getElementById('start-btn').classList.remove('enabled');
       this.beginDocking();
+    }
+  }
+
+  async smartClean() {
+    while (this.timeElapsed < this.cleanDuration && !this.paused) {
+      await new Promise(res => {res(this.drawPerimeter())});
+    }
+  }
+
+  async drawPerimeter() {
+    debugger
+    const visited = new Set();
+    let turns = 0;
+    let dirIdx = 0;
+    let nextNode = this.currNode.neighbors[this.dir];
+    let value = this.currNode.value;
+
+    while (turns < 4 && !visited.has(value)) {
+      while (nextNode) {
+        visited.add(this.currNode.value);
+        this.currNode = nextNode;
+        value = this.currNode.value;
+        nextNode = this.currNode.neighbors[this.dir];
+        await new Promise(resolve => {
+          setTimeout(() => {
+            resolve(this.replaceSweepa(true))
+          }, this.moveSpeed);
+        });
+      }
+      dirIdx += 2;
+      if (dirIdx > 7) {
+        dirIdx = 0;
+      }
+      this.dir = dirDeltas[dirIdx];
+      turns++;
     }
   }
 
@@ -1201,6 +1244,7 @@ class View {
     const cleaning = document.getElementById('cleaning');
     const randomBtn = document.getElementById('random');
     const clockwiseBtn = document.getElementById('clockwise');
+    const smartBtn = document.getElementById('smart');
 
     const controls = document.getElementById('controls');
 
@@ -1335,6 +1379,13 @@ class View {
       if (grid.edit) {
         grid.cleaningIdx = 1;
         cleaning.innerHTML = "Clockwise Prone";
+      }
+    });
+
+    smartBtn.addEventListener('click', () => {
+      if (grid.edit) {
+        grid.cleaningIdx = 2;
+        cleaning.innerHTML = "Smart";
       }
     });
 

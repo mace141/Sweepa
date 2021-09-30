@@ -18,6 +18,7 @@ class View {
     const cleaning = document.getElementById('cleaning');
     const randomBtn = document.getElementById('random');
     const clockwiseBtn = document.getElementById('clockwise');
+    const smartBtn = document.getElementById('smart');
 
     const controls = document.getElementById('controls');
 
@@ -152,6 +153,13 @@ class View {
       if (grid.edit) {
         grid.cleaningIdx = 1;
         cleaning.innerHTML = "Clockwise Prone";
+      }
+    });
+
+    smartBtn.addEventListener('click', () => {
+      if (grid.edit) {
+        grid.cleaningIdx = 2;
+        cleaning.innerHTML = "Smart";
       }
     });
 
