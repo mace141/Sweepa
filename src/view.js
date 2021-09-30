@@ -97,7 +97,7 @@ class View {
         startBtn.classList.add('pause');
         startBtn.innerHTML = 'Pause';
 
-        sweepa.setGrid(grid);
+        sweepa.setup(grid);
         sweepa.beginCleaning();
         startBtn.classList.add('pause');
         startBtn.innerHTML = 'Pause';
@@ -188,6 +188,7 @@ class View {
     document.getElementById('bfs').classList.add('disabled');
     document.getElementById('random').classList.add('disabled');
     document.getElementById('clockwise').classList.add('disabled');
+    document.getElementById('smart').classList.add('disabled');
   }
 }
 

@@ -46,6 +46,8 @@ class Sweepa {
     this.nodes = grid.nodes;
     this.cleaningIdx = grid.cleaningIdx;
     this.dockingIdx = grid.dockingIdx;
+    this.unswept = new Set();
+    this.swept = new Set();
     
     this.cleaningAlgos = [
       this.randomDir.bind(this), 
@@ -58,7 +60,7 @@ class Sweepa {
       this.breadthFirstSearch.bind(this)
     ];
     
-    this.dir = dirDeltas[Math.floor(Math.random() * 8)];
+    this.dir = dirDeltas[0];
     this.cleanDuration = 20000;
     this.moveSpeed = 30;
     this.searchSpeed = 25;
@@ -79,6 +81,18 @@ class Sweepa {
     document.getElementById('bfs').classList.remove('disabled');
     document.getElementById('random').classList.remove('disabled');
     document.getElementById('clockwise').classList.remove('disabled');
+    document.getElementById('smart').classList.remove('disabled');
+  }
+
+  static octileDist(current, destination) {
+    const startPos = current.split('-');
+    const destPos = destination.split('-');
+    const d1 = 1;
+    const d2 = Math.sqrt(2);
+    const dy = Math.abs(destPos[0] - startPos[0]);
+    const dx = Math.abs(destPos[1] - startPos[1]);
+
+    return d1 * (dx + dy) + (d2 - 2 * d1) * Math.min(dx, dy);
   }
 
   attachEvents() {
@@ -110,7 +124,14 @@ class Sweepa {
     this.nodes = grid.nodes;
     this.dockingIdx = grid.dockingIdx;
     this.cleaningIdx = grid.cleaningIdx;
+  }
+
+  setup(grid) {
+    this.unswept = new Set();
+    this.swept = new Set();
     this.timeElapsed = 0;
+    this.dir = dirDeltas[0];
+    this.setGrid(grid);
   }
 
   pauseCleaning() {
@@ -126,60 +147,97 @@ class Sweepa {
   async beginCleaning() {
     this.timeElapsed = 0;
     this.cleaning = true;
-  
-    while (this.timeElapsed < this.cleanDuration && !this.paused) {
-      // if (this.cleaningIdx === 2) {
-      //   this.dir = dirDeltas[0];
-      //   this.smartClean();
-      // } else {
-        // await new Promise((resolve) => {
-        //   setTimeout(() => {
-        //     resolve(this.cleanStep());
-        //     this.timeElapsed += this.moveSpeed;
-        //   }, this.moveSpeed);
-        // });
-      // }
-      await this.cleanStep();
+    debugger
+    if (this.cleaningIdx === 2) {
+      await new Promise(res => {
+        this.dir = dirDeltas[0];
+        this.scanFrontNeighbors();
+        this.smartClean();
+        res('cleaning smartly');
+      });
+    } else { 
+      while (this.timeElapsed < this.cleanDuration && !this.paused) {
+        await this.cleanStep();
+      }
+    }
+    debugger
+    // if (!this.paused) {
+    //   this.cleaning = false;
+    //   document.getElementById('start-btn').classList.remove('enabled');
+    //   this.beginDocking();
+    // }
+  }
+
+  smartClean() {
+    if (this.unswept.size === 0) return;
+
+    this.drawPerimeter();
+    // this.smartClean();
+  }
+
+  scanFrontNeighbors() {
+    const [dy, dx] = this.dir;
+    const currVal = this.currNode.value;
+    const [cy, cx] = currVal.split('-');
+    const newY = parseInt(cy) + dy;
+    const newX = parseInt(cx) + dx;
+    const frontPosArr = [newY, newX];
+    const frontPosVal = frontPosArr.join('-');
+    const dirStr = JSON.stringify(this.dir);
+    const frontNeighbors = [frontPosVal];
+
+    if (dirStr === '[-1,0]' || dirStr === '[1,0]') {
+      frontNeighbors.push(
+        newY + '-' + (newX + 1),
+        newY + '-' + (newX - 1)
+      );
+    } else {
+      frontNeighbors.push(
+        (newY + 1) + '-' + newX,
+        (newY - 1) + '-' + newX
+      );
     }
 
-    if (!this.paused) {
-      this.cleaning = false;
-      document.getElementById('start-btn').classList.remove('enabled');
-      this.beginDocking();
+    frontNeighbors.forEach(neighborPosVal => {
+      if (!this.swept.has(neighborPosVal)) {
+        this.unswept.add(neighborPosVal);
+      }
+    });
+  }
+
+  async goStraight() {
+    let nextNode = this.currNode.neighbors[this.dir];
+    debugger
+    while (nextNode && this.unswept.has(nextNode.value)) {
+      debugger
+      this.unswept.delete(nextNode.value);
+      this.swept.add(nextNode.value);
+      this.currNode = nextNode;
+      nextNode = this.currNode.neighbors[this.dir];
+      this.scanFrontNeighbors();
+      await this.replaceSweepa(true);
+      debugger
     }
   }
 
-  async smartClean() {
-    while (this.timeElapsed < this.cleanDuration && !this.paused) {
-      await new Promise(res => {res(this.drawPerimeter())});
-    }
-  }
-
-  async drawPerimeter() {
-    const visited = new Set();
+  drawPerimeter() {
     let turns = 0;
     let dirIdx = 0;
     let nextNode = this.currNode.neighbors[this.dir];
-    let value = this.currNode.value;
-
-    while (turns < 4 && !visited.has(value)) {
-      while (nextNode) {
-        visited.add(this.currNode.value);
-        this.currNode = nextNode;
-        value = this.currNode.value;
-        nextNode = this.currNode.neighbors[this.dir];
-        await new Promise(resolve => {
-          setTimeout(() => {
-            resolve(this.replaceSweepa(true))
-          }, this.moveSpeed);
-        });
-      }
+    debugger
+    while (turns < 6) {
+      debugger
+      this.goStraight();
+      debugger
       dirIdx += 2;
       if (dirIdx > 7) {
         dirIdx = 0;
       }
+      debugger
       this.dir = dirDeltas[dirIdx];
       turns++;
+      nextNode = this.currNode.neighbors[this.dir];
+      debugger
     }
   }
 
@@ -198,7 +256,7 @@ class Sweepa {
           nextDir();
         }
         this.timeElapsed += this.moveSpeed;
-        res('cleaning')
+        res('cleaning');
       }, this.moveSpeed);
     });
   }
@@ -281,26 +339,20 @@ class Sweepa {
   }
 
   replaceSweepa(cleaning) {
-    const lastDiv = document.getElementsByClassName('sweepa')[0];
-    const nextDiv = document.getElementById(this.currNode.value);
-
-    lastDiv.classList.remove('sweepa');
-    nextDiv.classList.add('sweepa');
-    
-    if (cleaning) {
-      nextDiv.classList.add('swept');
-    }
-  }
-  
-  static octileDist(current, destination) {
-    const startPos = current.split('-');
-    const destPos = destination.split('-');
-    const d1 = 1;
-    const d2 = Math.sqrt(2);
-    const dy = Math.abs(destPos[0] - startPos[0]);
-    const dx = Math.abs(destPos[1] - startPos[1]);
-
-    return d1 * (dx + dy) + (d2 - 2 * d1) * Math.min(dx, dy);
+    return new Promise(resolve => {
+      setTimeout(() => {
+        const lastDiv = document.getElementsByClassName('sweepa')[0];
+        const nextDiv = document.getElementById(this.currNode.value);
+        
+        lastDiv.classList.remove('sweepa');
+        nextDiv.classList.add('sweepa');
+        
+        if (cleaning) {
+          nextDiv.classList.add('swept');
+        }
+        resolve('moving')
+      }, this.moveSpeed);
+    });
   }
 
   markVisited(node) {

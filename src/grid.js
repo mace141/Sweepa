@@ -115,21 +115,12 @@ class Grid {
               }
 
               targetClasses.add('sweepa', 'home');
-
               document.getElementById('start-btn').classList.add('enabled');
             }
 
             break;
-          case 'dust':
-            if (!targetClasses.value.includes('sweepa')) {
-              targetClasses.toggle(this.object);
-            }
-            this.drag = true;
-
-            break;
           case 'wall':
             this.toggleWall(targetClasses, pos, graphNode, e);
-
             this.drag = true;
             
             break;
