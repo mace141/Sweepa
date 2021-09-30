@@ -132,15 +132,14 @@ class Sweepa {
       //   this.dir = dirDeltas[0];
       //   this.smartClean();
       // } else {
-        await new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(this.cleanStep());
-            this.timeElapsed += this.moveSpeed;
-          }, this.moveSpeed);
-        });
+        // await new Promise((resolve) => {
+        //   setTimeout(() => {
+        //     resolve(this.cleanStep());
+        //     this.timeElapsed += this.moveSpeed;
+        //   }, this.moveSpeed);
+        // });
       // }
-      // currTime = Date.now();
-      // this.timeElapsed = currTime - startTime;
+      await this.cleanStep();
     }
 
     if (!this.paused) {
@@ -185,17 +184,23 @@ class Sweepa {
   }
 
   cleanStep() {
-    let nextNode = this.currNode.neighbors[this.dir];
-    const nextDir = this.cleaningAlgos[this.cleaningIdx];
-
-    if (nextNode) {
-      this.currNode = nextNode;
-      nextNode = this.currNode.neighbors[this.dir];
-
-      this.replaceSweepa(true);
-    } else { 
-      nextDir();
-    }
+    return new Promise((res) => {
+      setTimeout(() => {
+        let nextNode = this.currNode.neighbors[this.dir];
+        const nextDir = this.cleaningAlgos[this.cleaningIdx];
+        
+        if (nextNode) {
+          this.currNode = nextNode;
+          nextNode = this.currNode.neighbors[this.dir];
+          
+          this.replaceSweepa(true);
+        } else { 
+          nextDir();
+        }
+        this.timeElapsed += this.moveSpeed;
+        res('cleaning')
+      }, this.moveSpeed);
+    });
   }
 
   randomDir() {

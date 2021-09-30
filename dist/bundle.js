@@ -847,22 +847,15 @@ class Sweepa {
 
     cleanDuration.addEventListener('input', e => {
       seconds.innerHTML = e.target.value;
-
-      if (!this.paused) {
-        this.cleanDuration = parseInt(e.target.value) * 1000;
-      }
+      this.cleanDuration = parseInt(e.target.value) * 1000;
     });
 
     moveSpeed.addEventListener('input', e => {
-      if (!this.paused) {
-        this.moveSpeed = 100 - ((parseInt(e.target.value) - 1) * 10);
-      }
+      this.moveSpeed = 100 - ((parseInt(e.target.value) - 1) * 10);
     });
 
     searchSpeed.addEventListener('input', e => {
-      if (!this.paused) {
-        this.searchSpeed = 50 - ((parseInt(e.target.value) - 1) * 5);
-      }
+      this.searchSpeed = 50 - ((parseInt(e.target.value) - 1) * 5);
     });
   }
 
@@ -889,25 +882,22 @@ class Sweepa {
   }
   
   async beginCleaning() {
-    const startTime = Date.now();
-    let currTime = Date.now();
     this.timeElapsed = 0;
     this.cleaning = true;
-    
-    if (this.cleaningIdx === 2) {
-      this.dir = dirDeltas[0];
-      this.smartClean();
-    } else {
-      while (this.timeElapsed < this.cleanDuration && !this.paused) {
-        await new Promise(resolve => {
-          setTimeout(() => {
-            resolve(this.cleanStep());
-          }, this.moveSpeed);
-        });
-        
-        currTime = Date.now();
-        this.timeElapsed = currTime - startTime;
-      }
+  
+    while (this.timeElapsed < this.cleanDuration && !this.paused) {
+      // if (this.cleaningIdx === 2) {
+      //   this.dir = dirDeltas[0];
+      //   this.smartClean();
+      // } else {
+        // await new Promise((resolve) => {
+        //   setTimeout(() => {
+        //     resolve(this.cleanStep());
+        //     this.timeElapsed += this.moveSpeed;
+        //   }, this.moveSpeed);
+        // });
+      // }
+      await this.cleanStep();
     }
 
     if (!this.paused) {
@@ -924,7 +914,6 @@ class Sweepa {
   }
 
   async drawPerimeter() {
-    debugger
     const visited = new Set();
     let turns = 0;
     let dirIdx = 0;
@@ -953,17 +942,23 @@ class Sweepa {
   }
 
   cleanStep() {
-    let nextNode = this.currNode.neighbors[this.dir];
-    const nextDir = this.cleaningAlgos[this.cleaningIdx];
-
-    if (nextNode) {
-      this.currNode = nextNode;
-      nextNode = this.currNode.neighbors[this.dir];
-
-      this.replaceSweepa(true);
-    } else { 
-      nextDir();
-    }
+    return new Promise((res) => {
+      setTimeout(() => {
+        let nextNode = this.currNode.neighbors[this.dir];
+        const nextDir = this.cleaningAlgos[this.cleaningIdx];
+        
+        if (nextNode) {
+          this.currNode = nextNode;
+          nextNode = this.currNode.neighbors[this.dir];
+          
+          this.replaceSweepa(true);
+        } else { 
+          nextDir();
+        }
+        this.timeElapsed += this.moveSpeed;
+        res('cleaning')
+      }, this.moveSpeed);
+    });
   }
 
   randomDir() {
